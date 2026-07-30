@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#c9797f">
+<meta name="apple-mobile-web-app-capable" content="yes">
 
 <title>Planner Semanal da Luziana</title>
 
@@ -210,3 +211,294 @@ textarea{
 
 footer{
   text-align:center;
+  padding:20px;
+  color:#8c6869;
+  font-size:13px;
+}
+
+.mensagem{
+  text-align:center;
+  padding:12px;
+  color:var(--vinho);
+  font-size:14px;
+}
+
+@media(max-width:480px){
+  header h1{
+    font-size:22px;
+  }
+
+  .topo{
+    flex-direction:column;
+  }
+
+  .topo button{
+    width:100%;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>🌷 Planner Semanal da Luziana</h1>
+  <p>Organize sua semana com carinho e tranquilidade</p>
+</header>
+
+<main class="container">
+
+  <div class="topo">
+    <button class="btn" onclick="irParaHoje()">📅 Ir para hoje</button>
+    <button class="btn-sec" onclick="limparConcluidas()">🧹 Limpar concluídas</button>
+  </div>
+
+  <div class="data" id="dataAtual"></div>
+
+  <div id="planner"></div>
+
+  <section class="notas">
+    <h2>📝 Minhas anotações</h2>
+    <textarea id="notas" placeholder="Escreva aqui suas ideias, lembretes ou coisas importantes..."></textarea>
+  </section>
+
+  <section class="resumo">
+    <div>Progresso da semana</div>
+    <strong id="progresso">0%</strong>
+    <div id="contador">0 de 0 tarefas concluídas</div>
+  </section>
+
+</main>
+
+<footer>
+  Feito com carinho para a Luziana 🌷
+</footer>
+
+<script>
+const dias = [
+  "Domingo",
+  "Segunda-feira",
+  "Terça-feira",
+  "Quarta-feira",
+  "Quinta-feira",
+  "Sexta-feira",
+  "Sábado"
+];
+
+let tarefas = JSON.parse(localStorage.getItem("plannerLuziana")) || {};
+
+let notasSalvas = localStorage.getItem("notasLuziana") || "";
+document.getElementById("notas").value = notasSalvas;
+
+document.getElementById("notas").addEventListener("input", function(){
+  localStorage.setItem("notasLuziana", this.value);
+});
+
+function salvar(){
+  localStorage.setItem("plannerLuziana", JSON.stringify(tarefas));
+}
+
+function criarId(){
+  return Date.now().toString() + Math.random().toString(16).slice(2);
+}
+
+function renderizar(){
+
+  const planner = document.getElementById("planner");
+  planner.innerHTML = "";
+
+  dias.forEach((dia, indice) => {
+
+    if(!tarefas[indice]){
+      tarefas[indice] = [];
+    }
+
+    const caixa = document.createElement("section");
+    caixa.className = "dia";
+    caixa.id = "dia-" + indice;
+
+    const titulo = document.createElement("h2");
+    titulo.textContent = "🌷 " + dia;
+
+    caixa.appendChild(titulo);
+
+    if(tarefas[indice].length === 0){
+      const vazio = document.createElement("div");
+      vazio.className = "mensagem";
+      vazio.textContent = "Nenhuma tarefa adicionada ainda.";
+      caixa.appendChild(vazio);
+    }
+
+    tarefas[indice].forEach(tarefa => {
+
+      const linha = document.createElement("div");
+      linha.className = "tarefa";
+
+      if(tarefa.feita){
+        linha.classList.add("concluida");
+      }
+
+      const check = document.createElement("input");
+      check.type = "checkbox";
+      check.checked = tarefa.feita;
+
+      check.addEventListener("change", function(){
+        tarefa.feita = this.checked;
+        salvar();
+        renderizar();
+      });
+
+      const texto = document.createElement("span");
+      texto.textContent = tarefa.texto;
+
+      const excluir = document.createElement("button");
+      excluir.className = "excluir";
+      excluir.textContent = "Excluir";
+
+      excluir.addEventListener("click", function(){
+        tarefas[indice] = tarefas[indice].filter(
+          item => item.id !== tarefa.id
+        );
+        salvar();
+        renderizar();
+      });
+
+      linha.appendChild(check);
+      linha.appendChild(texto);
+      linha.appendChild(excluir);
+
+      caixa.appendChild(linha);
+    });
+
+    const adicionar = document.createElement("div");
+    adicionar.className = "adicionar";
+
+    const campo = document.createElement("input");
+    campo.type = "text";
+    campo.placeholder = "Adicionar tarefa...";
+
+    const botao = document.createElement("button");
+    botao.textContent = "+ Adicionar";
+
+    function adicionarTarefa(){
+
+      const texto = campo.value.trim();
+
+      if(!texto){
+        return;
+      }
+
+      tarefas[indice].push({
+        id: criarId(),
+        texto: texto,
+        feita: false
+      });
+
+      salvar();
+      renderizar();
+    }
+
+    botao.addEventListener("click", adicionarTarefa);
+
+    campo.addEventListener("keydown", function(e){
+      if(e.key === "Enter"){
+        adicionarTarefa();
+      }
+    });
+
+    adicionar.appendChild(campo);
+    adicionar.appendChild(botao);
+
+    caixa.appendChild(adicionar);
+    planner.appendChild(caixa);
+  });
+
+  atualizarProgresso();
+}
+
+function atualizarProgresso(){
+
+  let total = 0;
+  let concluidas = 0;
+
+  Object.values(tarefas).forEach(lista => {
+
+    lista.forEach(tarefa => {
+
+      total++;
+
+      if(tarefa.feita){
+        concluidas++;
+      }
+
+    });
+
+  });
+
+  const porcentagem = total === 0
+    ? 0
+    : Math.round((concluidas / total) * 100);
+
+  document.getElementById("progresso").textContent =
+    porcentagem + "%";
+
+  document.getElementById("contador").textContent =
+    concluidas + " de " + total + " tarefas concluídas";
+}
+
+function limparConcluidas(){
+
+  Object.keys(tarefas).forEach(indice => {
+
+    tarefas[indice] = tarefas[indice].filter(
+      tarefa => !tarefa.feita
+    );
+
+  });
+
+  salvar();
+  renderizar();
+}
+
+function irParaHoje(){
+
+  const hoje = new Date();
+  const indice = hoje.getDay();
+
+  const elemento = document.getElementById("dia-" + indice);
+
+  if(elemento){
+    elemento.scrollIntoView({
+      behavior:"smooth",
+      block:"center"
+    });
+  }
+}
+
+function mostrarData(){
+
+  const hoje = new Date();
+
+  const opcoes = {
+    weekday:"long",
+    day:"numeric",
+    month:"long",
+    year:"numeric"
+  };
+
+  let texto = hoje.toLocaleDateString(
+    "pt-BR",
+    opcoes
+  );
+
+  texto = texto.charAt(0).toUpperCase() + texto.slice(1);
+
+  document.getElementById("dataAtual").textContent = texto;
+}
+
+mostrarData();
+renderizar();
+</script>
+
+</body>
+</html>
