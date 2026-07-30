@@ -13,252 +13,85 @@
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Montserrat:wght@500;600&display=swap');
-
-:root{
-  --rose:#c9797f;
-  --rose2:#f3d9db;
-  --wine:#7d3039;
-  --gold:#c28b36;
-  --cream:#fbf5ef;
-  --white:#fffaf6;
-  --text:#493338;
-  --line:#e8cfc5;
-}
+:root{--rose:#c9797f;--rose2:#f3d9db;--wine:#7d3039;--gold:#c28b36;--cream:#fbf5ef;--white:#fffaf6;--text:#493338;--line:#e8cfc5}
 *{box-sizing:border-box}
 html,body{margin:0;background:var(--cream);color:var(--text)}
 body{font-family:Montserrat,system-ui,sans-serif}
 button,input{font:inherit}
-
-.topbar{
-  position:sticky;top:0;z-index:50;
-  background:rgba(251,245,239,.96);
-  backdrop-filter:blur(12px);
-  border-bottom:1px solid rgba(194,139,54,.25);
-  padding:10px 12px 8px;
-  box-shadow:0 4px 18px rgba(80,45,45,.06)
-}
-.brand{
-  display:flex;justify-content:space-between;align-items:center;
-  max-width:1050px;margin:auto;gap:10px
-}
-.brand-title{
-  font-family:"Cormorant Garamond",serif;
-  color:var(--wine);font-size:23px;font-weight:700
-}
+.topbar{position:sticky;top:0;z-index:50;background:rgba(251,245,239,.96);backdrop-filter:blur(12px);border-bottom:1px solid rgba(194,139,54,.25);padding:10px 12px 8px;box-shadow:0 4px 18px rgba(80,45,45,.06)}
+.brand{display:flex;justify-content:space-between;align-items:center;max-width:1050px;margin:auto;gap:10px}
+.brand-title{font-family:"Cormorant Garamond",serif;color:var(--wine);font-size:23px;font-weight:700}
 .brand-actions{display:flex;gap:6px;align-items:center}
-.top-action,.install{
-  border:1px solid var(--gold);
-  background:var(--white);color:var(--wine);
-  border-radius:999px;padding:8px 11px;
-  font-weight:600;font-size:11px
-}
+.top-action,.install{border:1px solid var(--gold);background:var(--white);color:var(--wine);border-radius:999px;padding:8px 11px;font-weight:600;font-size:11px}
 .install{display:none}
-.tabs{
-  max-width:1050px;margin:8px auto 0;
-  display:flex;gap:6px;overflow:auto;scrollbar-width:none
-}
+.tabs{max-width:1050px;margin:8px auto 0;display:flex;gap:6px;overflow:auto;scrollbar-width:none}
 .tabs::-webkit-scrollbar{display:none}
-.day-tab{
-  flex:0 0 auto;border:1px solid var(--line);
-  background:var(--white);color:#8c4a52;
-  border-radius:999px;padding:8px 13px;
-  font-size:12px;font-weight:600
-}
+.day-tab{flex:0 0 auto;border:1px solid var(--line);background:var(--white);color:#8c4a52;border-radius:999px;padding:8px 13px;font-size:12px;font-weight:600}
 .day-tab.active{background:var(--rose);color:#fff;border-color:var(--rose)}
-
 main{padding:16px 10px 30px}
 .page{display:none;max-width:1050px;margin:auto}
 .page.active{display:block}
-
-.page-art{
-  position:relative;width:min(100%,1024px);
-  margin:auto;line-height:0
-}
-.page-art img{
-  display:block;width:100%;height:auto;
-  border-radius:10px;
-  box-shadow:0 12px 35px rgba(79,42,42,.10)
-}
+.page-art{position:relative;width:min(100%,1024px);margin:auto;line-height:0}
+.page-art img{display:block;width:100%;height:auto;border-radius:10px;box-shadow:0 12px 35px rgba(79,42,42,.10)}
 .hitboxes{position:absolute;inset:0}
-.hitbox{
-  position:absolute;transform:translate(-50%,-50%);
-  width:48px;height:48px;border:0;border-radius:10px;
-  background:transparent;cursor:pointer;padding:0;
-  touch-action:manipulation
-}
-.hitbox::after{
-  content:"";position:absolute;inset:6px;
-  border:2px solid transparent;border-radius:5px
-}
-.hitbox.checked::after{
-  border-color:var(--rose);
-  background:rgba(255,255,255,.74)
-}
-.hitbox.checked::before{
-  content:"✓";position:absolute;z-index:2;
-  left:50%;top:50%;
-  transform:translate(-50%,-55%);
-  color:var(--rose);font-weight:800;
-  font-size:22px;line-height:1
-}
+.hitbox{position:absolute;transform:translate(-50%,-50%);width:48px;height:48px;border:0;border-radius:10px;background:transparent;cursor:pointer;padding:0;touch-action:manipulation}
+.hitbox::after{content:"";position:absolute;inset:6px;border:2px solid transparent;border-radius:5px}
+.hitbox.checked::after{border-color:var(--rose);background:rgba(255,255,255,.74)}
+.hitbox.checked::before{content:"✓";position:absolute;z-index:2;left:50%;top:50%;transform:translate(-50%,-55%);color:var(--rose);font-weight:800;font-size:22px;line-height:1}
 .hitbox.hidden-task{display:none}
-
-.page-tools{
-  max-width:1024px;margin:10px auto 0;
-  display:flex;flex-wrap:wrap;gap:7px
-}
-.action-btn{
-  border:1px solid var(--line);
-  background:#fff;color:var(--wine);
-  border-radius:12px;padding:9px 12px;
-  font-weight:600;font-size:12px
-}
+.page-tools{max-width:1024px;margin:10px auto 0;display:flex;flex-wrap:wrap;gap:7px}
+.action-btn{border:1px solid var(--line);background:#fff;color:var(--wine);border-radius:12px;padding:9px 12px;font-weight:600;font-size:12px}
 .action-btn.primary{background:var(--rose);color:#fff;border-color:var(--rose)}
 .action-btn.danger{color:#9a3f48}
 .action-btn:active,.top-action:active,.day-tab:active{transform:scale(.98)}
-
-.progress-card{
-  max-width:1024px;margin:12px auto 0;
-  background:var(--rose2);border-radius:18px;padding:14px 16px;
-  color:var(--wine)
-}
+.progress-card{max-width:1024px;margin:12px auto 0;background:var(--rose2);border-radius:18px;padding:14px 16px;color:var(--wine)}
 .progress-row{display:flex;justify-content:space-between;gap:10px;font-size:12px}
-.progress-bar{
-  height:9px;background:#fff;border-radius:999px;overflow:hidden;margin-top:9px
-}
-.progress-fill{
-  height:100%;width:0;background:var(--rose);border-radius:999px;
-  transition:width .25s ease
-}
+.progress-bar{height:9px;background:#fff;border-radius:999px;overflow:hidden;margin-top:9px}
+.progress-fill{height:100%;width:0;background:var(--rose);border-radius:999px;transition:width .25s ease}
 .progress-note{text-align:center;font-size:11px;margin-top:7px;color:#8f5a5d}
-
-.extra-card{
-  max-width:1024px;margin:12px auto 0;
-  background:#fffaf6;border:1px solid var(--line);
-  border-radius:18px;padding:14px
-}
-.extra-title{
-  color:var(--wine);font-family:"Cormorant Garamond",serif;
-  font-size:20px;font-weight:700;margin-bottom:8px
-}
+.extra-card{max-width:1024px;margin:12px auto 0;background:#fffaf6;border:1px solid var(--line);border-radius:18px;padding:14px}
+.extra-title{color:var(--wine);font-family:"Cormorant Garamond",serif;font-size:20px;font-weight:700;margin-bottom:8px}
 .extra-list{display:grid;gap:7px}
-.extra-item{
-  display:flex;align-items:center;gap:8px;
-  border:1px solid #eadbd4;border-radius:12px;
-  background:#fff;padding:8px
-}
-.extra-check{
-  width:22px;height:22px;accent-color:var(--rose);flex:0 0 auto
-}
+.extra-item{display:flex;align-items:center;gap:8px;border:1px solid #eadbd4;border-radius:12px;background:#fff;padding:8px}
+.extra-check{width:22px;height:22px;accent-color:var(--rose);flex:0 0 auto}
 .extra-name{flex:1;font-size:12px;color:#594347}
 .extra-item.done .extra-name{text-decoration:line-through;opacity:.55}
-.small-btn{
-  border:1px solid var(--line);background:#fffaf6;color:var(--wine);
-  border-radius:9px;padding:6px 8px;font-size:11px
-}
+.small-btn{border:1px solid var(--line);background:#fffaf6;color:var(--wine);border-radius:9px;padding:6px 8px;font-size:11px}
 .small-btn.delete{color:#9a3f48}
-
-.footer{
-  text-align:center;color:#9b7272;
-  font-size:11px;padding:16px 0 24px
-}
-
-/* Modal */
-.modal-backdrop{
-  display:none;position:fixed;inset:0;z-index:100;
-  background:rgba(54,30,32,.48);
-  align-items:flex-end;justify-content:center;
-  padding:0
-}
+.footer{text-align:center;color:#9b7272;font-size:11px;padding:16px 0 24px}
+.modal-backdrop{display:none;position:fixed;inset:0;z-index:100;background:rgba(54,30,32,.48);align-items:flex-end;justify-content:center;padding:0}
 .modal-backdrop.open{display:flex}
-.modal{
-  width:min(100%,650px);max-height:88vh;overflow:auto;
-  background:var(--cream);border-radius:22px 22px 0 0;
-  padding:18px 14px 24px;
-  box-shadow:0 -10px 35px rgba(50,25,25,.25)
-}
-.modal-head{
-  display:flex;justify-content:space-between;align-items:center;
-  gap:10px;margin-bottom:12px
-}
-.modal-title{
-  color:var(--wine);font-family:"Cormorant Garamond",serif;
-  font-size:25px;font-weight:700
-}
-.close-btn{
-  border:0;background:#fff;border-radius:50%;
-  width:36px;height:36px;color:var(--wine);font-size:20px
-}
-.modal-help{
-  background:#fffaf6;border:1px solid var(--line);
-  border-radius:12px;padding:10px;font-size:11px;line-height:1.45;
-  color:#75565a;margin-bottom:12px
-}
+.modal{width:min(100%,650px);max-height:88vh;overflow:auto;background:var(--cream);border-radius:22px 22px 0 0;padding:18px 14px 24px;box-shadow:0 -10px 35px rgba(50,25,25,.25)}
+.modal-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px}
+.modal-title{color:var(--wine);font-family:"Cormorant Garamond",serif;font-size:25px;font-weight:700}
+.close-btn{border:0;background:#fff;border-radius:50%;width:36px;height:36px;color:var(--wine);font-size:20px}
+.modal-help{background:#fffaf6;border:1px solid var(--line);border-radius:12px;padding:10px;font-size:11px;line-height:1.45;color:#75565a;margin-bottom:12px}
 .manager-list{display:grid;gap:8px}
-.manager-row{
-  display:grid;grid-template-columns:30px 1fr auto auto;
-  align-items:center;gap:7px;
-  background:#fff;border:1px solid var(--line);
-  border-radius:12px;padding:7px
-}
+.manager-row{display:grid;grid-template-columns:30px 1fr auto auto;align-items:center;gap:7px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:7px}
 .manager-num{font-size:11px;color:#9b7272;text-align:center}
-.manager-input{
-  width:100%;border:1px solid #eadbd4;border-radius:9px;
-  padding:9px;background:#fffaf6;color:var(--text);font-size:12px
-}
-.manager-check{
-  width:22px;height:22px;accent-color:var(--rose)
-}
+.manager-input{width:100%;border:1px solid #eadbd4;border-radius:9px;padding:9px;background:#fffaf6;color:var(--text);font-size:12px}
+.manager-check{width:22px;height:22px;accent-color:var(--rose)}
 .manager-actions{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}
-.modal-footer{
-  display:flex;gap:7px;margin-top:14px;position:sticky;bottom:0;
-  background:var(--cream);padding-top:10px
-}
+.modal-footer{display:flex;gap:7px;margin-top:14px;position:sticky;bottom:0;background:var(--cream);padding-top:10px}
 .modal-footer button{flex:1}
 .empty{font-size:12px;color:#927276;text-align:center;padding:12px}
-
-.history-card{
-  background:#fffaf6;border:1px solid var(--line);
-  border-radius:18px;padding:16px
-}
-.history-title{
-  font-family:"Cormorant Garamond",serif;color:var(--wine);
-  font-size:28px;font-weight:700;margin:0 0 4px
-}
+.history-card{background:#fffaf6;border:1px solid var(--line);border-radius:18px;padding:16px}
+.history-title{font-family:"Cormant Garamond",serif;color:var(--wine);font-size:28px;font-weight:700;margin:0 0 4px}
 .history-sub{font-size:11px;color:#8f6d70;margin-bottom:12px}
 .history-list{display:grid;gap:8px}
-.history-item{
-  display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center;
-  border:1px solid #eadbd4;border-radius:12px;padding:10px;background:#fff
-}
+.history-item{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center;border:1px solid #eadbd4;border-radius:12px;padding:10px;background:#fff}
 .history-week{font-weight:600;color:var(--wine);font-size:12px}
 .history-count{font-size:11px;color:#8d6a6d;margin-top:3px}
-.badge{
-  min-width:58px;text-align:center;border-radius:999px;
-  padding:6px 8px;background:var(--rose2);color:var(--wine);
-  font-size:11px;font-weight:700
-}
+.badge{min-width:58px;text-align:center;border-radius:999px;padding:6px 8px;background:var(--rose2);color:var(--wine);font-size:11px;font-weight:700}
 .history-empty{text-align:center;color:#947276;font-size:12px;padding:20px 8px}
-
-.toast{
-  position:fixed;left:50%;bottom:20px;z-index:150;
-  transform:translateX(-50%) translateY(20px);
-  background:#493338;color:#fff;padding:10px 14px;border-radius:999px;
-  font-size:11px;opacity:0;pointer-events:none;
-  transition:.25s ease
-}
+.toast{position:fixed;left:50%;bottom:20px;z-index:150;transform:translateX(-50%) translateY(20px);background:#493338;color:#fff;padding:10px 14px;border-radius:999px;font-size:11px;opacity:0;pointer-events:none;transition:.25s ease}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
-
 @media(min-width:700px){
-  main{padding:24px 20px 40px}
-  .brand-title{font-size:25px}
-  .hitbox{width:56px;height:56px}
-  .modal-backdrop{align-items:center;padding:20px}
-  .modal{border-radius:22px;max-height:85vh}
+  main{padding:24px 20px 40px}.brand-title{font-size:25px}.hitbox{width:56px;height:56px}
+  .modal-backdrop{align-items:center;padding:20px}.modal{border-radius:22px;max-height:85vh}
 }
 </style>
 </head>
-
 <body>
 <header class="topbar">
   <div class="brand">
@@ -268,7 +101,6 @@ main{padding:16px 10px 30px}
       <button id="installBtn" class="install">Instalar</button>
     </div>
   </div>
-
   <nav class="tabs" aria-label="Dias da semana">
     <button class="day-tab active" data-page="cover">Capa</button>
     <button class="day-tab" data-page="segunda">Segunda</button>
@@ -282,58 +114,37 @@ main{padding:16px 10px 30px}
 
 <main>
 <section class="page active" id="page-cover">
-  <div class="page-art">
-    <img src="assets/cover.png" alt="Capa do Planner Semanal da Luziana">
-  </div>
+  <div class="page-art"><img src="assets/cover.png" alt="Capa do Planner Semanal da Luziana"></div>
   <div class="footer">Os checkboxes são salvos neste aparelho e zerados automaticamente quando começa uma nova semana.</div>
 </section>
 
 <section class="page day-page" id="page-segunda" data-day="segunda">
   <div class="page-art"><img src="assets/segunda.png" alt="Página de Segunda-feira"><div class="hitboxes"></div></div>
-  <div class="page-tools">
-    <button class="action-btn primary manage-btn">✏️ Editar tarefas</button>
-    <button class="action-btn clear-btn">🧹 Limpar marcações</button>
-  </div>
+  <div class="page-tools"><button class="action-btn primary manage-btn">✏️ Editar tarefas</button><button class="action-btn clear-btn">🧹 Limpar marcações</button></div>
   <div class="progress-card"><div class="progress-row"><span>Progresso de Segunda</span><strong class="progress-percent">0%</strong></div><div class="progress-bar"><div class="progress-fill"></div></div><div class="progress-note progress-note-text">0 tarefas concluídas</div></div>
   <div class="extra-card" hidden><div class="extra-title">➕ Tarefas adicionadas</div><div class="extra-list"></div></div>
 </section>
-
 <section class="page day-page" id="page-terca" data-day="terca">
   <div class="page-art"><img src="assets/terca.png" alt="Página de Terça-feira"><div class="hitboxes"></div></div>
-  <div class="page-tools">
-    <button class="action-btn primary manage-btn">✏️ Editar tarefas</button>
-    <button class="action-btn clear-btn">🧹 Limpar marcações</button>
-  </div>
+  <div class="page-tools"><button class="action-btn primary manage-btn">✏️ Editar tarefas</button><button class="action-btn clear-btn">🧹 Limpar marcações</button></div>
   <div class="progress-card"><div class="progress-row"><span>Progresso de Terça</span><strong class="progress-percent">0%</strong></div><div class="progress-bar"><div class="progress-fill"></div></div><div class="progress-note progress-note-text">0 tarefas concluídas</div></div>
   <div class="extra-card" hidden><div class="extra-title">➕ Tarefas adicionadas</div><div class="extra-list"></div></div>
 </section>
-
 <section class="page day-page" id="page-quarta" data-day="quarta">
   <div class="page-art"><img src="assets/quarta.png" alt="Página de Quarta-feira"><div class="hitboxes"></div></div>
-  <div class="page-tools">
-    <button class="action-btn primary manage-btn">✏️ Editar tarefas</button>
-    <button class="action-btn clear-btn">🧹 Limpar marcações</button>
-  </div>
+  <div class="page-tools"><button class="action-btn primary manage-btn">✏️ Editar tarefas</button><button class="action-btn clear-btn">🧹 Limpar marcações</button></div>
   <div class="progress-card"><div class="progress-row"><span>Progresso de Quarta</span><strong class="progress-percent">0%</strong></div><div class="progress-bar"><div class="progress-fill"></div></div><div class="progress-note progress-note-text">0 tarefas concluídas</div></div>
   <div class="extra-card" hidden><div class="extra-title">➕ Tarefas adicionadas</div><div class="extra-list"></div></div>
 </section>
-
 <section class="page day-page" id="page-quinta" data-day="quinta">
   <div class="page-art"><img src="assets/quinta.png" alt="Página de Quinta-feira"><div class="hitboxes"></div></div>
-  <div class="page-tools">
-    <button class="action-btn primary manage-btn">✏️ Editar tarefas</button>
-    <button class="action-btn clear-btn">🧹 Limpar marcações</button>
-  </div>
+  <div class="page-tools"><button class="action-btn primary manage-btn">✏️ Editar tarefas</button><button class="action-btn clear-btn">🧹 Limpar marcações</button></div>
   <div class="progress-card"><div class="progress-row"><span>Progresso de Quinta</span><strong class="progress-percent">0%</strong></div><div class="progress-bar"><div class="progress-fill"></div></div><div class="progress-note progress-note-text">0 tarefas concluídas</div></div>
   <div class="extra-card" hidden><div class="extra-title">➕ Tarefas adicionadas</div><div class="extra-list"></div></div>
 </section>
-
 <section class="page day-page" id="page-sexta" data-day="sexta">
   <div class="page-art"><img src="assets/sexta.png" alt="Página de Sexta-feira"><div class="hitboxes"></div></div>
-  <div class="page-tools">
-    <button class="action-btn primary manage-btn">✏️ Editar tarefas</button>
-    <button class="action-btn clear-btn">🧹 Limpar marcações</button>
-  </div>
+  <div class="page-tools"><button class="action-btn primary manage-btn">✏️ Editar tarefas</button><button class="action-btn clear-btn">🧹 Limpar marcações</button></div>
   <div class="progress-card"><div class="progress-row"><span>Progresso de Sexta</span><strong class="progress-percent">0%</strong></div><div class="progress-bar"><div class="progress-fill"></div></div><div class="progress-note progress-note-text">0 tarefas concluídas</div></div>
   <div class="extra-card" hidden><div class="extra-title">➕ Tarefas adicionadas</div><div class="extra-list"></div></div>
 </section>
@@ -345,194 +156,426 @@ main{padding:16px 10px 30px}
     <div class="history-list" id="historyList"></div>
   </div>
 </section>
-
 <div class="footer">Planner Semanal da Luziana • feito com carinho 🌷</div>
 </main>
 
-<!-- Janela de edição -->
 <div class="modal-backdrop" id="managerModal" aria-hidden="true">
   <div class="modal" role="dialog" aria-modal="true" aria-labelledby="managerTitle">
-    <div class="modal-head">
-      <div class="modal-title" id="managerTitle">Editar tarefas</div>
-      <button class="close-btn" id="closeManager" aria-label="Fechar">×</button>
-    </div>
-    <div class="modal-help">
-      Você pode <b>alterar o nome</b>, <b>excluir</b> ou <b>adicionar</b> tarefas. As alterações ficam salvas neste aparelho.
-      O botão <b>Limpar marcações</b> apaga somente os ✓, sem apagar nenhuma tarefa.
-    </div>
+    <div class="modal-head"><div class="modal-title" id="managerTitle">Editar tarefas</div><button class="close-btn" id="closeManager" aria-label="Fechar">×</button></div>
+    <div class="modal-help">Você pode <b>alterar o nome</b>, <b>excluir</b> ou <b>adicionar</b> tarefas. As alterações ficam salvas neste aparelho. O botão <b>Limpar marcações</b> apaga somente os ✓, sem apagar nenhuma tarefa.</div>
     <div class="manager-list" id="managerList"></div>
-    <div class="manager-actions">
-      <button class="action-btn primary" id="addTaskBtn">➕ Adicionar tarefa</button>
-    </div>
-    <div class="modal-footer">
-      <button class="action-btn" id="cancelManager">Cancelar</button>
-      <button class="action-btn primary" id="saveManager">💾 Salvar alterações</button>
-    </div>
+    <div class="manager-actions"><button class="action-btn primary" id="addTaskBtn">➕ Adicionar tarefa</button></div>
+    <div class="modal-footer"><button class="action-btn" id="cancelManager">Cancelar</button><button class="action-btn primary" id="saveManager">💾 Salvar alterações</button></div>
   </div>
 </div>
-
 <div class="toast" id="toast"></div>
 
 <script>
-/*
-  PLANNER LUZiANA — versão com:
-  ✓ marcações persistentes
-  ✓ limpar somente marcações
-  ✓ editar tarefas
-  ✓ excluir tarefas
-  ✓ adicionar tarefas
-  ✓ histórico semanal
-  ✓ zerar marcações ao mudar de semana
-  ✓ instalação PWA
-  ✓ service worker
-*/
-
-const DEFAULT_TASKS = {
-  segunda: [
-    ["Acordar",26.302],["Higiene pessoal",31.055],["Café da manhã",35.807],
-    ["Arrumar a cama e organizar o quarto",40.560],["Ajudar a preparar o almoço e almoçar",45.378],
-    ["Meditar na Palavra",50.130],["Varrer a casa",54.883],["Treino",59.635],
-    ["Banho",64.388],["Trabalho",69.141],["Jantar",73.893],
-    ["Trabalhar mais um pouquinho",78.646],["Tempo livre",83.398]
-  ],
-  terca: [
-    ["Acordar",26.758],["Higiene pessoal",31.510],["Café da manhã",36.263],
-    ["Arrumar a cama e organizar o quarto",41.016],["Ajudar a preparar o almoço e almoçar",45.768],
-    ["Meditar na Palavra",50.521],["Colocar roupa para lavar",55.273],["Treino",60.026],
-    ["Banho",64.779],["Estender as roupas",68.880],["Trabalho",73.503],["Jantar",78.320],
-    ["Trabalhar mais um pouquinho",83.138],["Tempo livre",85.938]
-  ],
-  quarta: [
-    ["Acordar",26.497],["Higiene pessoal",31.185],["Café da manhã",35.872],
-    ["Arrumar a cama e organizar o quarto",40.560],["Ajudar a preparar o almoço e almoçar",45.247],
-    ["Meditar na Palavra",49.935],["Dobrar e guardar as roupas",54.622],["Limpar a estante",59.310],
-    ["Arrumar a mesa",63.997],["Treino",67.383],["Banho",72.070],["Trabalho",76.758],
-    ["Jantar",81.445],["Trabalhar mais um pouquinho",86.133],["Tempo livre",88.281]
-  ],
-  quinta: [
-    ["Acordar",26.302],["Higiene pessoal",31.055],["Café da manhã",35.807],
-    ["Arrumar a cama e organizar o quarto",40.560],["Ajudar a preparar o almoço e almoçar",45.312],
-    ["Meditar na Palavra",50.065],["Organizar as panelas no armário",54.818],["Treino",59.570],
-    ["Banho e lavar o cabelo",64.323],["Fazer as unhas",69.076],["Trabalho",73.828],
-    ["Jantar",78.581],["Trabalhar mais um pouquinho",83.333],["Tempo livre",86.849]
-  ],
-  sexta: [
-    ["Acordar",26.823],["Higiene pessoal",31.771],["Café da manhã",36.589],
-    ["Arrumar a cama e organizar o quarto",41.536],["Ajudar a preparar o almoço e almoçar",46.354],
-    ["Meditar na Palavra",51.237],["Limpeza geral da casa",56.055],
-    ["Organizar perfumes, cremes, joias e acessórios",60.938],["Banho",65.755],
-    ["Trabalho",70.638],["Jantar",75.521],["Trabalhar mais um pouquinho",80.404],
-    ["Tempo livre",85.221]
-  ]
+const DEFAULT_TASKS={
+  segunda:[["Acordar",26.302],["Higiene pessoal",31.055],["Café da manhã",35.807],["Arrumar a cama e organizar o quarto",40.560],["Ajudar a preparar o almoço e almoçar",45.378],["Meditar na Palavra",50.130],["Varrer a casa",54.883],["Treino",59.635],["Banho",64.388],["Trabalho",69.141],["Jantar",73.893],["Trabalhar mais um pouquinho",78.646],["Tempo livre",83.398]],
+  terca:[["Acordar",26.758],["Higiene pessoal",31.510],["Café da manhã",36.263],["Arrumar a cama e organizar o quarto",41.016],["Ajudar a preparar o almoço e almoçar",45.768],["Meditar na Palavra",50.521],["Colocar roupa para lavar",55.273],["Treino",60.026],["Banho",64.779],["Estender as roupas",68.880],["Trabalho",73.503],["Jantar",78.320],["Trabalhar mais um pouquinho",83.138],["Tempo livre",85.938]],
+  quarta:[["Acordar",26.497],["Higiene pessoal",31.185],["Café da manhã",35.872],["Arrumar a cama e organizar o quarto",40.560],["Ajudar a preparar o almoço e almoçar",45.247],["Meditar na Palavra",49.935],["Dobrar e guardar as roupas",54.622],["Limpar a estante",59.310],["Arrumar a mesa",63.997],["Treino",67.383],["Banho",72.070],["Trabalho",76.758],["Jantar",81.445],["Trabalhar mais um pouquinho",86.133],["Tempo livre",88.281]],
+  quinta:[["Acordar",26.302],["Higiene pessoal",31.055],["Café da manhã",35.807],["Arrumar a cama e organizar o quarto",40.560],["Ajudar a preparar o almoço e almoçar",45.312],["Meditar na Palavra",50.065],["Organizar as panelas no armário",54.818],["Treino",59.570],["Banho e lavar o cabelo",64.323],["Fazer as unhas",69.076],["Trabalho",73.828],["Jantar",78.581],["Trabalhar mais um pouquinho",83.333],["Tempo livre",86.849]],
+  sexta:[["Acordar",26.823],["Higiene pessoal",31.771],["Café da manhã",36.589],["Arrumar a cama e organizar o quarto",41.536],["Ajudar a preparar o almoço e almoçar",46.354],["Meditar na Palavra",51.237],["Limpeza geral da casa",56.055],["Organizar perfumes, cremes, joias e acessórios",60.938],["Banho",65.755],["Trabalho",70.638],["Jantar",75.521],["Trabalhar mais um pouquinho",80.404],["Tempo livre",85.221]]
 };
-
-const DAY_NAMES = {
-  segunda:"Segunda-feira",
-  terca:"Terça-feira",
-  quarta:"Quarta-feira",
-  quinta:"Quinta-feira",
-  sexta:"Sexta-feira"
-};
-
-const TASKS_KEY = "planner-luziana-tasks-v4";
-const STATE_KEY = "planner-luziana-checks-v4";
-const WEEK_KEY = "planner-luziana-week-v4";
-const HISTORY_KEY = "planner-luziana-history-v4";
+const DAY_NAMES={segunda:"Segunda-feira",terca:"Terça-feira",quarta:"Quarta-feira",quinta:"Quinta-feira",sexta:"Sexta-feira"};
+const TASKS_KEY="planner-luziana-tasks-v5";
+const STATE_KEY="planner-luziana-checks-v5";
+const WEEK_KEY="planner-luziana-week-v5";
+const HISTORY_KEY="planner-luziana-history-v5";
+const EXTRAS_KEY="planner-luziana-extras-v5";
 
 function cloneDefaults(){
-  const result = {};
-  for(const day in DEFAULT_TASKS){
-    result[day] = DEFAULT_TASKS[day].map(t => ({name:t[0], y:t[1], custom:false}));
-  }
-  return result;
+  const r={};
+  for(const d in DEFAULT_TASKS) r[d]=DEFAULT_TASKS[d].map(t=>({name:t[0],y:t[1],custom:false}));
+  return r;
 }
-
-function readJSON(key, fallback){
-  try{
-    const value = localStorage.getItem(key);
-    return value ? JSON.parse(value) : fallback;
-  }catch(e){ return fallback; }
+function readJSON(key,fallback){
+  try{const v=localStorage.getItem(key);return v?JSON.parse(v):fallback}catch(e){return fallback}
 }
+let tasks=readJSON(TASKS_KEY,null)||cloneDefaults();
+let checks=readJSON(STATE_KEY,{});
+let history=readJSON(HISTORY_KEY,[]);
+let extraChecks=readJSON(EXTRAS_KEY,{});
+let currentManagerDay=null;
+let deferredPrompt=null;
 
-let tasks = readJSON(TASKS_KEY, null) || cloneDefaults();
-let checks = readJSON(STATE_KEY, {});
-let history = readJSON(HISTORY_KEY, []);
-let currentManagerDay = null;
-let deferredPrompt = null;
-
+function extras(){return readJSON("planner-luziana-extras-v4",{})||{}}
 function saveAll(){
-  localStorage.setItem(TASKS_KEY, JSON.stringify(tasks));
-  localStorage.setItem(STATE_KEY, JSON.stringify(checks));
-  localStorage.setItem(HISTORY_KEY, JSON.stringify(history));
+  localStorage.setItem(TASKS_KEY,JSON.stringify(tasks));
+  localStorage.setItem(STATE_KEY,JSON.stringify(checks));
+  localStorage.setItem(HISTORY_KEY,JSON.stringify(history));
+  localStorage.setItem(EXTRAS_KEY,JSON.stringify(extraChecks));
 }
-
-function weekKey(date = new Date()){
-  const x = new Date(Date.UTC(date.getFullYear(),date.getMonth(),date.getDate()));
-  const day = x.getUTCDay() || 7;
-  x.setUTCDate(x.getUTCDate() + 4 - day);
-  const year = x.getUTCFullYear();
-  const start = new Date(Date.UTC(year,0,1));
-  const week = Math.ceil(((((x-start)/86400000)+1)/7));
-  return year + "-W" + String(week).padStart(2,"0");
+function weekKey(date=new Date()){
+  const x=new Date(Date.UTC(date.getFullYear(),date.getMonth(),date.getDate()));
+  const day=x.getUTCDay()||7;x.setUTCDate(x.getUTCDate()+4-day);
+  const year=x.getUTCFullYear(),start=new Date(Date.UTC(year,0,1));
+  const week=Math.ceil(((((x-start)/86400000)+1)/7));
+  return year+"-W"+String(week).padStart(2,"0");
 }
-
-function currentWeekLabel(){
-  const key = weekKey();
-  return "Semana " + key.split("-W")[1] + " • " + key.split("-W")[0];
+function currentWeekLabel(){const k=weekKey();return "Semana "+k.split("-W")[1]+" • "+k.split("-W")[0]}
+function makeSummary(){
+  let total=0,done=0;
+  for(const day of Object.keys(DAY_NAMES)){
+    const list=tasks[day]||[], c=checks[day]||{};
+    total+=list.length;done+=list.reduce((n,_,i)=>n+(c[i]?1:0),0);
+    const ex=extras()[day]||[];total+=ex.length;
+    const ec=extraChecks[day]||{};done+=ex.reduce((n,_,i)=>n+(ec[i]?1:0),0);
+  }
+  return {total,done,percent:total?Math.round(done/total*100):0};
 }
-
-function totalTasks(){
-  return Object.values(tasks).reduce((sum,list)=>sum+list.length,0)
-    + Object.values(extras()).reduce((sum,list)=>sum+list.length,0);
-}
-
-function extras(){
-  const all = readJSON("planner-luziana-extras-v4", {});
-  return all && typeof all === "object" ? all : {};
-}
-
-function saveExtras(value){
-  localStorage.setItem("planner-luziana-extras-v4", JSON.stringify(value));
-}
-
 function ensureWeek(){
-  const now = weekKey();
-  const old = localStorage.getItem(WEEK_KEY);
+  const now=weekKey(),old=localStorage.getItem(WEEK_KEY);
+  if(!old){localStorage.setItem(WEEK_KEY,now);return}
+  if(old!==now){
+    const s=makeSummary();
+    if(s.total>0){
+      history=history.filter(i=>i.week!==old);
+      history.unshift({week:old,percent:s.percent,done:s.done,total:s.total,date:new Date().toISOString()});
+      history=history.slice(0,52);
+    }
+    checks={};extraChecks={};localStorage.setItem(WEEK_KEY,now);saveAll();
+  }
+}
+function showToast(msg){
+  const t=document.getElementById("toast");t.textContent=msg;t.classList.add("show");
+  clearTimeout(showToast.timer);showToast.timer=setTimeout(()=>t.classList.remove("show"),1800);
+}
+function showPage(page){
+  document.querySelectorAll(".page").forEach(p=>p.classList.toggle("active",p.id==="page-"+page));
+  document.querySelectorAll(".day-tab").forEach(b=>b.classList.toggle("active",b.dataset.page===page));
+  if(page==="historico")renderHistory();
+}
+function renderHistory(){
+  const box=document.getElementById("historyList");
+  if(!history.length){box.innerHTML='<div class="history-empty">Ainda não há semanas anteriores registradas.</div>';return}
+  box.innerHTML=history.map(i=>`<div class="history-item"><div><div class="history-week">Semana ${escapeHTML(i.week||"")}</div><div class="history-count">${i.done||0} de ${i.total||0} tarefas concluídas</div></div><div class="badge">${i.percent||0}%</div></div>`).join("");
+}
+function escapeHTML(s){
+  return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]));
+}
+function getExtraList(day){return extras()[day]||[]}
+function renderDay(day){
+  const page=document.querySelector(`.day-page[data-day="${day}"]`);if(!page)return;
+  const list=tasks[day]||[], c=checks[day]||{}, hit=page.querySelector(".hitboxes");
+  hit.innerHTML="";
+  list.forEach((task,i)=>{
+        const b=document.createElement("button");
+    b.className="hitbox";
+    b.type="button";
+    b.title=task.name;
+    b.setAttribute("aria-label",task.name);
+    b.style.left="50%";
+    b.style.top=task.y+"%";
 
-  if(!old){
-    localStorage.setItem(WEEK_KEY, now);
+    if(c[i]) b.classList.add("checked");
+
+    b.addEventListener("click",()=>{
+      checks[day]=checks[day]||{};
+      checks[day][i]=!checks[day][i];
+
+      saveAll();
+      renderDay(day);
+    });
+
+    hit.appendChild(b);
+  });
+
+  renderExtras(day);
+
+  const total=list.length+getExtraList(day).length;
+  const done=list.reduce((n,_,i)=>n+(c[i]?1:0),0)
+    +(extraChecks[day]||{}).length;
+
+  const percent=total?Math.round(done/total*100):0;
+
+  page.querySelector(".progress-percent").textContent=percent+"%";
+  page.querySelector(".progress-fill").style.width=percent+"%";
+  page.querySelector(".progress-note-text").textContent=
+    done+" de "+total+" tarefas concluídas";
+}
+
+function renderExtras(day){
+  const page=document.querySelector(`.day-page[data-day="${day}"]`);
+  if(!page)return;
+
+  const card=page.querySelector(".extra-card");
+  const listEl=page.querySelector(".extra-list");
+  const list=getExtraList(day);
+
+  if(!list.length){
+    card.hidden=true;
+    listEl.innerHTML="";
     return;
   }
 
-  if(old !== now){
-    const summary = makeSummary(old);
-    if(summary.total > 0){
-      history = history.filter(item => item.week !== old);
-      history.unshift({
-        week:old,
-        percent:summary.percent,
-        done:summary.done,
-        total:summary.total,
-        date:new Date().toISOString()
-      });
-      history = history.slice(0,52);
-    }
+  card.hidden=false;
+  listEl.innerHTML="";
 
-    checks = {};
-    localStorage.setItem(WEEK_KEY, now);
-    saveAll();
-  }
+  const ec=extraChecks[day]||{};
+
+  list.forEach((item,i)=>{
+    const row=document.createElement("div");
+    row.className="extra-item"+(ec[i]?" done":"");
+
+    const check=document.createElement("input");
+    check.type="checkbox";
+    check.className="extra-check";
+    check.checked=!!ec[i];
+
+    const name=document.createElement("div");
+    name.className="extra-name";
+    name.textContent=item.name||"Tarefa adicionada";
+
+    const del=document.createElement("button");
+    del.className="small-btn delete";
+    del.type="button";
+    del.textContent="Excluir";
+
+    check.addEventListener("change",()=>{
+      extraChecks[day]=extraChecks[day]||{};
+      extraChecks[day][i]=check.checked;
+      saveAll();
+      renderDay(day);
+    });
+
+    del.addEventListener("click",()=>{
+      const all=readJSON("planner-luziana-extras-v4",{});
+      all[day]=all[day]||[];
+      all[day].splice(i,1);
+
+      if(extraChecks[day]){
+        delete extraChecks[day][i];
+      }
+
+      saveExtras(all);
+      saveAll();
+      renderDay(day);
+      showToast("Tarefa excluída");
+    });
+
+    row.appendChild(check);
+    row.appendChild(name);
+    row.appendChild(del);
+    listEl.appendChild(row);
+  });
 }
 
-function makeSummary(){
-  let total = 0, done = 0;
+function openManager(day){
+  currentManagerDay=day;
 
-  for(const day of Object.keys(DAY_NAMES)){
-    const list = tasks[day] || [];
-    const dayChecks = checks[day] || {};
-    total += list.length;
-    done += list.reduce((n,_,i)=>n+(dayChecks[i] ? 1 : 0),0);
+  const modal=document.getElementById("managerModal");
+  const list=document.getElementById("managerList");
 
-    const ex = extras()[day] || [];
-    total += ex.length;
-   
+  list.innerHTML="";
+
+  const current=tasks[day]||[];
+
+  current.forEach((task,i)=>{
+    addManagerRow(task.name,task.y,false,i);
+  });
+
+  modal.classList.add("open");
+  modal.setAttribute("aria-hidden","false");
+}
+
+function addManagerRow(name="",y="",custom=true,index=null){
+  const list=document.getElementById("managerList");
+
+  const row=document.createElement("div");
+  row.className="manager-row";
+
+  const num=document.createElement("div");
+  num.className="manager-num";
+  num.textContent=(list.children.length+1);
+
+  const input=document.createElement("input");
+  input.className="manager-input";
+  input.type="text";
+  input.value=name;
+  input.placeholder="Nome da tarefa";
+
+  const check=document.createElement("input");
+  check.className="manager-check";
+  check.type="checkbox";
+  check.checked=true;
+  check.title="Manter tarefa";
+
+  const del=document.createElement("button");
+  del.className="small-btn delete";
+  del.type="button";
+  del.textContent="Excluir";
+
+  del.addEventListener("click",()=>{
+    row.remove();
+
+    [...list.children].forEach((r,i)=>{
+      const n=r.querySelector(".manager-num");
+      if(n)n.textContent=i+1;
+    });
+  });
+
+  row.appendChild(num);
+  row.appendChild(input);
+  row.appendChild(check);
+  row.appendChild(del);
+
+  list.appendChild(row);
+}
+
+function closeManager(){
+  const modal=document.getElementById("managerModal");
+  modal.classList.remove("open");
+  modal.setAttribute("aria-hidden","true");
+  currentManagerDay=null;
+}
+
+function saveManager(){
+  if(!currentManagerDay)return;
+
+  const day=currentManagerDay;
+  const rows=[...document.querySelectorAll("#managerList .manager-row")];
+
+  const old=tasks[day]||[];
+
+  const newTasks=[];
+
+  rows.forEach((row,i)=>{
+    const input=row.querySelector(".manager-input");
+    const name=input.value.trim();
+
+    if(!name)return;
+
+    const previous=old[i];
+
+    newTasks.push({
+      name:name,
+      y:previous ? previous.y : 90,
+      custom:previous ? !!previous.custom : true
+    });
+  });
+
+  tasks[day]=newTasks;
+
+  const allExtras=readJSON("planner-luziana-extras-v4",{});
+  allExtras[day]=allExtras[day]||[];
+
+  saveExtras(allExtras);
+  saveAll();
+
+  closeManager();
+  renderDay(day);
+
+  showToast("Tarefas salvas ✓");
+}
+
+function clearDay(day){
+  checks[day]={};
+
+  saveAll();
+  renderDay(day);
+
+  showToast("Marcações limpas");
+}
+
+/* Navegação */
+document.querySelectorAll(".day-tab").forEach(btn=>{
+  btn.addEventListener("click",()=>{
+    showPage(btn.dataset.page);
+  });
+});
+
+/* Botão Histórico do topo */
+document.getElementById("historyTopBtn").addEventListener("click",()=>{
+  showPage("historico");
+});
+
+/* Botões de editar */
+document.querySelectorAll(".manage-btn").forEach(btn=>{
+  btn.addEventListener("click",()=>{
+    const page=btn.closest(".day-page");
+    if(page)openManager(page.dataset.day);
+  });
+});
+
+/* Botões de limpar */
+document.querySelectorAll(".clear-btn").forEach(btn=>{
+  btn.addEventListener("click",()=>{
+    const page=btn.closest(".day-page");
+
+    if(page){
+      clearDay(page.dataset.day);
+    }
+  });
+});
+
+/* Modal */
+document.getElementById("closeManager").addEventListener("click",closeManager);
+document.getElementById("cancelManager").addEventListener("click",closeManager);
+
+document.getElementById("addTaskBtn").addEventListener("click",()=>{
+  addManagerRow("",90,true);
+});
+
+document.getElementById("saveManager").addEventListener("click",saveManager);
+
+/* Fechar modal tocando fora */
+document.getElementById("managerModal").addEventListener("click",e=>{
+  if(e.target.id==="managerModal"){
+    closeManager();
+  }
+});
+
+/* Tecla ESC */
+document.addEventListener("keydown",e=>{
+  if(e.key==="Escape"){
+    closeManager();
+  }
+});
+
+/* PWA */
+window.addEventListener("beforeinstallprompt",e=>{
+  e.preventDefault();
+  deferredPrompt=e;
+
+  const install=document.getElementById("installBtn");
+  install.style.display="block";
+});
+
+document.getElementById("installBtn").addEventListener("click",async()=>{
+  if(!deferredPrompt)return;
+
+  deferredPrompt.prompt();
+
+  try{
+    await deferredPrompt.userChoice;
+  }catch(e){}
+
+  deferredPrompt=null;
+  document.getElementById("installBtn").style.display="none";
+});
+
+window.addEventListener("appinstalled",()=>{
+  const install=document.getElementById("installBtn");
+  install.style.display="none";
+  deferredPrompt=null;
+});
+
+/* Inicialização */
+ensureWeek();
+
+for(const day of Object.keys(DAY_NAMES)){
+  renderDay(day);
+}
+
+showPage("cover");
+
+/* Service Worker */
+if("serviceWorker" in navigator){
+  window.addEventListener("load",()=>{
+    navigator.serviceWorker.register("./sw.js")
+      .then(()=>console.log("Service Worker registrado"))
+      .catch(err=>console.log("Service Worker não registrado:",err));
+  });
+    }
