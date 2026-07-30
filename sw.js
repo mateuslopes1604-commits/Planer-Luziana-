@@ -1,38 +1,14 @@
-const CACHE_NAME = "planner-luziana-v3";
-
-const FILES = [
-  "./",
-  "./index.html",
-  "./manifest.webmanifest",
-  "./assets/capa.png",
-  "./assets/segunda.png",
-  "./assets/terca.png",
-  "./assets/quarta.png",
-  "./assets/quinta.png",
-  "./assets/sexta.png",
-  "./assets/sabado.png",
-  "./assets/domingo.png",
-  "./assets/icon-192.png",
-  "./assets/icon-512.png"
-];
+const CACHE_NAME = "planner-luziana-v4";
 
 self.addEventListener("install", event => {
   self.skipWaiting();
-
-  event.waitUntil(
-    caches.open(CACHE_NAME).then(cache => {
-      return cache.addAll(FILES).catch(() => {});
-    })
-  );
 });
 
 self.addEventListener("activate", event => {
   event.waitUntil(
     caches.keys().then(keys =>
       Promise.all(
-        keys
-          .filter(key => key !== CACHE_NAME)
-          .map(key => caches.delete(key))
+        keys.map(key => caches.delete(key))
       )
     ).then(() => self.clients.claim())
   );
@@ -44,10 +20,10 @@ self.addEventListener("fetch", event => {
   event.respondWith(
     fetch(event.request)
       .then(response => {
-        const copy = response.clone();
+        const copia = response.clone();
 
         caches.open(CACHE_NAME).then(cache => {
-          cache.put(event.request, copy);
+          cache.put(event.request, copia);
         });
 
         return response;
