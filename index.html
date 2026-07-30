@@ -1,1359 +1,437 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0">
-
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#c9797f">
-
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Planner Luziana">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="assets/icon-192.png">
 <title>Planner Semanal da Luziana</title>
 
 <style>
-
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-}
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Montserrat:wght@500;600&display=swap');
 
 :root{
-  --rosa:#c9797f;
-  --rosa-claro:#f3d9db;
-  --vinho:#7d3039;
-  --vinho-escuro:#68252e;
-  --creme:#fbf5ef;
-  --branco:#ffffff;
-  --texto:#4b3435;
-  --dourado:#c28b36;
-  --borda:#ead7d2;
-  --sombra:0 5px 18px rgba(90,40,40,.12);
+  --rose:#c9797f;
+  --wine:#7d3039;
+  --gold:#c28b36;
+  --cream:#fbf5ef;
 }
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--cream);color:#493338}
+body{font-family:Montserrat,system-ui,sans-serif}
 
-html{
-  scroll-behavior:smooth;
+.topbar{
+  position:sticky;top:0;z-index:20;
+  background:rgba(251,245,239,.96);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid rgba(194,139,54,.25);
+  padding:10px 12px 8px;
+  box-shadow:0 4px 18px rgba(80,45,45,.06)
 }
-
-body{
-  font-family:Arial,Helvetica,sans-serif;
-  background:var(--creme);
-  color:var(--texto);
-  min-height:100vh;
+.brand{
+  display:flex;justify-content:space-between;align-items:center;
+  max-width:1050px;margin:auto;gap:10px
 }
-
-/* =========================
-   CAPA
-========================= */
-
-.capa{
-  width:100%;
-  background:white;
-  overflow:hidden;
-  box-shadow:var(--sombra);
+.brand-title{
+  font-family:"Cormorant Garamond",serif;
+  color:var(--wine);font-size:23px;font-weight:700
 }
-
-.capa img{
-  display:block;
-  width:100%;
-  height:auto;
+.install{
+  display:none;border:1px solid var(--gold);
+  background:#fffaf6;color:var(--wine);
+  border-radius:999px;padding:8px 12px;
+  font-weight:600;font-size:12px
 }
-
-/* =========================
-   CABEÇALHO
-========================= */
-
-header{
-  background:linear-gradient(
-    135deg,
-    var(--vinho),
-    var(--rosa)
-  );
-
-  color:white;
-  padding:25px 18px 24px;
-  text-align:center;
-  border-radius:0 0 28px 28px;
-  box-shadow:var(--sombra);
+.tabs{
+  max-width:1050px;margin:8px auto 0;
+  display:flex;gap:6px;overflow:auto;scrollbar-width:none
 }
-
-header h1{
-  font-size:25px;
-  margin-bottom:7px;
+.tabs::-webkit-scrollbar{display:none}
+.day-tab{
+  flex:0 0 auto;border:1px solid #e8cfc5;
+  background:#fffaf6;color:#8c4a52;
+  border-radius:999px;padding:7px 12px;
+  font-size:12px;font-weight:600
 }
-
-header p{
-  font-size:14px;
-  opacity:.94;
+.day-tab.active{
+  background:var(--rose);color:#fff;border-color:var(--rose)
 }
-
-/* =========================
-   CONTAINER
-========================= */
-
-.container{
-  width:100%;
-  max-width:700px;
-  margin:auto;
-  padding:18px 14px 45px;
+main{padding:16px 10px 30px}
+.page{display:none;max-width:1050px;margin:auto}
+.page.active{display:block}
+.page-art{
+  position:relative;width:min(100%,1024px);
+  margin:auto;line-height:0
 }
-
-/* =========================
-   BOTÕES DO TOPO
-========================= */
-
-.topo{
-  display:flex;
-  gap:10px;
-  margin-bottom:14px;
+.page-art img{
+  display:block;width:100%;height:auto;
+  border-radius:10px;
+  box-shadow:0 12px 35px rgba(79,42,42,.10)
 }
-
-.topo button{
-  flex:1;
+.hitboxes{position:absolute;inset:0}
+.hitbox{
+  position:absolute;transform:translate(-50%,-50%);
+  width:48px;height:48px;border:0;border-radius:10px;
+  background:transparent;cursor:pointer;padding:0
 }
-
-button{
-  border:0;
-  border-radius:12px;
-  padding:12px 15px;
-  font-size:15px;
-  font-weight:bold;
-  cursor:pointer;
-  -webkit-tap-highlight-color:transparent;
+.hitbox::after{
+  content:"";position:absolute;inset:6px;
+  border:2px solid transparent;border-radius:5px
 }
-
-.btn{
-  background:var(--rosa);
-  color:white;
+.hitbox.checked::after{
+  border-color:var(--rose);
+  background:rgba(255,255,255,.74)
 }
-
-.btn-sec{
-  background:white;
-  color:var(--vinho);
-  border:1px solid var(--rosa-claro);
+.hitbox.checked::before{
+  content:"✓";position:absolute;z-index:2;
+  left:50%;top:50%;
+  transform:translate(-50%,-55%);
+  color:var(--rose);font-weight:800;
+  font-size:22px;line-height:1
 }
-
-.btn:active,
-.btn-sec:active,
-.adicionar button:active,
-.editar:active,
-.excluir:active{
-  transform:scale(.98);
+.completion{
+  position:absolute;left:50%;bottom:2.7%;
+  transform:translateX(-50%);
+  font-size:11px;color:#a66b69;
+  background:rgba(255,250,246,.9);
+  padding:4px 10px;border-radius:999px;
+  display:none
 }
-
-/* =========================
-   DATA
-========================= */
-
-.data{
-  text-align:center;
-  font-weight:bold;
-  color:var(--vinho);
-  font-size:18px;
-  margin:10px 0 18px;
+.footer{
+  text-align:center;color:#9b7272;
+  font-size:11px;padding:10px 0 24px
 }
-
-/* =========================
-   DIA
-========================= */
-
-.dia{
-  background:white;
-  border-radius:22px;
-  margin-bottom:17px;
-  padding:16px;
-  box-shadow:var(--sombra);
-  border-left:6px solid var(--rosa);
-  scroll-margin-top:15px;
+@media(min-width:700px){
+  main{padding:24px 20px 40px}
+  .brand-title{font-size:25px}
+  .hitbox{width:56px;height:56px}
 }
-
-.dia.hoje{
-  border-left-color:var(--vinho);
-  box-shadow:0 5px 22px rgba(125,48,57,.18);
-}
-
-.dia h2{
-  color:var(--vinho);
-  font-size:20px;
-  margin-bottom:13px;
-  display:flex;
-  align-items:center;
-  gap:7px;
-}
-
-.etiqueta-hoje{
-  font-size:11px;
-  background:var(--rosa-claro);
-  color:var(--vinho);
-  border-radius:20px;
-  padding:5px 8px;
-  margin-left:auto;
-}
-
-/* =========================
-   TAREFA
-========================= */
-
-.tarefa{
-  display:flex;
-  align-items:center;
-  gap:9px;
-  padding:10px 0;
-  border-bottom:1px solid #f0e4df;
-}
-
-.tarefa:last-of-type{
-  border-bottom:0;
-}
-
-.tarefa input[type="checkbox"]{
-  flex:0 0 auto;
-  width:21px;
-  height:21px;
-  accent-color:var(--rosa);
-  cursor:pointer;
-}
-
-.tarefa-texto{
-  flex:1;
-  min-width:0;
-  font-size:15px;
-  line-height:1.4;
-  word-break:break-word;
-}
-
-.concluida .tarefa-texto{
-  text-decoration:line-through;
-  opacity:.5;
-}
-
-.acoes{
-  display:flex;
-  gap:5px;
-  flex:0 0 auto;
-}
-
-.editar{
-  background:#f8e8e8;
-  color:var(--vinho);
-  padding:7px 9px;
-  font-size:12px;
-}
-
-.excluir{
-  background:#f7e5e5;
-  color:#9b4149;
-  padding:7px 9px;
-  font-size:12px;
-}
-
-/* =========================
-   SEM TAREFAS
-========================= */
-
-.vazio{
-  text-align:center;
-  color:#8a6e70;
-  font-size:15px;
-  padding:10px 0 13px;
-}
-
-/* =========================
-   ADICIONAR
-========================= */
-
-.adicionar{
-  display:flex;
-  gap:8px;
-  margin-top:12px;
-}
-
-.adicionar input{
-  flex:1;
-  min-width:0;
-  border:1px solid #e6cccc;
-  border-radius:12px;
-  padding:12px;
-  font-size:14px;
-  outline:none;
-  background:white;
-  color:var(--texto);
-}
-
-.adicionar input:focus{
-  border-color:var(--rosa);
-  box-shadow:0 0 0 3px var(--rosa-claro);
-}
-
-.adicionar button{
-  padding:10px 14px;
-  background:var(--vinho);
-  color:white;
-  white-space:nowrap;
-}
-
-/* =========================
-   ANOTAÇÕES
-========================= */
-
-.notas{
-  background:#fffaf4;
-  border:1px solid #ead7ca;
-  border-radius:22px;
-  padding:17px;
-  margin-top:19px;
-  box-shadow:var(--sombra);
-}
-
-.notas h2{
-  color:var(--vinho);
-  font-size:20px;
-  margin-bottom:11px;
-}
-
-textarea{
-  width:100%;
-  min-height:150px;
-  resize:vertical;
-  border:1px solid #e6cccc;
-  border-radius:13px;
-  padding:13px;
-  font-size:15px;
-  line-height:1.5;
-  background:white;
-  color:var(--texto);
-  outline:none;
-}
-
-textarea:focus{
-  border-color:var(--rosa);
-  box-shadow:0 0 0 3px var(--rosa-claro);
-}
-
-/* =========================
-   RESUMO
-========================= */
-
-.resumo{
-  margin-top:19px;
-  background:var(--rosa-claro);
-  border-radius:22px;
-  padding:18px;
-  text-align:center;
-  color:var(--vinho);
-}
-
-.resumo-titulo{
-  font-size:18px;
-  margin-bottom:7px;
-}
-
-.resumo strong{
-  display:block;
-  font-size:28px;
-  margin-bottom:10px;
-}
-
-.barra{
-  width:100%;
-  height:16px;
-  background:white;
-  border-radius:20px;
-  overflow:hidden;
-  margin-bottom:10px;
-}
-
-.barra-progresso{
-  width:0%;
-  height:100%;
-  background:var(--vinho);
-  border-radius:20px;
-  transition:width .3s ease;
-}
-
-#textoProgresso{
-  font-size:16px;
-}
-
-/* =========================
-   RODAPÉ
-========================= */
-
-footer{
-  text-align:center;
-  color:#8a6e70;
-  font-size:14px;
-  line-height:1.6;
-  padding:35px 15px 10px;
-}
-
-/* =========================
-   CELULAR
-========================= */
-
-@media(max-width:500px){
-
-  .container{
-    padding-left:12px;
-    padding-right:12px;
-  }
-
-  header h1{
-    font-size:23px;
-  }
-
-  .topo{
-    flex-direction:column;
-  }
-
-  .topo button{
-    width:100%;
-  }
-
-  .dia{
-    padding:15px;
-  }
-
-  .dia h2{
-    font-size:19px;
-  }
-
-  .tarefa{
-    align-items:flex-start;
-  }
-
-  .acoes{
-    flex-direction:column;
-  }
-
-  .editar,
-  .excluir{
-    padding:6px 8px;
-  }
-
-  .adicionar{
-    flex-direction:column;
-  }
-
-  .adicionar button{
-    width:100%;
-  }
-}
-
 </style>
 </head>
 
-
 <body>
-
-<!-- =========================
-     CAPA
-========================= -->
-
-<div class="capa">
-  <img
-    src="ativos/capa.png"
-    alt="Planner Semanal da Luziana"
-    onerror="this.style.display='none';"
-  >
-</div>
-
-
-<header>
-
-  <h1>🌸 Planner Semanal da Luziana</h1>
-
-  <p>
-    Uma rotina organizada, leve e feita com carinho.
-  </p>
-
-</header>
-
-
-<main class="container">
-
-
-  <!-- BOTÕES -->
-
-  <div class="topo">
-
-    <button
-      class="btn"
-      onclick="irParaHoje()"
-    >
-      📅 Ir para hoje
-    </button>
-
-    <button
-      class="btn-sec"
-      onclick="limparConcluidas()"
-    >
-      🧹 Limpar concluídas
-    </button>
-
+<header class="topbar">
+  <div class="brand">
+    <div class="brand-title">Planner Semanal da Luziana</div>
+    <button id="installBtn" class="install">Instalar</button>
   </div>
 
+  <nav class="tabs" aria-label="Dias da semana">
+    <button class="day-tab active" data-page="cover">Capa</button>
+    <button class="day-tab" data-page="segunda">Segunda</button>
+    <button class="day-tab" data-page="terca">Terça</button>
+    <button class="day-tab" data-page="quarta">Quarta</button>
+    <button class="day-tab" data-page="quinta">Quinta</button>
+    <button class="day-tab" data-page="sexta">Sexta</button>
+  </nav>
+</header>
 
-  <!-- DATA -->
+<main>
 
-  <div
-    class="data"
-    id="dataAtual"
-  ></div>
+<section class="page active" id="page-cover">
+  <div class="page-art">
+    <img src="assets/cover.png" alt="Capa do Planner Semanal da Luziana">
+  </div>
+</section>
 
+<section class="page day-page" id="page-segunda" data-day="segunda">
+<div class="page-art">
+<img src="assets/segunda.png" alt="Página de Segunda-feira">
+<div class="hitboxes">
+<button class="hitbox" data-task="0" aria-label="Concluir: Acordar" style="left:83.2%;top:26.302%"></button>
+<button class="hitbox" data-task="1" aria-label="Concluir: Higiene pessoal" style="left:83.2%;top:31.055%"></button>
+<button class="hitbox" data-task="2" aria-label="Concluir: Café da manhã" style="left:83.2%;top:35.807%"></button>
+<button class="hitbox" data-task="3" aria-label="Concluir: Arrumar a cama e organizar o quarto" style="left:83.2%;top:40.560%"></button>
+<button class="hitbox" data-task="4" aria-label="Concluir: Ajudar a preparar o almoço e almoçar" style="left:83.2%;top:45.378%"></button>
+<button class="hitbox" data-task="5" aria-label="Concluir: Meditar na Palavra" style="left:83.2%;top:50.130%"></button>
+<button class="hitbox" data-task="6" aria-label="Concluir: Varrer a casa" style="left:83.2%;top:54.883%"></button>
+<button class="hitbox" data-task="7" aria-label="Concluir: Treino" style="left:83.2%;top:59.635%"></button>
+<button class="hitbox" data-task="8" aria-label="Concluir: Banho" style="left:83.2%;top:64.388%"></button>
+<button class="hitbox" data-task="9" aria-label="Concluir: Trabalho" style="left:83.2%;top:69.141%"></button>
+<button class="hitbox" data-task="10" aria-label="Concluir: Jantar" style="left:83.2%;top:73.893%"></button>
+<button class="hitbox" data-task="11" aria-label="Concluir: Trabalhar mais um pouquinho" style="left:83.2%;top:78.646%"></button>
+<button class="hitbox" data-task="12" aria-label="Concluir: Tempo livre" style="left:83.2%;top:83.398%"></button>
+</div>
+<div class="completion" id="completion-segunda"></div>
+</div>
+</section>
 
-  <!-- DIAS -->
+<section class="page day-page" id="page-terca" data-day="terca">
+<div class="page-art">
+<img src="assets/terca.png" alt="Página de Terça-feira">
+<div class="hitboxes">
+<button class="hitbox" data-task="0" aria-label="Concluir: Acordar" style="left:83.2%;top:26.758%"></button>
+<button class="hitbox" data-task="1" aria-label="Concluir: Higiene pessoal" style="left:83.2%;top:31.510%"></button>
+<button class="hitbox" data-task="2" aria-label="Concluir: Café da manhã" style="left:83.2%;top:36.263%"></button>
+<button class="hitbox" data-task="3" aria-label="Concluir: Arrumar a cama e organizar o quarto" style="left:83.2%;top:41.016%"></button>
+<button class="hitbox" data-task="4" aria-label="Concluir: Ajudar a preparar o almoço e almoçar" style="left:83.2%;top:45.768%"></button>
+<button class="hitbox" data-task="5" aria-label="Concluir: Meditar na Palavra" style="left:83.2%;top:50.521%"></button>
+<button class="hitbox" data-task="6" aria-label="Concluir: Colocar roupa para lavar" style="left:83.2%;top:55.273%"></button>
+<button class="hitbox" data-task="7" aria-label="Concluir: Treino" style="left:83.2%;top:60.026%"></button>
+<button class="hitbox" data-task="8" aria-label="Concluir: Banho" style="left:83.2%;top:64.779%"></button>
+<button class="hitbox" data-task="9" aria-label="Concluir: Estender as roupas" style="left:83.2%;top:68.880%"></button>
+<button class="hitbox" data-task="10" aria-label="Concluir: Trabalho" style="left:83.2%;top:73.503%"></button>
+<button class="hitbox" data-task="11" aria-label="Concluir: Jantar" style="left:83.2%;top:78.320%"></button>
+<button class="hitbox" data-task="12" aria-label="Concluir: Trabalhar mais um pouquinho" style="left:83.2%;top:83.138%"></button>
+<button class="hitbox" data-task="13" aria-label="Concluir: Tempo livre" style="left:83.2%;top:85.938%"></button>
+</div>
+<div class="completion" id="completion-terca"></div>
+</div>
+</section>
 
-  <div id="dias"></div>
+<section class="page day-page" id="page-quarta" data-day="quarta">
+<div class="page-art">
+<img src="assets/quarta.png" alt="Página de Quarta-feira">
+<div class="hitboxes">
+<button class="hitbox" data-task="0" aria-label="Concluir: Acordar" style="left:83.2%;top:26.497%"></button>
+<button class="hitbox" data-task="1" aria-label="Concluir: Higiene pessoal" style="left:83.2%;top:31.185%"></button>
+<button class="hitbox" data-task="2" aria-label="Concluir: Café da manhã" style="left:83.2%;top:35.872%"></button>
+<button class="hitbox" data-task="3" aria-label="Concluir: Arrumar a cama e organizar o quarto" style="left:83.2%;top:40.560%"></button>
+<button class="hitbox" data-task="4" aria-label="Concluir: Ajudar a preparar o almoço e almoçar" style="left:83.2%;top:45.247%"></button>
+<button class="hitbox" data-task="5" aria-label="Concluir: Meditar na Palavra" style="left:83.2%;top:49.935%"></button>
+<button class="hitbox" data-task="6" aria-label="Concluir: Dobrar e guardar as roupas" style="left:83.2%;top:54.622%"></button>
+<button class="hitbox" data-task="7" aria-label="Concluir: Limpar a estante" style="left:83.2%;top:59.310%"></button>
+<button class="hitbox" data-task="8" aria-label="Concluir: Arrumar a mesa" style="left:83.2%;top:63.997%"></button>
+<button class="hitbox" data-task="9" aria-label="Concluir: Treino" style="left:83.2%;top:67.383%"></button>
+<button class="hitbox" data-task="10" aria-label="Concluir: Banho" style="left:83.2%;top:72.070%"></button>
+<button class="hitbox" data-task="11" aria-label="Concluir: Trabalho" style="left:83.2%;top:76.758%"></button>
+<button class="hitbox" data-task="12" aria-label="Concluir: Jantar" style="left:83.2%;top:81.445%"></button>
+<button class="hitbox" data-task="13" aria-label="Concluir: Trabalhar mais um pouquinho" style="left:83.2%;top:86.133%"></button>
+<button class="hitbox" data-task="14" aria-label="Concluir: Tempo livre" style="left:83.2%;top:88.281%"></button>
+</div>
+<div class="completion" id="completion-quarta"></div>
+</div>
+</section>
 
+<section class="page day-page" id="page-quinta" data-day="quinta">
+<div class="page-art">
+<img src="assets/quinta.png" alt="Página de Quinta-feira">
+<div class="hitboxes">
+<button class="hitbox" data-task="0" aria-label="Concluir: Acordar" style="left:83.2%;top:26.302%"></button>
+<button class="hitbox" data-task="1" aria-label="Concluir: Higiene pessoal" style="left:83.2%;top:31.055%"></button>
+<button class="hitbox" data-task="2" aria-label="Concluir: Café da manhã" style="left:83.2%;top:35.807%"></button>
+<button class="hitbox" data-task="3" aria-label="Concluir: Arrumar a cama e organizar o quarto" style="left:83.2%;top:40.560%"></button>
+<button class="hitbox" data-task="4" aria-label="Concluir: Ajudar a preparar o almoço e almoçar" style="left:83.2%;top:45.312%"></button>
+<button class="hitbox" data-task="5" aria-label="Concluir: Meditar na Palavra" style="left:83.2%;top:50.065%"></button>
+<button class="hitbox" data-task="6" aria-label="Concluir: Organizar as panelas no armário" style="left:83.2%;top:54.818%"></button>
+<button class="hitbox" data-task="7" aria-label="Concluir: Treino" style="left:83.2%;top:59.570%"></button>
+<button class="hitbox" data-task="8" aria-label="Concluir: Banho e lavar o cabelo" style="left:83.2%;top:64.323%"></button>
+<button class="hitbox" data-task="9" aria-label="Concluir: Fazer as unhas" style="left:83.2%;top:69.076%"></button>
+<button class="hitbox" data-task="10" aria-label="Concluir: Trabalho" style="left:83.2%;top:73.828%"></button>
+<button class="hitbox" data-task="11" aria-label="Concluir: Jantar" style="left:83.2%;top:78.581%"></button>
+<button class="hitbox" data-task="12" aria-label="Concluir: Trabalhar mais um pouquinho" style="left:83.2%;top:83.333%"></button>
+<button class="hitbox" data-task="13" aria-label="Concluir: Tempo livre" style="left:83.2%;top:86.849%"></button>
+</div>
+<div class="completion" id="completion-quinta"></div>
+</div>
+</section>
 
-  <!-- ANOTAÇÕES -->
+<section class="page day-page" id="page-sexta" data-day="sexta">
+<div class="page-art">
+<img src="assets/sexta.png" alt="Página de Sexta-feira">
+<div class="hitboxes">
+<button class="hitbox" data-task="0" aria-label="Concluir: Acordar" style="left:83.2%;top:26.823%"></button>
+<button class="hitbox" data-task="1" aria-label="Concluir: Higiene pessoal" style="left:83.2%;top:31.771%"></button>
+<button class="hitbox" data-task="2" aria-label="Concluir: Café da manhã" style="left:83.2%;top:36.589%"></button>
+<button class="hitbox" data-task="3" aria-label="Concluir: Arrumar a cama e organizar o quarto" style="left:83.2%;top:41.536%"></button>
+<button class="hitbox" data-task="4" aria-label="Concluir: Ajudar a preparar o almoço e almoçar" style="left:83.2%;top:46.354%"></button>
+<button class="hitbox" data-task="5" aria-label="Concluir: Meditar na Palavra" style="left:83.2%;top:51.237%"></button>
+<button class="hitbox" data-task="6" aria-label="Concluir: Limpeza geral da casa" style="left:83.2%;top:56.055%"></button>
+<button class="hitbox" data-task="7" aria-label="Concluir: Organizar perfumes, cremes, joias e acessórios" style="left:83.2%;top:60.938%"></button>
+<button class="hitbox" data-task="8" aria-label="Concluir: Banho" style="left:83.2%;top:65.755%"></button>
+<button class="hitbox" data-task="9" aria-label="Concluir: Trabalho" style="left:83.2%;top:70.638%"></button>
+<button class="hitbox" data-task="10" aria-label="Concluir: Jantar" style="left:83.2%;top:75.521%"></button>
+<button class="hitbox" data-task="11" aria-label="Concluir: Trabalhar mais um pouquinho" style="left:83.2%;top:80.404%"></button>
+<button class="hitbox" data-task="12" aria-label="Concluir: Tempo livre" style="left:83.2%;top:85.221%"></button>
+</div>
+<div class="completion" id="completion-sexta"></div>
+</div>
+</section>
 
-  <section class="notas">
-
-    <h2>📝 Minhas anotações</h2>
-
-    <textarea
-      id="anotacoes"
-      placeholder="Escreva aqui seus lembretes, ideias ou observações..."
-    ></textarea>
-
-  </section>
-
-
-  <!-- PROGRESSO -->
-
-  <section class="resumo">
-
-    <div class="resumo-titulo">
-      Progresso da semana
-    </div>
-
-    <strong id="porcentagem">
-      0%
-    </strong>
-
-    <div class="barra">
-
-      <div
-        class="barra-progresso"
-        id="barraProgresso"
-      ></div>
-
-    </div>
-
-    <div id="textoProgresso">
-      0 de 0 tarefas concluídas
-    </div>
-
-  </section>
-
-
+<div class="footer">
+  Os checkboxes são salvos neste aparelho e zerados automaticamente quando começa uma nova semana.
+</div>
 </main>
 
-
-<footer>
-
-  Os quadradinhos são salvos neste aparelho e
-  zerados automaticamente quando começa uma nova semana. 🌷
-
-</footer>
-
-
 <script>
-
-/* =====================================================
-   CONFIGURAÇÕES
-===================================================== */
-
-const diasSemana = [
-  "Domingo",
-  "Segunda-feira",
-  "Terça-feira",
-  "Quarta-feira",
-  "Quinta-feira",
-  "Sexta-feira",
-  "Sábado"
-];
-
-const emojis = [
-  "🌷",
-  "🌸",
-  "🌸",
-  "🌸",
-  "🌸",
-  "🌸",
-  "🌷"
-];
-
-
-/* =====================================================
-   TAREFAS FIXAS
-===================================================== */
-
-const tarefasIniciais = {
-
-  "Domingo": [],
-
-  "Segunda-feira": [
-
-    "10:00 – Acordar",
-
-    "10:00 – 10:20 • Higiene pessoal",
-
-    "10:20 – 10:50 • ☕ Café da manhã",
-
-    "10:50 – 11:10 • 🛏️ Arrumar a cama e organizar o quarto",
-
-    "11:10 – 13:00 • 🍽️ Ajudar a preparar o almoço e almoçar",
-
-    "13:00 – 13:30 • 🙏 Meditar na Palavra",
-
-    "13:30 – 14:00 • 🧹 Varrer a casa",
-
-    "14:00 – 15:00 • 💪 Treino",
-
-    "15:00 – 15:30 • 🚿 Banho",
-
-    "15:30 – 19:00 • 💼 Trabalho",
-
-    "19:00 – 20:00 • 🍽️ Jantar",
-
-    "20:00 – 21:30 • 💼 Trabalhar mais um pouquinho",
-
-    "21:30 em diante • 🌙 Tempo livre, lazer ou leitura",
-
-    "00:00 • 😴 Dormir"
-
-  ],
-
-
-  "Terça-feira": [
-
-    "10:00 – Acordar",
-
-    "10:00 – 10:20 • Higiene pessoal",
-
-    "10:20 – 10:50 • ☕ Café da manhã",
-
-    "10:50 – 11:10 • 🛏️ Arrumar a cama e organizar o quarto",
-
-    "11:10 – 13:00 • 🍽️ Ajudar a preparar o almoço e almoçar",
-
-    "13:00 – 13:30 • 🙏 Meditar na Palavra",
-
-    "13:30 – 14:00 • 👕 Colocar roupa para lavar",
-
-    "14:00 – 15:00 • 💪 Treino",
-
-    "15:00 – 15:30 • 🚿 Banho",
-
-    "15:30 – 16:00 • 🧺 Estender a roupa no varal (ou colocar na secadora, se necessário)",
-
-    "16:00 – 19:00 • 💼 Trabalho",
-
-    "19:00 – 20:00 • 🍽️ Jantar",
-
-    "20:00 – 21:30 • 💼 Trabalhar mais um pouquinho",
-
-    "21:30 em diante • 🌙 Tempo livre, lazer ou leitura",
-
-    "00:00 • 😴 Dormir"
-
-  ],
-
-
-  "Quarta-feira": [
-
-    "10:00 – Acordar",
-
-    "10:00 – 10:20 • Higiene pessoal",
-
-    "10:20 – 10:50 • ☕ Café da manhã",
-
-    "10:50 – 11:10 • 🛏️ Arrumar a cama e organizar o quarto",
-
-    "11:10 – 13:00 • 🍽️ Ajudar a preparar o almoço e almoçar",
-
-    "13:00 – 13:30 • 🙏 Meditar na Palavra",
-
-    "13:30 – 14:00 • 👕 Dobrar e guardar as roupas",
-
-    "14:00 – 14:20 • 🧴 Limpar a estante",
-
-    "14:20 – 14:40 • 🍽️ Arrumar a mesa",
-
-    "14:40 – 15:40 • 💪 Treino",
-
-    "15:40 – 16:00 • 🚿 Banho",
-
-    "16:00 – 19:00 • 💼 Trabalho",
-
-    "19:00 – 20:00 • 🍽️ Jantar",
-
-    "20:00 – 21:30 • 💼 Trabalhar mais um pouquinho",
-
-    "21:30 em diante • 🌙 Tempo livre, lazer ou leitura",
-
-    "00:00 • 😴 Dormir"
-
-  ],
-
-
-  "Quinta-feira": [
-
-    "10:00 – Acordar",
-
-    "10:00 – 10:20 • Higiene pessoal",
-
-    "10:20 – 10:50 • ☕ Café da manhã",
-
-    "10:50 – 11:10 • 🛏️ Arrumar a cama e organizar o quarto",
-
-    "11:10 – 13:00 • 🍽️ Ajudar a preparar o almoço e almoçar",
-
-    "13:00 – 13:30 • 🙏 Meditar na Palavra",
-
-    "13:30 – 14:00 • 🍳 Organizar as panelas no armário",
-
-    "14:00 – 15:00 • 💪 Treino",
-
-    "15:00 – 15:30 • 🚿 Banho e lavar o cabelo",
-
-    "15:30 – 16:15 • 💅 Fazer as unhas",
-
-    "16:15 – 19:00 • 💼 Trabalho",
-
-    "19:00 – 20:00 • 🍽️ Jantar",
-
-    "20:00 – 21:30 • 💼 Trabalhar mais um pouquinho",
-
-    "21:30 em diante • 🌙 Tempo livre, lazer ou leitura",
-
-    "00:00 • 😴 Dormir"
-
-  ],
-
-
-  "Sexta-feira": [
-
-    "10:00 – Acordar",
-
-    "10:00 – 10:20 • Higiene pessoal",
-
-    "10:20 – 10:50 • ☕ Café da manhã",
-
-    "10:50 – 11:10 • 🛏️ Arrumar a cama e organizar o quarto",
-
-    "11:10 – 13:00 • 🍽️ Ajudar a preparar o almoço e almoçar",
-
-    "13:00 – 13:30 • 🙏 Meditar na Palavra",
-
-    "13:30 – 14:15 • 🧹 Limpeza geral da casa — Varrer, passar pano e organizar os ambientes",
-
-    "14:15 – 14:45 • 💄 Organizar o cantinho de autocuidado — Perfumes, cremes, joias, acessórios e maquiagens",
-
-    "14:45 – 15:00 • ☕ Pausa para um café",
-
-    "15:00 – 19:00 • 💼 Trabalho",
-
-    "19:00 – 20:00 • 🍽️ Jantar",
-
-    "20:00 – 21:30 • 💼 Trabalhar mais um pouquinho",
-
-    "21:30 em diante • 🌙 Tempo livre, lazer ou um filme",
-
-    "00:00 • 😴 Dormir"
-
-  ],
-
-
-  "Sábado": []
-
+/*
+  IMPORTANTE:
+  A pasta continua se chamando "assets".
+  Não é "ativos" e não precisa ser renomeada.
+  Os nomes dos arquivos de imagem também continuam como já estavam.
+*/
+
+const DAYS = {
+  segunda: 13,
+  terca: 14,
+  quarta: 15,
+  quinta: 14,
+  sexta: 13
 };
 
+const STATE_KEY = "planner-luziana-state-v2";
+const WEEK_KEY = "planner-luziana-week-v2";
 
-/* =====================================================
-   CHAVE DO ARMAZENAMENTO
-===================================================== */
+/* Calcula a semana atual.
+   Quando a semana mudar, os checkboxes são zerados automaticamente. */
+function weekKey(date = new Date()) {
+  const x = new Date(Date.UTC(
+    date.getFullYear(),
+    date.getMonth(),
+    date.getDate()
+  ));
 
-const CHAVE_DADOS = "planner_luziana_dados_v3";
-const CHAVE_SEMANA = "planner_luziana_semana_v3";
-const CHAVE_NOTAS = "planner_luziana_notas_v3";
+  const day = x.getUTCDay() || 7;
+  x.setUTCDate(x.getUTCDate() + 4 - day);
 
+  const year = x.getUTCFullYear();
+  const start = new Date(Date.UTC(year, 0, 1));
 
-/* =====================================================
-   SEMANA ATUAL
-===================================================== */
-
-function obterNumeroDaSemana(data){
-
-  const d = new Date(
-    Date.UTC(
-      data.getFullYear(),
-      data.getMonth(),
-      data.getDate()
-    )
+  const week = Math.ceil(
+    ((((x - start) / 86400000) + 1) / 7)
   );
 
-  const dia = d.getUTCDay() || 7;
-
-  d.setUTCDate(
-    d.getUTCDate() + 4 - dia
-  );
-
-  const inicioAno = new Date(
-    Date.UTC(
-      d.getUTCFullYear(),
-      0,
-      1
-    )
-  );
-
-  return Math.ceil(
-    (
-      (
-        (d - inicioAno) / 86400000
-      ) + 1
-    ) / 7
-  );
+  return year + "-W" + String(week).padStart(2, "0");
 }
 
+function loadState() {
+  const currentWeek = weekKey();
+  const savedWeek = localStorage.getItem(WEEK_KEY);
 
-function obterChaveSemana(){
+  if (savedWeek !== currentWeek) {
+    localStorage.setItem(WEEK_KEY, currentWeek);
+    localStorage.setItem(STATE_KEY, "{}");
+    return {};
+  }
 
-  const agora = new Date();
-
-  return (
-    agora.getFullYear()
-    + "-S"
-    + obterNumeroDaSemana(agora)
-  );
-}
-
-
-/* =====================================================
-   CARREGAR DADOS
-===================================================== */
-
-function carregarDados(){
-
-  let dados = null;
-
-  try{
-
-    dados = JSON.parse(
-      localStorage.getItem(CHAVE_DADOS)
+  try {
+    return JSON.parse(
+      localStorage.getItem(STATE_KEY) || "{}"
     );
-
-  }catch(e){
-
-    dados = null;
-
+  } catch {
+    return {};
   }
-
-
-  if(!dados){
-
-    dados = {};
-
-    for(const dia of diasSemana){
-
-      dados[dia] = [];
-
-      const lista =
-        tarefasIniciais[dia] || [];
-
-      lista.forEach(texto => {
-
-        dados[dia].push({
-
-          id:
-            "fixa-" +
-            Math.random()
-              .toString(36)
-              .slice(2),
-
-          texto:texto,
-
-          concluida:false
-
-        });
-
-      });
-
-    }
-
-    salvarDados(dados);
-
-  }
-
-  return dados;
 }
 
+let state = loadState();
 
-/* =====================================================
-   SALVAR DADOS
-===================================================== */
-
-function salvarDados(dados){
-
+function saveState() {
   localStorage.setItem(
-    CHAVE_DADOS,
-    JSON.stringify(dados)
+    STATE_KEY,
+    JSON.stringify(state)
   );
-
 }
 
-
-/* =====================================================
-   RESET AUTOMÁTICO DA SEMANA
-===================================================== */
-
-function verificarNovaSemana(){
-
-  const semanaAtual =
-    obterChaveSemana();
-
-  const semanaSalva =
-    localStorage.getItem(CHAVE_SEMANA);
-
-
-  if(!semanaSalva){
-
-    localStorage.setItem(
-      CHAVE_SEMANA,
-      semanaAtual
-    );
-
-    return;
-
-  }
-
-
-  if(semanaSalva !== semanaAtual){
-
-    const dados =
-      carregarDados();
-
-    for(const dia of diasSemana){
-
-      if(!dados[dia]) continue;
-
-      dados[dia].forEach(tarefa => {
-
-        tarefa.concluida = false;
-
-      });
-
-    }
-
-    salvarDados(dados);
-
-    localStorage.setItem(
-      CHAVE_SEMANA,
-      semanaAtual
-    );
-
-  }
-
-}
-
-
-/* =====================================================
-   DATA ATUAL
-===================================================== */
-
-function mostrarData(){
-
-  const hoje = new Date();
-
-  const opcoes = {
-
-    weekday:"long",
-
-    day:"numeric",
-
-    month:"long",
-
-    year:"numeric"
-
-  };
-
-
-  let texto =
-    hoje.toLocaleDateString(
-      "pt-BR",
-      opcoes
-    );
-
-
-  texto =
-    texto.charAt(0).toUpperCase()
-    + texto.slice(1);
-
-
-  document.getElementById(
-    "dataAtual"
-  ).textContent = texto;
-
-}
-
-
-/* =====================================================
-   DIA DE HOJE
-===================================================== */
-
-function obterDiaHoje(){
-
-  return diasSemana[
-    new Date().getDay()
-  ];
-
-}
-
-
-/* =====================================================
-   RENDERIZAR
-===================================================== */
-
-function renderizar(){
-
-  const dados =
-    carregarDados();
-
-  const hoje =
-    obterDiaHoje();
-
-  const area =
-    document.getElementById("dias");
-
-
-  area.innerHTML = "";
-
-
-  diasSemana.forEach(dia => {
-
-    const tarefas =
-      dados[dia] || [];
-
-
-    const secao =
-      document.createElement("section");
-
-    secao.className =
-      "dia"
-      + (dia === hoje ? " hoje" : "");
-
-
-    secao.id =
-      "dia-" +
-      dia
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g,"")
-        .replace(/\s/g,"-");
-
-
-    const titulo =
-      document.createElement("h2");
-
-
-    titulo.innerHTML =
-      emojis[diasSemana.indexOf(dia)]
-      + " "
-      + dia;
-
-
-    if(dia === hoje){
-
-      const etiqueta =
-        document.createElement("span");
-
-      etiqueta.className =
-        "etiqueta-hoje";
-
-      etiqueta.textContent =
-        "HOJE";
-
-      titulo.appendChild(
-        etiqueta
+function render() {
+  document.querySelectorAll(".day-page").forEach(page => {
+    const day = page.dataset.day;
+    const saved = state[day] || {};
+    const buttons = page.querySelectorAll(".hitbox");
+
+    buttons.forEach((button, index) => {
+      const checked = !!saved[index];
+
+      button.classList.toggle("checked", checked);
+      button.setAttribute(
+        "aria-pressed",
+        checked ? "true" : "false"
       );
-
-    }
-
-
-    secao.appendChild(titulo);
-
-
-    if(tarefas.length === 0){
-
-      const vazio =
-        document.createElement("div");
-
-      vazio.className =
-        "vazio";
-
-      vazio.textContent =
-        "Nenhuma tarefa adicionada ainda.";
-
-      secao.appendChild(vazio);
-
-    }
-
-
-    tarefas.forEach(tarefa => {
-
-      const linha =
-        document.createElement("div");
-
-      linha.className =
-        "tarefa"
-        + (
-          tarefa.concluida
-          ? " concluida"
-          : ""
-        );
-
-
-      const checkbox =
-        document.createElement("input");
-
-      checkbox.type =
-        "checkbox";
-
-      checkbox.checked =
-        tarefa.concluida;
-
-
-      checkbox.addEventListener(
-        "change",
-        function(){
-
-          alterarConclusao(
-            dia,
-            tarefa.id,
-            checkbox.checked
-          );
-
-        }
-      );
-
-
-      const texto =
-        document.createElement("span");
-
-      texto.className =
-        "tarefa-texto";
-
-      texto.textContent =
-        tarefa.texto;
-
-
-      const acoes =
-        document.createElement("div");
-
-      acoes.className =
-        "acoes";
-
-
-      const editar =
-        document.createElement("button");
-
-      editar.className =
-        "editar";
-
-      editar.textContent =
-        "✏️ Editar";
-
-
-      editar.addEventListener(
-        "click",
-        function(){
-
-          editarTarefa(
-            dia,
-            tarefa.id
-          );
-
-        }
-      );
-
-
-      const excluir =
-        document.createElement("button");
-
-      excluir.className =
-        "excluir";
-
-      excluir.textContent =
-        "🗑️ Excluir";
-
-
-      excluir.addEventListener(
-        "click",
-        function(){
-
-          excluirTarefa(
-            dia,
-            tarefa.id
-          );
-
-        }
-      );
-
-
-      acoes.appendChild(
-        editar
-      );
-
-      acoes.appendChild(
-        excluir
-      );
-
-
-      linha.appendChild(
-        checkbox
-      );
-
-      linha.appendChild(
-        texto
-      );
-
-      linha.appendChild(
-        acoes
-      );
-
-
-      secao.appendChild(
-        linha
-      );
-
     });
 
+    const done = Object.values(saved)
+      .filter(Boolean).length;
 
-    const adicionar =
-      document.createElement("div");
+    const completion =
+      document.getElementById("completion-" + day);
 
-    adicionar.className =
-      "adicionar";
-
-
-    const input =
-      document.createElement("input");
-
-    input.type =
-      "text";
-
-    input.placeholder =
-      "Adicionar tarefa...";
-
-
-    input.addEventListener(
-      "keydown",
-      function(event){
-
-        if(event.key === "Enter"){
-
-          adicionarTarefa(
-            dia,
-            input
-          );
-
-        }
-
-      }
-    );
-
-
-    const botao =
-      document.createElement("button");
-
-    botao.textContent =
-      "+ Adicionar";
-
-
-    botao.addEventListener(
-      "click",
-      function(){
-
-        adicionarTarefa(
-          dia,
-          input
-        );
-
-      }
-    );
-
-
-    adicionar.appendChild(
-      input
-    );
-
-    adicionar.appendChild(
-      botao
-    );
-
-
-    secao.appendChild(
-      adicionar
-    );
-
-
-    area.appendChild(
-      secao
-    );
-
+    if (done === DAYS[day]) {
+      completion.style.display = "block";
+      completion.textContent = "Dia concluído ✦";
+    } else {
+      completion.style.display = "none";
+      completion.textContent = "";
+    }
   });
-
-
-  atualizarProgresso();
-
 }
 
+/* Marcar/desmarcar tarefas */
+document.querySelectorAll(".hitbox").forEach(button => {
+  button.addEventListener("click", () => {
+    const day =
+      button.closest(".day-page").dataset.day;
 
-/* =====================================================
-   ADICIONAR
-===================================================== */
+    const task =
+      Number(button.dataset.task);
 
-function adicionarTarefa(
-  dia,
-  input
-){
+    state[day] = state[day] || {};
+    state[day][task] = !state[day][task];
 
-  const texto =
-    input.value.trim();
+    saveState();
+    render();
+  });
+});
 
+/* Trocar de página/dia */
+document.querySelectorAll(".day-tab").forEach(tab => {
+  tab.addEventListener("click", () => {
+    document
+      .querySelectorAll(".day-tab")
+      .forEach(item => item.classList.remove("active"));
 
-  if(!texto){
+    tab.classList.add("active");
 
-    input.focus();
+    document
+      .querySelectorAll(".page")
+      .forEach(page => page.classList.remove("active"));
 
-    return;
+    document
+      .getElementById("page-" + tab.dataset.page)
+      .classList.add("active");
 
-  }
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+  });
+});
 
+render();
 
-  const dados =
-    carregarDados();
+/* Instalação como aplicativo */
+let deferredPrompt;
+const installBtn =
+  document.getElementById("installBtn");
 
+window.addEventListener("beforeinstallprompt", event => {
+  event.preventDefault();
+  deferredPrompt = event;
+  installBtn.style.display = "block";
+});
 
-  if(!dados[dia]){
+installBtn.addEventListener("click", async () => {
+  if (!deferredPrompt) return;
 
-    dados[dia] = [];
+  deferredPrompt.prompt();
 
-  }
+  await deferredPrompt.userChoice;
 
+  deferredPrompt = null;
+  installBtn.style.display = "none";
+});
 
-  dados[dia].push({
+/* Atualização automática do aplicativo */
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker
+      .register("./sw.js")
+      .catch(() => {});
+  });
+}
+</script>
 
-    id:
-      "tarefa-" +
-      Date.now() +
-      "-" +
-      Math.random()
-        .toString(36)
-        .slice(2),
-
-    texto:texto,
-
- 
+</body>
+</html>
