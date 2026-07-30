@@ -257,19 +257,29 @@ function escapeHTML(s){
 }
 function getExtraList(day){return extras()[day]||[]}
 function renderDay(day){
-  const page=document.querySelector(`.day-page[data-day="${day}"]`);if(!page)return;
-  const list=tasks[day]||[], c=checks[day]||{}, hit=page.querySelector(".hitboxes");
+  const page=document.querySelector(`.day-page[data-day="${day}"]`);
+  if(!page)return;
+
+  const list=tasks[day]||[];
+  const c=checks[day]||{};
+  const hit=page.querySelector(".hitboxes");
+
   hit.innerHTML="";
+
   list.forEach((task,i)=>{
-        const b=document.createElement("button");
+    const b=document.createElement("button");
+
     b.className="hitbox";
     b.type="button";
     b.title=task.name;
     b.setAttribute("aria-label",task.name);
+
     b.style.left="50%";
     b.style.top=task.y+"%";
 
-    if(c[i]) b.classList.add("checked");
+    if(c[i]){
+      b.classList.add("checked");
+    }
 
     b.addEventListener("click",()=>{
       checks[day]=checks[day]||{};
@@ -284,11 +294,18 @@ function renderDay(day){
 
   renderExtras(day);
 
-  const total=list.length+getExtraList(day).length;
-  const done=list.reduce((n,_,i)=>n+(c[i]?1:0),0)
-    +(extraChecks[day]||{}).length;
+  const extrasList=getExtraList(day);
+  const extraC=extraChecks[day]||{};
 
-  const percent=total?Math.round(done/total*100):0;
+  const total=list.length+extrasList.length;
+
+  const done=
+    list.reduce((n,_,i)=>n+(c[i]?1:0),0)+
+    extrasList.reduce((n,_,i)=>n+(extraC[i]?1:0),0);
+
+  const percent=total
+    ? Math.round(done/total*100)
+    : 0;
 
   page.querySelector(".progress-percent").textContent=percent+"%";
   page.querySelector(".progress-fill").style.width=percent+"%";
@@ -296,71 +313,58 @@ function renderDay(day){
     done+" de "+total+" tarefas concluídas";
 }
 
+
 function renderExtras(day){
   const page=document.querySelector(`.day-page[data-day="${day}"]`);
   if(!page)return;
 
   const card=page.querySelector(".extra-card");
-  const listEl=page.querySelector(".extra-list");
+  const listBox=page.querySelector(".extra-list");
+
   const list=getExtraList(day);
+  const c=extraChecks[day]||{};
 
   if(!list.length){
     card.hidden=true;
-    listEl.innerHTML="";
+    listBox.innerHTML="";
     return;
   }
 
   card.hidden=false;
-  listEl.innerHTML="";
+  listBox.innerHTML="";
 
-  const ec=extraChecks[day]||{};
+  list.forEach((name,i)=>{
+    const item=document.createElement("div");
+    item.className="extra-item";
 
-  list.forEach((item,i)=>{
-    const row=document.createElement("div");
-    row.className="extra-item"+(ec[i]?" done":"");
+    if(c[i]){
+      item.classList.add("done");
+    }
 
     const check=document.createElement("input");
     check.type="checkbox";
     check.className="extra-check";
-    check.checked=!!ec[i];
-
-    const name=document.createElement("div");
-    name.className="extra-name";
-    name.textContent=item.name||"Tarefa adicionada";
-
-    const del=document.createElement("button");
-    del.className="small-btn delete";
-    del.type="button";
-    del.textContent="Excluir";
+    check.checked=!!c[i];
 
     check.addEventListener("change",()=>{
       extraChecks[day]=extraChecks[day]||{};
       extraChecks[day][i]=check.checked;
+
       saveAll();
       renderDay(day);
     });
 
-    del.addEventListener("click",()=>{
-      const all=readJSON("planner-luziana-extras-v4",{});
-      all[day]=all[day]||[];
-      all[day].splice(i,1);
+    const text=document.createElement("span");
+    text.className="extra-name";
+    text.textContent=name;
 
-      if(extraChecks[day]){
-        delete extraChecks[day][i];
-      }
+    item.appendChild(check);
+    item.appendChild(text);
 
-      saveExtras(all);
-      saveAll();
-      renderDay(day);
-      showToast("Tarefa excluída");
-    });
-
-    row.appendChild(check);
-    row.appendChild(name);
-    row.appendChild(del);
-    listEl.appendChild(row);
+    listBox.appendChild(item);
   });
 }
+
 
 function openManager(day){
   currentManagerDay=day;
@@ -370,17 +374,18 @@ function openManager(day){
 
   list.innerHTML="";
 
-  const current=tasks[day]||[];
+  const dayTasks=tasks[day]||[];
 
-  current.forEach((task,i)=>{
-    addManagerRow(task.name,task.y,false,i);
+  dayTasks.forEach((task,i)=>{
+    addManagerRow(task.name,task.y,i);
   });
 
   modal.classList.add("open");
   modal.setAttribute("aria-hidden","false");
 }
 
-function addManagerRow(name="",y="",custom=true,index=null){
+
+function addManagerRow(name="",y=50,index=null){
   const list=document.getElementById("managerList");
 
   const row=document.createElement("div");
@@ -388,7 +393,7 @@ function addManagerRow(name="",y="",custom=true,index=null){
 
   const num=document.createElement("div");
   num.className="manager-num";
-  num.textContent=(list.children.length+1);
+  num.textContent=list.children.length+1;
 
   const input=document.createElement("input");
   input.className="manager-input";
@@ -399,47 +404,62 @@ function addManagerRow(name="",y="",custom=true,index=null){
   const check=document.createElement("input");
   check.className="manager-check";
   check.type="checkbox";
-  check.checked=true;
-  check.title="Manter tarefa";
 
-  const del=document.createElement("button");
-  del.className="small-btn delete";
-  del.type="button";
-  del.textContent="Excluir";
+  if(
+    currentManagerDay &&
+    index!==null &&
+    checks[currentManagerDay] &&
+    checks[currentManagerDay][index]
+  ){
+    check.checked=true;
+  }
 
-  del.addEventListener("click",()=>{
+  const deleteBtn=document.createElement("button");
+  deleteBtn.className="small-btn delete";
+  deleteBtn.type="button";
+  deleteBtn.textContent="🗑️";
+
+  deleteBtn.addEventListener("click",()=>{
     row.remove();
 
-    [...list.children].forEach((r,i)=>{
-      const n=r.querySelector(".manager-num");
-      if(n)n.textContent=i+1;
+    Array.from(list.children).forEach((r,n)=>{
+      const number=r.querySelector(".manager-num");
+      if(number){
+        number.textContent=n+1;
+      }
     });
   });
 
   row.appendChild(num);
   row.appendChild(input);
   row.appendChild(check);
-  row.appendChild(del);
+  row.appendChild(deleteBtn);
 
   list.appendChild(row);
 }
 
+
 function closeManager(){
   const modal=document.getElementById("managerModal");
+
   modal.classList.remove("open");
   modal.setAttribute("aria-hidden","true");
+
   currentManagerDay=null;
 }
+
 
 function saveManager(){
   if(!currentManagerDay)return;
 
   const day=currentManagerDay;
-  const rows=[...document.querySelectorAll("#managerList .manager-row")];
+  const rows=document.querySelectorAll("#managerList .manager-row");
 
-  const old=tasks[day]||[];
+  const oldTasks=tasks[day]||[];
+  const oldChecks=checks[day]||{};
 
   const newTasks=[];
+  const newChecks={};
 
   rows.forEach((row,i)=>{
     const input=row.querySelector(".manager-input");
@@ -447,28 +467,31 @@ function saveManager(){
 
     if(!name)return;
 
-    const previous=old[i];
+    const old=oldTasks[i];
 
     newTasks.push({
       name:name,
-      y:previous ? previous.y : 90,
-      custom:previous ? !!previous.custom : true
+      y:old && typeof old.y==="number"
+        ? old.y
+        : 25+(newTasks.length*5),
+      custom:true
     });
+
+    if(oldChecks[i]){
+      newChecks[newTasks.length-1]=true;
+    }
   });
 
   tasks[day]=newTasks;
+  checks[day]=newChecks;
 
-  const allExtras=readJSON("planner-luziana-extras-v4",{});
-  allExtras[day]=allExtras[day]||[];
-
-  saveExtras(allExtras);
   saveAll();
-
-  closeManager();
   renderDay(day);
+  closeManager();
 
-  showToast("Tarefas salvas ✓");
+  showToast("Tarefas salvas com sucesso 🌷");
 }
+
 
 function clearDay(day){
   checks[day]={};
@@ -479,69 +502,83 @@ function clearDay(day){
   showToast("Marcações limpas");
 }
 
-/* Navegação */
-document.querySelectorAll(".day-tab").forEach(btn=>{
-  btn.addEventListener("click",()=>{
-    showPage(btn.dataset.page);
+
+document.querySelectorAll(".day-tab").forEach(button=>{
+  button.addEventListener("click",()=>{
+    const page=button.dataset.page;
+
+    showPage(page);
   });
 });
 
-/* Botão Histórico do topo */
+
 document.getElementById("historyTopBtn").addEventListener("click",()=>{
   showPage("historico");
 });
 
-/* Botões de editar */
-document.querySelectorAll(".manage-btn").forEach(btn=>{
-  btn.addEventListener("click",()=>{
-    const page=btn.closest(".day-page");
-    if(page)openManager(page.dataset.day);
+
+document.querySelectorAll(".day-page").forEach(page=>{
+  const day=page.dataset.day;
+
+  const manageBtn=page.querySelector(".manage-btn");
+  const clearBtn=page.querySelector(".clear-btn");
+
+  manageBtn.addEventListener("click",()=>{
+    openManager(day);
+  });
+
+  clearBtn.addEventListener("click",()=>{
+    clearDay(day);
   });
 });
 
-/* Botões de limpar */
-document.querySelectorAll(".clear-btn").forEach(btn=>{
-  btn.addEventListener("click",()=>{
-    const page=btn.closest(".day-page");
 
-    if(page){
-      clearDay(page.dataset.day);
-    }
-  });
+document.getElementById("closeManager").addEventListener("click",()=>{
+  closeManager();
 });
 
-/* Modal */
-document.getElementById("closeManager").addEventListener("click",closeManager);
-document.getElementById("cancelManager").addEventListener("click",closeManager);
+
+document.getElementById("cancelManager").addEventListener("click",()=>{
+  closeManager();
+});
+
+
+document.getElementById("saveManager").addEventListener("click",()=>{
+  saveManager();
+});
+
 
 document.getElementById("addTaskBtn").addEventListener("click",()=>{
-  addManagerRow("",90,true);
+  addManagerRow("");
 });
 
-document.getElementById("saveManager").addEventListener("click",saveManager);
 
-/* Fechar modal tocando fora */
-document.getElementById("managerModal").addEventListener("click",e=>{
+document.getElementById("managerModal").addEventListener("click",(e)=>{
   if(e.target.id==="managerModal"){
     closeManager();
   }
 });
 
-/* Tecla ESC */
-document.addEventListener("keydown",e=>{
+
+document.addEventListener("keydown",(e)=>{
   if(e.key==="Escape"){
     closeManager();
   }
 });
 
-/* PWA */
-window.addEventListener("beforeinstallprompt",e=>{
+
+window.addEventListener("beforeinstallprompt",(e)=>{
   e.preventDefault();
+
   deferredPrompt=e;
 
   const install=document.getElementById("installBtn");
-  install.style.display="block";
+
+  if(install){
+    install.style.display="inline-block";
+  }
 });
+
 
 document.getElementById("installBtn").addEventListener("click",async()=>{
   if(!deferredPrompt)return;
@@ -553,16 +590,24 @@ document.getElementById("installBtn").addEventListener("click",async()=>{
   }catch(e){}
 
   deferredPrompt=null;
+
   document.getElementById("installBtn").style.display="none";
 });
 
+
 window.addEventListener("appinstalled",()=>{
   const install=document.getElementById("installBtn");
-  install.style.display="none";
+
+  if(install){
+    install.style.display="none";
+  }
+
   deferredPrompt=null;
 });
 
+
 /* Inicialização */
+
 ensureWeek();
 
 for(const day of Object.keys(DAY_NAMES)){
@@ -571,11 +616,23 @@ for(const day of Object.keys(DAY_NAMES)){
 
 showPage("cover");
 
+
 /* Service Worker */
+
 if("serviceWorker" in navigator){
   window.addEventListener("load",()=>{
     navigator.serviceWorker.register("./sw.js")
-      .then(()=>console.log("Service Worker registrado"))
-      .catch(err=>console.log("Service Worker não registrado:",err));
+      .then(()=>{
+        console.log("Service Worker registrado");
+      })
+      .catch(err=>{
+        console.log("Service Worker não registrado",err);
+      });
   });
-    }
+}
+
+</script>
+</body>
+</html>
+
+
