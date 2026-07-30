@@ -525,9 +525,11 @@ function saveManager(){
       custom:true
     });
 
-    if(oldChecks[i]){
-      newChecks[newTasks.length-1]=true;
-    }
+const managerCheck=row.querySelector(".manager-check");
+
+if(managerCheck && managerCheck.checked){
+  newChecks[newTasks.length-1]=true;
+}
   });
 
   tasks[day]=newTasks;
