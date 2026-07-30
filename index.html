@@ -1,157 +1,212 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#c9797f">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="apple-mobile-web-app-title" content="Planner Luziana">
-
-<link rel="manifest" href="manifest.webmanifest">
-<link rel="icon" href="ativos/ícone-192.png">
 
 <title>Planner Semanal da Luziana</title>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Montserrat:wght@500;600&display=swap');
-
-:root{
---rose:#c9797f;
---wine:#7d3039;
---gold:#c28b36;
---cream:#fbf5ef
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
 }
 
-*{box-sizing:border-box}
-
-html,body{
-margin:0;
-background:var(--cream);
-color:#493338
+:root{
+  --rosa:#c9797f;
+  --rosa-claro:#f3d9db;
+  --vinho:#7d3039;
+  --creme:#fbf5ef;
+  --branco:#ffffff;
+  --texto:#4b3435;
+  --dourado:#c28b36;
+  --sombra:0 4px 15px rgba(90,40,40,.12);
 }
 
 body{
-font-family:Montserrat,system-ui,sans-serif
+  font-family:Arial,sans-serif;
+  background:var(--creme);
+  color:var(--texto);
+  min-height:100vh;
 }
 
-.topbar{
-position:sticky;
-top:0;
-z-index:20;
-background:rgba(251,245,239,.96);
-backdrop-filter:blur(12px);
-border-bottom:1px solid rgba(194,139,54,.25);
-padding:10px 12px 8px;
-box-shadow:0 4px 18px rgba(80,45,45,.06)
+header{
+  background:linear-gradient(135deg,var(--vinho),var(--rosa));
+  color:white;
+  padding:28px 18px 24px;
+  text-align:center;
+  border-radius:0 0 28px 28px;
+  box-shadow:var(--sombra);
 }
 
-.brand{
-display:flex;
-justify-content:space-between;
-align-items:center;
-max-width:1050px;
-margin:auto;
-gap:10px
+header h1{
+  font-size:25px;
+  margin-bottom:7px;
 }
 
-.brand-title{
-font-family:"Cormorant Garamond",serif;
-color:var(--wine);
-font-size:23px;
-font-weight:700
+header p{
+  font-size:14px;
+  opacity:.92;
 }
 
-.install{
-display:none;
-border:1px solid var(--gold);
-background:#fffaf6;
-color:var(--wine);
-border-radius:999px;
-padding:8px 12px;
-font-weight:600;
-font-size:12px
+.container{
+  max-width:650px;
+  margin:auto;
+  padding:18px 14px 40px;
 }
 
-.tabs{
-max-width:1050px;
-margin:8px auto 0;
-display:flex;
-gap:6px;
-overflow:auto;
-scrollbar-width:none
+.topo{
+  display:flex;
+  gap:10px;
+  align-items:center;
+  margin-bottom:15px;
 }
 
-.tabs::-webkit-scrollbar{
-display:none
+.topo button{
+  flex:1;
 }
 
-.day-tab{
-flex:0 0 auto;
-border:1px solid #e8cfc5;
-background:#fffaf6;
-color:#8c4a52;
-border-radius:999px;
-padding:7px 12px;
-font-size:12px;
-font-weight:600
+button{
+  border:0;
+  border-radius:12px;
+  padding:12px 15px;
+  font-size:15px;
+  font-weight:bold;
+  cursor:pointer;
 }
 
-.day-tab.active{
-background:var(--rose);
-color:#fff;
-border-color:var(--rose)
+.btn{
+  background:var(--rosa);
+  color:white;
 }
 
-main{
-padding:16px 10px 30px
+.btn-sec{
+  background:white;
+  color:var(--vinho);
+  border:1px solid var(--rosa-claro);
 }
 
-.page{
-display:none;
-max-width:1050px;
-margin:auto
+.data{
+  text-align:center;
+  font-weight:bold;
+  color:var(--vinho);
+  margin:8px 0 18px;
 }
 
-.page.active{
-display:block
+.dia{
+  background:white;
+  border-radius:20px;
+  margin-bottom:15px;
+  padding:16px;
+  box-shadow:var(--sombra);
+  border-left:5px solid var(--rosa);
 }
 
-.page-art{
-position:relative;
-width:min(100%,1024px);
-margin:auto;
-line-height:0
+.dia h2{
+  color:var(--vinho);
+  font-size:19px;
+  margin-bottom:12px;
 }
 
-.page-art img{
-display:block;
-width:100%;
-height:auto;
-border-radius:10px;
-box-shadow:0 12px 35px rgba(79,42,42,.10)
+.tarefa{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  padding:9px 0;
+  border-bottom:1px solid #f0e4df;
 }
 
-.hitboxes{
-position:absolute;
-inset:0
+.tarefa:last-child{
+  border-bottom:0;
 }
 
-.hitbox{
-position:absolute;
-transform:translate(-50%,-50%);
-width:48px;
-height:48px;
-border:0;
-border-radius:10px;
-background:transparent;
-cursor:pointer;
-padding:0
+.tarefa input[type="checkbox"]{
+  width:20px;
+  height:20px;
+  accent-color:var(--rosa);
 }
 
-.hitbox::after{
-content:"";
-position:absolute;
-inset:6px;
-border:2px solid transparent;
-border-radius:5px
+.tarefa span{
+  flex:1;
+  font-size:15px;
+}
+
+.concluida span{
+  text-decoration:line-through;
+  opacity:.5;
+}
+
+.excluir{
+  background:#f7e5e5;
+  color:#9b4149;
+  padding:6px 9px;
+  font-size:13px;
+}
+
+.adicionar{
+  display:flex;
+  gap:7px;
+  margin-top:10px;
+}
+
+.adicionar input{
+  flex:1;
+  min-width:0;
+  border:1px solid #e6cccc;
+  border-radius:10px;
+  padding:11px;
+  font-size:14px;
+  outline:none;
+}
+
+.adicionar button{
+  padding:10px 13px;
+  background:var(--vinho);
+  color:white;
+}
+
+.notas{
+  background:#fffaf4;
+  border:1px solid #ead7ca;
+  border-radius:20px;
+  padding:17px;
+  margin-top:18px;
+  box-shadow:var(--sombra);
+}
+
+.notas h2{
+  color:var(--vinho);
+  font-size:19px;
+  margin-bottom:10px;
+}
+
+textarea{
+  width:100%;
+  min-height:130px;
+  resize:vertical;
+  border:1px solid #e6cccc;
+  border-radius:12px;
+  padding:12px;
+  font-size:15px;
+  background:white;
+  color:var(--texto);
+  outline:none;
+}
+
+.resumo{
+  margin-top:18px;
+  background:var(--rosa-claro);
+  border-radius:18px;
+  padding:16px;
+  text-align:center;
+  color:var(--vinho);
+}
+
+.resumo strong{
+  font-size:20px;
+}
+
+footer{
+  text-align:center;
