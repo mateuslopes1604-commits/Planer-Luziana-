@@ -535,14 +535,22 @@ if(managerCheck && managerCheck.checked){
 }
   });
 
-  tasks[day]=newTasks;
-  checks[day]=newChecks;
+tasks[day]=newTasks;
+checks[day]=newChecks;
 
-  saveAll();
-  renderDay(day);
-  closeManager();
+saveAll();
 
-  showToast("Tarefas salvas com sucesso 🌷");
+renderDay(day);
+
+// força a atualização da página aberta
+const activePage=document.querySelector(".page.active");
+if(activePage && activePage.dataset.day===day){
+    renderDay(day);
+}
+
+closeManager();
+
+showToast("Tarefas salvas com sucesso 🌷");
 }
 
 
@@ -576,14 +584,17 @@ document.querySelectorAll(".day-page").forEach(page=>{
   const manageBtn=page.querySelector(".manage-btn");
   const clearBtn=page.querySelector(".clear-btn");
 
-  
-    const install=document.getElementById("installBtn");
-
-  if(install){
-    install.style.display="none";
+  if(manageBtn){
+    manageBtn.addEventListener("click",()=>{
+      openManager(day);
+    });
   }
 
-  deferredPrompt=null;
+  if(clearBtn){
+    clearBtn.addEventListener("click",()=>{
+      clearDay(day);
+    });
+  }
 });
 
 
@@ -596,7 +607,13 @@ for(const day of Object.keys(DAY_NAMES)){
 }
 
 showPage("cover");
+const install=document.getElementById("installBtn");
 
+if(install){
+  install.style.display="none";
+}
+
+deferredPrompt=null;
 
 /* Service Worker */
 
