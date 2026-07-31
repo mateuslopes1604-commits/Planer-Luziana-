@@ -562,7 +562,16 @@ function clearDay(day){
 
   showToast("Marcações limpas");
 }
+// Eventos do modal
+document.getElementById("saveManager").addEventListener("click", saveManager);
 
+document.getElementById("cancelManager").addEventListener("click", closeManager);
+
+document.getElementById("closeManager").addEventListener("click", closeManager);
+
+document.getElementById("addTaskBtn").addEventListener("click",()=>{
+    addManagerRow("",50,null);
+});
 
 document.querySelectorAll(".day-tab").forEach(button=>{
   button.addEventListener("click",()=>{
