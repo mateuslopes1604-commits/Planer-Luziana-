@@ -166,7 +166,7 @@ main{padding:16px 10px 30px}
 </section>
 
 <section class="page day-page" id="page-segunda" data-day="segunda">
- <div class="page-art">
+<div class="page-art" style="display:none;">
     <img src="assets/segunda.png" alt="Página de Segunda-feira">
 
     <div class="task-labels"></div>
@@ -398,6 +398,44 @@ function renderDay(day){
   page.querySelector(".progress-fill").style.width=percent+"%";
   page.querySelector(".progress-note-text").textContent=
     done+" de "+total+" tarefas concluídas";
+  const planner=document.getElementById("planner-"+day);
+
+if(planner){
+
+    planner.innerHTML="";
+
+    list.forEach((task,i)=>{
+
+        const row=document.createElement("div");
+        row.className="planner-task";
+
+        const check=document.createElement("input");
+        check.type="checkbox";
+        check.className="task-checkbox";
+        check.checked=!!c[i];
+
+        check.addEventListener("change",()=>{
+
+            checks[day]=checks[day]||{};
+            checks[day][i]=check.checked;
+
+            saveAll();
+            renderDay(day);
+
+        });
+
+        const name=document.createElement("div");
+        name.className="task-name";
+        name.textContent=task.name;
+
+        row.appendChild(check);
+        row.appendChild(name);
+
+        planner.appendChild(row);
+
+    });
+
+}
 }
 
 
