@@ -161,7 +161,42 @@ padding:20px;
 }
 
 </style>
+.planner{
+background:white;
+padding:30px;
+border-radius:20px;
+box-shadow:0 8px 25px rgba(0,0,0,.08);
+}
 
+.planner h2{
+color:var(--wine);
+margin-bottom:25px;
+font-family:"Cormorant Garamond",serif;
+font-size:34px;
+}
+
+.task{
+padding:14px 0;
+border-bottom:1px solid var(--line);
+}
+
+.task:last-child{
+border-bottom:none;
+}
+
+.task label{
+display:flex;
+align-items:center;
+gap:15px;
+cursor:pointer;
+font-size:17px;
+}
+
+.task input{
+width:22px;
+height:22px;
+accent-color:var(--rose);
+}
 </head>
 
 <body>
@@ -207,10 +242,83 @@ Instalar App
 <script>
 
 const paginas = {
-
+`
 segunda: `
+<div class="planner">
+
 <h2>🌷 Segunda-feira</h2>
-<p>Em construção...</p>
+
+<div class="task">
+<label>
+<input type="checkbox">
+<span>Acordar</span>
+</label>
+</div>
+
+<div class="task">
+<label>
+<input type="checkbox">
+<span>Higiene pessoal</span>
+</label>
+</div>
+
+<div class="task">
+<label>
+<input type="checkbox">
+<span>Café da manhã</span>
+</label>
+</div>
+
+<div class="task">
+<label>
+<input type="checkbox">
+<span>Arrumar a cama</span>
+</label>
+</div>
+
+<div class="task">
+<label>
+<input type="checkbox">
+<span>Meditar na Palavra</span>
+</label>
+</div>
+
+<div class="task">
+<label>
+<input type="checkbox">
+<span>Treino</span>
+</label>
+</div>
+
+<div class="task">
+<label>
+<input type="checkbox">
+<span>Banho</span>
+</label>
+</div>
+
+<div class="task">
+<label>
+<input type="checkbox">
+<span>Trabalho</span>
+</label>
+</div>
+
+<div class="task">
+<label>
+<input type="checkbox">
+<span>Jantar</span>
+</label>
+</div>
+
+<div class="task">
+<label>
+<input type="checkbox">
+<span>Tempo livre</span>
+</label>
+</div>
+
+</div>
 `,
 
 terca: `
