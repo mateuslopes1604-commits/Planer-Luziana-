@@ -5,8 +5,7 @@
 
 <meta charset="UTF-8">
 
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Planner Semanal da Luziana</title>
 
@@ -21,6 +20,7 @@ content="width=device-width, initial-scale=1.0">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@700&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
 
 <style>
+
 :root{
 
 --rose:#c9797f;
@@ -159,56 +159,117 @@ margin:35px auto;
 padding:20px;
 
 }
+
 </style>
 
 </head>
 
+<body>
+
 <header class="topbar">
 
-    <div class="logo">
-        <h1>Planner Semanal da Luziana</h1>
-        <span>Organize sua semana com leveza 🌷</span>
-    </div>
+<div class="logo">
 
-    <button id="installBtn" class="install-btn">
-        Instalar App
-    </button>
+<h1>Planner Semanal da Luziana</h1>
+
+<span>Organize sua semana com leveza 🌷</span>
+
+</div>
+
+<button id="installBtn" class="install-btn">
+
+Instalar App
+
+</button>
 
 </header>
 
 <nav class="days-nav">
 
-    <button class="day active" data-day="segunda">Segunda</button>
+<button class="day active" data-day="segunda">Segunda</button>
 
-    <button class="day" data-day="terca">Terça</button>
+<button class="day" data-day="terca">Terça</button>
 
-    <button class="day" data-day="quarta">Quarta</button>
+<button class="day" data-day="quarta">Quarta</button>
 
-    <button class="day" data-day="quinta">Quinta</button>
+<button class="day" data-day="quinta">Quinta</button>
 
-    <button class="day" data-day="sexta">Sexta</button>
+<button class="day" data-day="sexta">Sexta</button>
 
-    <button class="day" data-day="historico">Histórico</button>
+<button class="day" data-day="historico">Histórico</button>
 
 </nav>
 
 <main id="app">
 
 </main>
-<header>
-
-<h1>
-Planner Semanal da Luziana
-</h1>
-
-</header>
-
-<main>
-
-</main>
 
 <script>
+<script>
 
+const paginas = {
+
+segunda: `
+<h2>🌷 Segunda-feira</h2>
+<p>Em construção...</p>
+`,
+
+terca: `
+<h2>🌷 Terça-feira</h2>
+<p>Em construção...</p>
+`,
+
+quarta: `
+<h2>🌷 Quarta-feira</h2>
+<p>Em construção...</p>
+`,
+
+quinta: `
+<h2>🌷 Quinta-feira</h2>
+<p>Em construção...</p>
+`,
+
+sexta: `
+<h2>🌷 Sexta-feira</h2>
+<p>Em construção...</p>
+`,
+
+historico: `
+<h2>📚 Histórico</h2>
+<p>Em construção...</p>
+`
+
+};
+
+const app = document.getElementById("app");
+
+function abrirPagina(nome){
+
+    app.innerHTML = paginas[nome];
+
+    document.querySelectorAll(".day").forEach(botao=>{
+
+        botao.classList.remove("active");
+
+    });
+
+    document.querySelector(`[data-day="${nome}"]`).classList.add("active");
+
+}
+
+document.querySelectorAll(".day").forEach(botao=>{
+
+    botao.addEventListener("click",()=>{
+
+        abrirPagina(botao.dataset.day);
+
+    });
+
+});
+
+abrirPagina("segunda");
+
+</script>
 </script>
 
 </body>
