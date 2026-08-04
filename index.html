@@ -195,6 +195,27 @@ padding:20px;
 
 }
 
+  .planner{
+
+background:white;
+
+padding:25px;
+
+border-radius:20px;
+
+box-shadow:0 10px 30px rgba(0,0,0,.08);
+
+}
+
+.cover-img{
+
+display:block;
+
+width:100%;
+
+border-radius:18px;
+
+}
 </style>
 
 </head>
@@ -220,7 +241,9 @@ Instalar App
 </header>
 
 <nav class="days-nav">
-
+  
+<button class="day active" data-day="capa">Capa</button>
+  
 <button class="day active" data-day="segunda">Segunda</button>
 
 <button class="day" data-day="terca">Terça</button>
@@ -243,6 +266,14 @@ Instalar App
 
 <script>
 const paginas = {
+
+ capa: `
+<div class="cover">
+
+    <img src="assets/cover.png" class="cover-img">
+
+</div>
+`, 
   segunda: `
     <div class="planner">
       <h2>🌷 Segunda-feira</h2>
@@ -282,7 +313,7 @@ document.querySelectorAll(".day").forEach(botao => {
   });
 });
 
-abrirPagina("segunda");
+abrirPagina("capa");
 </script>
 
 function abrirPagina(nome){
