@@ -165,7 +165,7 @@ padding:20px;
 </head>
 
 <body>
-
+<main id="app"></main>
 <header class="topbar">
 
 <div class="logo">
@@ -204,7 +204,6 @@ Instalar App
 
 </main>
 
-<script>
 <script>
 
 const paginas = {
@@ -253,8 +252,11 @@ function abrirPagina(nome){
 
     });
 
-    document.querySelector(`[data-day="${nome}"]`).classList.add("active");
+   const botao = document.querySelector(`[data-day="${nome}"]`);
 
+if (botao) {
+    botao.classList.add("active");
+}
 }
 
 document.querySelectorAll(".day").forEach(botao=>{
@@ -269,7 +271,6 @@ document.querySelectorAll(".day").forEach(botao=>{
 
 abrirPagina("segunda");
 
-</script>
 </script>
 
 </body>
