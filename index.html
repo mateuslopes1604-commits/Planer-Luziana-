@@ -20,7 +20,42 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@700&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
 
 <style>
+.planner{
+background:white;
+padding:30px;
+border-radius:20px;
+box-shadow:0 8px 25px rgba(0,0,0,.08);
+}
 
+.planner h2{
+color:var(--wine);
+margin-bottom:25px;
+font-family:"Cormorant Garamond",serif;
+font-size:34px;
+}
+
+.task{
+padding:14px 0;
+border-bottom:1px solid var(--line);
+}
+
+.task:last-child{
+border-bottom:none;
+}
+
+.task label{
+display:flex;
+align-items:center;
+gap:15px;
+cursor:pointer;
+font-size:17px;
+}
+
+.task input{
+width:22px;
+height:22px;
+accent-color:var(--rose);
+}
 :root{
 
 --rose:#c9797f;
@@ -161,42 +196,7 @@ padding:20px;
 }
 
 </style>
-.planner{
-background:white;
-padding:30px;
-border-radius:20px;
-box-shadow:0 8px 25px rgba(0,0,0,.08);
-}
 
-.planner h2{
-color:var(--wine);
-margin-bottom:25px;
-font-family:"Cormorant Garamond",serif;
-font-size:34px;
-}
-
-.task{
-padding:14px 0;
-border-bottom:1px solid var(--line);
-}
-
-.task:last-child{
-border-bottom:none;
-}
-
-.task label{
-display:flex;
-align-items:center;
-gap:15px;
-cursor:pointer;
-font-size:17px;
-}
-
-.task input{
-width:22px;
-height:22px;
-accent-color:var(--rose);
-}
 </head>
 
 <body>
@@ -242,7 +242,7 @@ Instalar App
 <script>
 
 const paginas = {
-
+'
 segunda: `
 <div class="planner">
 
