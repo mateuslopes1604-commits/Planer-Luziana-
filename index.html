@@ -316,37 +316,6 @@ document.querySelectorAll(".day").forEach(botao => {
 abrirPagina("capa");
 </script>
 
-function abrirPagina(nome){
-
-    app.innerHTML = paginas[nome];
-
-    document.querySelectorAll(".day").forEach(botao=>{
-
-        botao.classList.remove("active");
-
-    });
-
-   const botao = document.querySelector(`[data-day="${nome}"]`);
-
-if (botao) {
-    botao.classList.add("active");
-}
-}
-
-document.querySelectorAll(".day").forEach(botao=>{
-
-    botao.addEventListener("click",()=>{
-
-        abrirPagina(botao.dataset.day);
-
-    });
-
-});
-
-abrirPagina("segunda");
-
-</script>
-
 </body>
 
 </html>
