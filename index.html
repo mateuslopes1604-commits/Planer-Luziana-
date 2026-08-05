@@ -4,7 +4,6 @@
 <head>
 
 <meta charset="UTF-8">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Planner Semanal da Luziana</title>
@@ -20,51 +19,13 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@700&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
 
 <style>
-.planner{
-background:white;
-padding:30px;
-border-radius:20px;
-box-shadow:0 8px 25px rgba(0,0,0,.08);
-}
 
-.planner h2{
-color:var(--wine);
-margin-bottom:25px;
-font-family:"Cormorant Garamond",serif;
-font-size:34px;
-}
-
-.task{
-padding:14px 0;
-border-bottom:1px solid var(--line);
-}
-
-.task:last-child{
-border-bottom:none;
-}
-
-.task label{
-display:flex;
-align-items:center;
-gap:15px;
-cursor:pointer;
-font-size:17px;
-}
-
-.task input{
-width:22px;
-height:22px;
-accent-color:var(--rose);
-}
 :root{
-
 --rose:#c9797f;
 --wine:#7d3039;
 --cream:#fbf5ef;
---gold:#c28b36;
 --white:#ffffff;
 --line:#ead9d1;
-
 }
 
 *{
@@ -74,186 +35,113 @@ box-sizing:border-box;
 }
 
 body{
-
 background:var(--cream);
-
 font-family:Montserrat,sans-serif;
-
 color:#493338;
-
 }
 
 .topbar{
-
-padding:25px;
-
-background:white;
-
+background:#fff;
+padding:25px 35px;
 display:flex;
-
 justify-content:space-between;
-
 align-items:center;
-
 box-shadow:0 4px 20px rgba(0,0,0,.05);
-
 }
 
 .logo h1{
-
 font-family:"Cormorant Garamond",serif;
-
-font-size:38px;
-
+font-size:42px;
 color:var(--wine);
-
 }
 
 .logo span{
-
 display:block;
-
-margin-top:5px;
-
+margin-top:6px;
 color:#9d7075;
-
-font-size:14px;
-
 }
 
 .install-btn{
-
 background:var(--rose);
-
-color:white;
-
+color:#fff;
 border:none;
-
 padding:12px 22px;
-
 border-radius:30px;
-
-cursor:pointer;
-
 font-weight:600;
-
+cursor:pointer;
 }
 
 .days-nav{
-
+background:#fff;
 display:flex;
-
-gap:10px;
-
-padding:20px;
-
 justify-content:center;
-
-flex-wrap:wrap;
-
-background:white;
-
+gap:12px;
+padding:18px;
 border-bottom:1px solid var(--line);
-
 }
 
 .day{
-
-padding:10px 18px;
-
-border-radius:25px;
-
+padding:10px 20px;
+border-radius:30px;
 border:1px solid #e7cfc7;
-
-background:white;
-
+background:#fff;
 cursor:pointer;
-
 font-weight:600;
-
 transition:.25s;
-
 }
 
 .day.active{
-
 background:var(--rose);
-
-color:white;
-
+color:#fff;
 border-color:var(--rose);
-
 }
 
 #app{
-
 max-width:1000px;
-
-margin:35px auto;
-
+margin:40px auto;
 padding:20px;
-
 }
 
-  .planner{
-
+.cover{
 background:white;
-
 padding:25px;
-
 border-radius:20px;
-
 box-shadow:0 10px 30px rgba(0,0,0,.08);
-
 }
 
-.cover-img{
-
-display:block;
-
+.cover img{
 width:100%;
-
-border-radius:18px;
-
+display:block;
+border-radius:16px;
 }
+
 </style>
 
 </head>
 
 <body>
-<main id="app"></main>
+
 <header class="topbar">
 
 <div class="logo">
-
 <h1>Planner Semanal da Luziana</h1>
-
 <span>Organize sua semana com leveza 🌷</span>
-
 </div>
 
-<button id="installBtn" class="install-btn">
-
+<button class="install-btn" id="installBtn">
 Instalar App
-
 </button>
 
 </header>
 
 <nav class="days-nav">
-  
+
 <button class="day active" data-day="capa">Capa</button>
-  
-<button class="day active" data-day="segunda">Segunda</button>
-
+<button class="day" data-day="segunda">Segunda</button>
 <button class="day" data-day="terca">Terça</button>
-
 <button class="day" data-day="quarta">Quarta</button>
-
 <button class="day" data-day="quinta">Quinta</button>
-
 <button class="day" data-day="sexta">Sexta</button>
-
 <button class="day" data-day="historico">Histórico</button>
 
 </nav>
@@ -261,59 +149,101 @@ Instalar App
 <main id="app">
 
 </main>
-
 <script>
 
-<script>
 const paginas = {
 
- capa: `
+capa: `
 <div class="cover">
+<img src="assets/cover.png" alt="Capa do Planner">
+</div>
+`,
 
-    <img src="assets/cover.png" class="cover-img">
+segunda: `
+<div class="planner">
+
+<h2>🌷 Segunda-feira</h2>
+
+<label><input type="checkbox"> Acordar</label><br><br>
+
+<label><input type="checkbox"> Higiene pessoal</label><br><br>
+
+<label><input type="checkbox"> Café da manhã</label><br><br>
+
+<label><input type="checkbox"> Arrumar a cama</label><br><br>
+
+<label><input type="checkbox"> Meditar na Palavra</label><br><br>
+
+<label><input type="checkbox"> Treino</label><br><br>
+
+<label><input type="checkbox"> Banho</label><br><br>
+
+<label><input type="checkbox"> Trabalho</label><br><br>
+
+<label><input type="checkbox"> Jantar</label><br><br>
+
+<label><input type="checkbox"> Tempo livre</label>
 
 </div>
-`, 
-  segunda: `
-    <div class="planner">
-      <h2>🌷 Segunda-feira</h2>
-      <div class="task">
-        <label>
-          <input type="checkbox">
-          <span>Acordar</span>
-        </label>
-      </div>
-    </div>
-  `,
-  terca: `<h2>🌷 Terça-feira</h2>`,
-  quarta: `<h2>🌷 Quarta-feira</h2>`,
-  quinta: `<h2>🌷 Quinta-feira</h2>`,
-  sexta: `<h2>🌷 Sexta-feira</h2>`,
-  historico: `<h2>📚 Histórico</h2>`
+`,
+
+terca: `
+<h2>🌷 Terça-feira</h2>
+<p>Em construção...</p>
+`,
+
+quarta: `
+<h2>🌷 Quarta-feira</h2>
+<p>Em construção...</p>
+`,
+
+quinta: `
+<h2>🌷 Quinta-feira</h2>
+<p>Em construção...</p>
+`,
+
+sexta: `
+<h2>🌷 Sexta-feira</h2>
+<p>Em construção...</p>
+`,
+
+historico: `
+<h2>📚 Histórico</h2>
+<p>Em construção...</p>
+`
+
 };
 
 const app = document.getElementById("app");
 
-function abrirPagina(nome) {
-  app.innerHTML = paginas[nome];
+function abrirPagina(nome){
 
-  document.querySelectorAll(".day").forEach(botao => {
-    botao.classList.remove("active");
-  });
+app.innerHTML = paginas[nome];
 
-  const botao = document.querySelector(`[data-day="${nome}"]`);
-  if (botao) {
-    botao.classList.add("active");
-  }
+document.querySelectorAll(".day").forEach(botao=>{
+botao.classList.remove("active");
+});
+
+const ativo = document.querySelector(`[data-day="${nome}"]`);
+
+if(ativo){
+ativo.classList.add("active");
 }
 
-document.querySelectorAll(".day").forEach(botao => {
-  botao.addEventListener("click", () => {
-    abrirPagina(botao.dataset.day);
-  });
+}
+
+document.querySelectorAll(".day").forEach(botao=>{
+
+botao.addEventListener("click",()=>{
+
+abrirPagina(botao.dataset.day);
+
+});
+
 });
 
 abrirPagina("capa");
+
 </script>
 
 </body>
