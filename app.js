@@ -158,4 +158,12 @@ texto.textContent=porcentagem+"% concluído";
 
 }
 
+}const estado=[];
+
+checks.forEach(check=>{
+
+estado.push(check.checked);
+
 });
+
+localStorage.setItem("segunda", JSON.stringify(estado));
