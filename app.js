@@ -1,3 +1,51 @@
+const tarefas = {
+
+capa: [],
+
+segunda: [
+"Acordar",
+"Higiene pessoal",
+"Café da manhã",
+"Arrumar a cama",
+"Meditar na Palavra",
+"Treino",
+"Banho",
+"Trabalho",
+"Jantar",
+"Tempo livre"
+],
+
+terca: [],
+
+quarta: [],
+
+quinta: [],
+
+sexta: [],
+
+historico: []
+
+};
+function criarListaTarefas(dia){
+
+let html="";
+
+tarefas[dia].forEach(tarefa=>{
+
+html+=`
+<div class="task">
+<label>
+<input type="checkbox">
+<span>${tarefa}</span>
+</label>
+</div>
+`;
+
+});
+
+return html;
+
+}
 <script>
 
 const paginas = {
@@ -8,7 +56,6 @@ capa: `
 </div>
 `,
 
-segunda: `
 segunda: `
 <div class="planner">
 
@@ -22,49 +69,10 @@ segunda: `
 <div class="progress-bar"></div>
 </div>
 
-<div class="task">
-<label><input type="checkbox"><span>Acordar</span></label>
-</div>
-
-<div class="task">
-<label><input type="checkbox"><span>Higiene pessoal</span></label>
-</div>
-
-<div class="task">
-<label><input type="checkbox"><span>Café da manhã</span></label>
-</div>
-
-<div class="task">
-<label><input type="checkbox"><span>Arrumar a cama</span></label>
-</div>
-
-<div class="task">
-<label><input type="checkbox"><span>Meditar na Palavra</span></label>
-</div>
-
-<div class="task">
-<label><input type="checkbox"><span>Treino</span></label>
-</div>
-
-<div class="task">
-<label><input type="checkbox"><span>Banho</span></label>
-</div>
-
-<div class="task">
-<label><input type="checkbox"><span>Trabalho</span></label>
-</div>
-
-<div class="task">
-<label><input type="checkbox"><span>Jantar</span></label>
-</div>
-
-<div class="task">
-<label><input type="checkbox"><span>Tempo livre</span></label>
-</div>
+${criarListaTarefas("segunda")}
 
 </div>
 `,
-
 terca: `
 <h2>🌷 Terça-feira</h2>
 <p>Em construção...</p>
