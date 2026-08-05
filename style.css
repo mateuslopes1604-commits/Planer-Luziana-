@@ -1,1 +1,210 @@
+<style>
 
+:root{
+--rose:#c9797f;
+--wine:#7d3039;
+--cream:#fbf5ef;
+--white:#ffffff;
+--line:#ead9d1;
+}
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+background:var(--cream);
+font-family:Montserrat,sans-serif;
+color:#493338;
+}
+
+.topbar{
+background:#fff;
+padding:25px 35px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+box-shadow:0 4px 20px rgba(0,0,0,.05);
+}
+
+.logo h1{
+font-family:"Cormorant Garamond",serif;
+font-size:42px;
+color:var(--wine);
+}
+
+.logo span{
+display:block;
+margin-top:6px;
+color:#9d7075;
+}
+
+.install-btn{
+background:var(--rose);
+color:#fff;
+border:none;
+padding:12px 22px;
+border-radius:30px;
+font-weight:600;
+cursor:pointer;
+}
+
+.days-nav{
+background:#fff;
+display:flex;
+justify-content:center;
+gap:12px;
+padding:18px;
+border-bottom:1px solid var(--line);
+}
+
+.day{
+padding:10px 20px;
+border-radius:30px;
+border:1px solid #e7cfc7;
+background:#fff;
+cursor:pointer;
+font-weight:600;
+transition:.25s;
+}
+
+.day.active{
+background:var(--rose);
+color:#fff;
+border-color:var(--rose);
+}
+
+#app{
+max-width:1000px;
+margin:40px auto;
+padding:20px;
+}
+
+.cover{
+background:white;
+padding:25px;
+border-radius:20px;
+box-shadow:0 10px 30px rgba(0,0,0,.08);
+}
+
+.cover img{
+width:100%;
+display:block;
+border-radius:16px;
+}
+.planner{
+
+background:white;
+
+border-radius:20px;
+
+padding:30px;
+
+box-shadow:0 10px 30px rgba(0,0,0,.08);
+
+}
+
+.planner h2{
+
+font-family:"Cormorant Garamond",serif;
+
+font-size:40px;
+
+color:var(--wine);
+
+margin-bottom:25px;
+
+text-align:center;
+
+}
+
+.task{
+
+display:flex;
+
+align-items:center;
+
+padding:14px 16px;
+
+margin-bottom:12px;
+
+border-radius:14px;
+
+border:1px solid #ead9d1;
+
+transition:.25s;
+
+background:#fffdfc;
+
+}
+
+.task:hover{
+
+background:#fff3f4;
+
+}
+
+.task input{
+
+width:22px;
+
+height:22px;
+
+margin-right:16px;
+
+cursor:pointer;
+
+accent-color:#c9797f;
+
+}
+
+.task span{
+
+font-size:17px;
+
+font-weight:500;
+
+}
+
+.progress{
+
+height:14px;
+
+background:#ead9d1;
+
+border-radius:30px;
+
+overflow:hidden;
+
+margin:25px 0;
+
+}
+
+.progress-bar{
+
+height:100%;
+
+width:0%;
+
+background:#c9797f;
+
+transition:.4s;
+
+border-radius:30px;
+
+}
+
+.percent{
+
+text-align:center;
+
+font-weight:bold;
+
+color:#7d3039;
+
+margin-bottom:15px;
+
+}
+</style>
