@@ -114,7 +114,119 @@ width:100%;
 display:block;
 border-radius:16px;
 }
+.planner{
 
+background:white;
+
+border-radius:20px;
+
+padding:30px;
+
+box-shadow:0 10px 30px rgba(0,0,0,.08);
+
+}
+
+.planner h2{
+
+font-family:"Cormorant Garamond",serif;
+
+font-size:40px;
+
+color:var(--wine);
+
+margin-bottom:25px;
+
+text-align:center;
+
+}
+
+.task{
+
+display:flex;
+
+align-items:center;
+
+padding:14px 16px;
+
+margin-bottom:12px;
+
+border-radius:14px;
+
+border:1px solid #ead9d1;
+
+transition:.25s;
+
+background:#fffdfc;
+
+}
+
+.task:hover{
+
+background:#fff3f4;
+
+}
+
+.task input{
+
+width:22px;
+
+height:22px;
+
+margin-right:16px;
+
+cursor:pointer;
+
+accent-color:#c9797f;
+
+}
+
+.task span{
+
+font-size:17px;
+
+font-weight:500;
+
+}
+
+.progress{
+
+height:14px;
+
+background:#ead9d1;
+
+border-radius:30px;
+
+overflow:hidden;
+
+margin:25px 0;
+
+}
+
+.progress-bar{
+
+height:100%;
+
+width:0%;
+
+background:#c9797f;
+
+transition:.4s;
+
+border-radius:30px;
+
+}
+
+.percent{
+
+text-align:center;
+
+font-weight:bold;
+
+color:#7d3039;
+
+margin-bottom:15px;
+
+}
 </style>
 
 </head>
@@ -160,29 +272,58 @@ capa: `
 `,
 
 segunda: `
+segunda: `
 <div class="planner">
 
 <h2>🌷 Segunda-feira</h2>
 
-<label><input type="checkbox"> Acordar</label><br><br>
+<div class="percent">
+0% concluído
+</div>
 
-<label><input type="checkbox"> Higiene pessoal</label><br><br>
+<div class="progress">
+<div class="progress-bar"></div>
+</div>
 
-<label><input type="checkbox"> Café da manhã</label><br><br>
+<div class="task">
+<label><input type="checkbox"><span>Acordar</span></label>
+</div>
 
-<label><input type="checkbox"> Arrumar a cama</label><br><br>
+<div class="task">
+<label><input type="checkbox"><span>Higiene pessoal</span></label>
+</div>
 
-<label><input type="checkbox"> Meditar na Palavra</label><br><br>
+<div class="task">
+<label><input type="checkbox"><span>Café da manhã</span></label>
+</div>
 
-<label><input type="checkbox"> Treino</label><br><br>
+<div class="task">
+<label><input type="checkbox"><span>Arrumar a cama</span></label>
+</div>
 
-<label><input type="checkbox"> Banho</label><br><br>
+<div class="task">
+<label><input type="checkbox"><span>Meditar na Palavra</span></label>
+</div>
 
-<label><input type="checkbox"> Trabalho</label><br><br>
+<div class="task">
+<label><input type="checkbox"><span>Treino</span></label>
+</div>
 
-<label><input type="checkbox"> Jantar</label><br><br>
+<div class="task">
+<label><input type="checkbox"><span>Banho</span></label>
+</div>
 
-<label><input type="checkbox"> Tempo livre</label>
+<div class="task">
+<label><input type="checkbox"><span>Trabalho</span></label>
+</div>
+
+<div class="task">
+<label><input type="checkbox"><span>Jantar</span></label>
+</div>
+
+<div class="task">
+<label><input type="checkbox"><span>Tempo livre</span></label>
+</div>
 
 </div>
 `,
