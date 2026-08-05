@@ -46,7 +46,6 @@ html+=`
 return html;
 
 }
-<script>
 
 const paginas = {
 
@@ -130,4 +129,3 @@ abrirPagina(botao.dataset.day);
 
 abrirPagina("capa");
 console.log("INDEX NOVO CARREGADO");
-</script>
