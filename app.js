@@ -160,34 +160,24 @@ texto.textContent=porcentagem+"% concluído";
 
 document.addEventListener("change", function(e){
 
-if(e.target.type==="checkbox"){
+    if(e.target.type==="checkbox"){
 
-const checks=document.querySelectorAll(".task input");
+        const checks=document.querySelectorAll(".task input");
+        const marcados=document.querySelectorAll(".task input:checked");
 
-const marcados=document.querySelectorAll(".task input:checked");
+        const porcentagem=Math.round((marcados.length/checks.length)*100);
 
-const porcentagem=Math.round((marcados.length/checks.length)*100);
+        const barra=document.querySelector(".progress-bar");
+        const texto=document.querySelector(".percent");
 
-const barra=document.querySelector(".progress-bar");
+        if(barra){
+            barra.style.width=porcentagem+"%";
+        }
 
-const texto=document.querySelector(".percent");
+        if(texto){
+            texto.textContent=porcentagem+"% concluído";
+        }
 
-if(barra){
-barra.style.width=porcentagem+"%";
-}
-
-if(texto){
-texto.textContent=porcentagem+"% concluído";
-}
-
-const estado=[];
-
-checks.forEach(check=>{
-estado.push(check.checked);
-});
-
-localStorage.setItem("segunda", JSON.stringify(estado));
-
-}
+    }
 
 });
