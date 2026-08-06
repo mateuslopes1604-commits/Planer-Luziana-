@@ -102,9 +102,39 @@ historico: `
 const app = document.getElementById("app");
 
 function abrirPagina(nome){
-
+paginaAtual = nome;
 app.innerHTML = paginas[nome];
 
+const dados = JSON.parse(localStorage.getItem(nome));
+
+if (dados) {
+
+    const checks = document.querySelectorAll(".task input");
+
+    checks.forEach((check, i) => {
+
+        check.checked = dados[i];
+
+    });
+
+}
+const checks = document.querySelectorAll(".task input");
+const marcados = document.querySelectorAll(".task input:checked");
+
+const porcentagem = checks.length
+    ? Math.round((marcados.length / checks.length) * 100)
+    : 0;
+
+const barra = document.querySelector(".progress-bar");
+const texto = document.querySelector(".percent");
+
+if (barra) {
+    barra.style.width = porcentagem + "%";
+}
+
+if (texto) {
+    texto.textContent = porcentagem + "% concluído";
+}    
 document.querySelectorAll(".day").forEach(botao=>{
 botao.classList.remove("active");
 });
@@ -129,7 +159,7 @@ abrirPagina(botao.dataset.day);
 
 abrirPagina("capa");
 console.log("INDEX NOVO CARREGADO");
-
+let paginaAtual = "capa";
 document.addEventListener("change", function(e){
 
     if(e.target.type !== "checkbox") return;
@@ -153,7 +183,7 @@ document.addEventListener("change", function(e){
     }
 
     const estado = Array.from(checks).map(check => check.checked);
-    localStorage.setItem("segunda", JSON.stringify(estado));
-    alert(localStorage.getItem("segunda"));
+   localStorage.setItem(paginaAtual, JSON.stringify(estado));
+
 
 });
