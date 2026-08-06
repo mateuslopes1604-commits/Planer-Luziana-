@@ -154,5 +154,6 @@ document.addEventListener("change", function(e){
 
     const estado = Array.from(checks).map(check => check.checked);
     localStorage.setItem("segunda", JSON.stringify(estado));
+    alert(localStorage.getItem("segunda"));
 
 });
