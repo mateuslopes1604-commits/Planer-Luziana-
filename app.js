@@ -152,4 +152,7 @@ document.addEventListener("change", function(e){
         texto.textContent = porcentagem + "% concluído";
     }
 
+    const estado = Array.from(checks).map(check => check.checked);
+    localStorage.setItem("segunda", JSON.stringify(estado));
+
 });
