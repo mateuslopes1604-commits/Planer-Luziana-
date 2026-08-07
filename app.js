@@ -1,176 +1,142 @@
-const tarefas = {
+// ===============================
+// PLANNER DA LUZIANA
+// PARTE 1
+// ===============================
 
-capa: [],
-
-segunda: [
-"Acordar",
-"Higiene pessoal",
-"Café da manhã",
-"Arrumar a cama",
-"Meditar na Palavra",
-"Treino",
-"Banho",
-"Trabalho",
-"Jantar",
-"Tempo livre"
-],
-
-terca: [],
-
-quarta: [],
-
-quinta: [],
-
-sexta: [],
-
-historico: []
-
-};
-function criarListaTarefas(dia){
-
-let html="";
-
-tarefas[dia].forEach(tarefa=>{
-
-html+=`
-<div class="task">
-<label>
-<input type="checkbox">
-<span>${tarefa}</span>
-</label>
-</div>
-`;
-
-});
-
-return html;
-
-}
-
-const paginas = {
-
-capa: `
-<div class="cover">
-<img src="assets/cover.png" alt="Capa do Planner">
-</div>
-`,
-
-segunda: `
-<div class="planner">
-
-<h2>🌷 Segunda-feira</h2>
-
-<div class="percent">
-0% concluído
-</div>
-
-<div class="progress">
-<div class="progress-bar"></div>
-</div>
-
-${criarListaTarefas("segunda")}
-
-</div>
-`,
-terca: `
-<h2>🌷 Terça-feira</h2>
-<p>Em construção...</p>
-`,
-
-quarta: `
-<h2>🌷 Quarta-feira</h2>
-<p>Em construção...</p>
-`,
-
-quinta: `
-<h2>🌷 Quinta-feira</h2>
-<p>Em construção...</p>
-`,
-
-sexta: `
-<h2>🌷 Sexta-feira</h2>
-<p>Em construção...</p>
-`,
-
-historico: `
-<h2>📚 Histórico</h2>
-<p>Em construção...</p>
-`
-
-};
 let paginaAtual = "capa";
 
-const app = document.getElementById("app");
+const tarefas = {
 
-function abrirPagina(nome){
-paginaAtual = nome;
-app.innerHTML = paginas[nome];
+    segunda: [
+        "Acordar",
+        "Higiene pessoal",
+        "Café da manhã",
+        "Arrumar a cama",
+        "Meditar na Palavra",
+        "Treino",
+        "Banho",
+        "Trabalho",
+        "Jantar",
+        "Tempo livre"
+    ],
 
-const dados = JSON.parse(localStorage.getItem(nome));
+    terca: [],
 
-if (dados) {
+    quarta: [],
 
-    const checks = document.querySelectorAll(".task input");
+    quinta: [],
 
-    checks.forEach((check, i) => {
+    sexta: [],
 
-        check.checked = dados[i];
+    historico: []
+
+};
+
+function criarListaTarefas(dia){
+
+    if(!tarefas[dia]) return "";
+
+    let html = "";
+
+    tarefas[dia].forEach((tarefa)=>{
+
+        html += `
+        <div class="task">
+            <label>
+                <input type="checkbox">
+                <span>${tarefa}</span>
+            </label>
+        </div>
+        `;
 
     });
 
-}
-const checks = document.querySelectorAll(".task input");
-const marcados = document.querySelectorAll(".task input:checked");
-
-const porcentagem = checks.length
-    ? Math.round((marcados.length / checks.length) * 100)
-    : 0;
-
-const barra = document.querySelector(".progress-bar");
-const texto = document.querySelector(".percent");
-
-if (barra) {
-    barra.style.width = porcentagem + "%";
-}
-
-if (texto) {
-    texto.textContent = porcentagem + "% concluído";
-}    
-document.querySelectorAll(".day").forEach(botao=>{
-botao.classList.remove("active");
-});
-
-const ativo = document.querySelector(`[data-day="${nome}"]`);
-
-if(ativo){
-ativo.classList.add("active");
-}
+    return html;
 
 }
+// ===============================
+// PARTE 2
+// PÁGINAS
+// ===============================
 
-document.querySelectorAll(".day").forEach(botao=>{
+const paginas = {
 
-botao.addEventListener("click",()=>{
+    capa: `
+        <div class="cover">
+            <img src="assets/cover.png" alt="Capa do Planner">
+        </div>
+    `,
 
-abrirPagina(botao.dataset.day);
+    segunda: `
+        <div class="planner">
 
-});
+            <h2>🌷 Segunda-feira</h2>
 
-});
+            <div class="percent">
+                0% concluído
+            </div>
 
-abrirPagina("capa");
-console.log("INDEX NOVO CARREGADO");
+            <div class="progress">
+                <div class="progress-bar"></div>
+            </div>
 
-document.addEventListener("change", function(e){
+            ${criarListaTarefas("segunda")}
 
-    if(e.target.type !== "checkbox") return;
+        </div>
+    `,
+
+    terca: `
+        <div class="planner">
+            <h2>🌷 Terça-feira</h2>
+            <p>Em breve...</p>
+        </div>
+    `,
+
+    quarta: `
+        <div class="planner">
+            <h2>🌷 Quarta-feira</h2>
+            <p>Em breve...</p>
+        </div>
+    `,
+
+    quinta: `
+        <div class="planner">
+            <h2>🌷 Quinta-feira</h2>
+            <p>Em breve...</p>
+        </div>
+    `,
+
+    sexta: `
+        <div class="planner">
+            <h2>🌷 Sexta-feira</h2>
+            <p>Em breve...</p>
+        </div>
+    `,
+
+    historico: `
+        <div class="planner">
+            <h2>📚 Histórico</h2>
+            <p>Em breve...</p>
+        </div>
+    `
+
+};
+
+const app = document.getElementById("app");
+// ===============================
+// PARTE 3
+// FUNÇÕES
+// ===============================
+
+function atualizarProgresso(){
 
     const checks = document.querySelectorAll(".task input");
+
+    if(checks.length===0) return;
+
     const marcados = document.querySelectorAll(".task input:checked");
 
-    const porcentagem = checks.length
-        ? Math.round((marcados.length / checks.length) * 100)
-        : 0;
+    const porcentagem = Math.round((marcados.length/checks.length)*100);
 
     const barra = document.querySelector(".progress-bar");
     const texto = document.querySelector(".percent");
@@ -183,8 +149,78 @@ document.addEventListener("change", function(e){
         texto.textContent = porcentagem + "% concluído";
     }
 
-    const estado = Array.from(checks).map(check => check.checked);
-   localStorage.setItem(paginaAtual, JSON.stringify(estado));
+}
 
+function restaurarEstado(){
+
+    const dados = JSON.parse(localStorage.getItem(paginaAtual));
+
+    if(!dados) return;
+
+    const checks = document.querySelectorAll(".task input");
+
+    checks.forEach((check,index)=>{
+
+        check.checked = dados[index] || false;
+
+    });
+
+    atualizarProgresso();
+
+}
+
+function abrirPagina(nome){
+
+    paginaAtual = nome;
+
+    app.innerHTML = paginas[nome];
+
+    document.querySelectorAll(".day").forEach(botao=>{
+
+        botao.classList.remove("active");
+
+    });
+
+    const ativo = document.querySelector(`[data-day="${nome}"]`);
+
+    if(ativo){
+
+        ativo.classList.add("active");
+
+    }
+
+    restaurarEstado();
+
+}
+// ===============================
+// PARTE 4
+// EVENTOS E INICIALIZAÇÃO
+// ===============================
+
+document.querySelectorAll(".day").forEach(botao=>{
+
+    botao.addEventListener("click",()=>{
+
+        abrirPagina(botao.dataset.day);
+
+    });
 
 });
+
+document.addEventListener("change",function(e){
+
+    if(e.target.type!=="checkbox") return;
+
+    atualizarProgresso();
+
+    const checks=document.querySelectorAll(".task input");
+
+    const estado=Array.from(checks).map(check=>check.checked);
+
+    localStorage.setItem(paginaAtual,JSON.stringify(estado));
+
+});
+
+abrirPagina("capa");
+
+console.log("Planner carregado com sucesso.");
