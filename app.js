@@ -98,6 +98,7 @@ historico: `
 `
 
 };
+let paginaAtual = "capa";
 
 const app = document.getElementById("app");
 
@@ -159,7 +160,7 @@ abrirPagina(botao.dataset.day);
 
 abrirPagina("capa");
 console.log("INDEX NOVO CARREGADO");
-let paginaAtual = "capa";
+
 document.addEventListener("change", function(e){
 
     if(e.target.type !== "checkbox") return;
