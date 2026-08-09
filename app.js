@@ -237,14 +237,31 @@ console.log("Planner carregado com sucesso.");
 // BOTÃO ADICIONAR TAREFA
 // ===============================
 
+// ===============================
+// ADICIONAR TAREFA
+// ===============================
+
 const addTaskBtn = document.getElementById("addTaskBtn");
 
 addTaskBtn.addEventListener("click", function(){
 
+    if(paginaAtual === "capa" || paginaAtual === "historico"){
+        return;
+    }
+
     const novaTarefa = prompt("Digite a nova tarefa:");
 
-    if(!novaTarefa) return;
+    if(!novaTarefa || !novaTarefa.trim()){
+        return;
+    }
 
-    alert("Tarefa adicionada: " + novaTarefa);
+    tarefas[paginaAtual].push(novaTarefa.trim());
 
-});
+    localStorage.setItem(
+        "tarefas_" + paginaAtual,
+        JSON.stringify(tarefas[paginaAtual])
+    );
+
+    abrirPagina(paginaAtual);
+
+});});
