@@ -224,3 +224,19 @@ document.addEventListener("change",function(e){
 abrirPagina("capa");
 
 console.log("Planner carregado com sucesso.");
+
+// ===============================
+// BOTÃO ADICIONAR TAREFA
+// ===============================
+
+const addTaskBtn = document.getElementById("addTaskBtn");
+
+addTaskBtn.addEventListener("click", function(){
+
+    const novaTarefa = prompt("Digite a nova tarefa:");
+
+    if(!novaTarefa) return;
+
+    alert("Tarefa adicionada: " + novaTarefa);
+
+});
