@@ -339,7 +339,9 @@ height:65px;
 
 display:block !important;
 
-border:4px solid red;
+border:none;
+
+border-radius:50%;
 
 background:#c9797f;
 
@@ -349,12 +351,15 @@ font-size:38px;
 
 font-weight:bold;
 
-border-radius:50%;
+cursor:pointer;
 
-z-index:99999;
+box-shadow:0 10px 25px rgba(0,0,0,.25);
+
+transition:.25s;
+
+z-index:999;
 
 }
-
 #addTaskBtn:hover{
 
 transform:scale(1.08);
