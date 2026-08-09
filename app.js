@@ -266,4 +266,4 @@ addTaskBtn.addEventListener("click", function(){
 
     abrirPagina(paginaAtual);
 
-});});
+});
