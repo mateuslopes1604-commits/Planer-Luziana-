@@ -367,3 +367,31 @@ transform:scale(1.08);
 background:#b86670;
 
 }
+
+.delete-task{
+
+    margin-left:auto;
+
+    border:none;
+
+    background:transparent;
+
+    font-size:20px;
+
+    cursor:pointer;
+
+    padding:8px;
+
+    opacity:.65;
+
+    transition:.2s;
+
+}
+
+.delete-task:hover{
+
+    opacity:1;
+
+    transform:scale(1.1);
+
+}
