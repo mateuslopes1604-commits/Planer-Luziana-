@@ -44,18 +44,24 @@ function criarListaTarefas(dia){
 
     let html = "";
 
-    tarefas[dia].forEach((tarefa)=>{
+    tarefas[dia].forEach((tarefa, index)=>{
 
-        html += `
-        <div class="task">
-            <label>
-                <input type="checkbox">
-                <span>${tarefa}</span>
-            </label>
-        </div>
-        `;
+    html += `
+    <div class="task">
 
-    });
+        <label>
+            <input type="checkbox">
+            <span>${tarefa}</span>
+        </label>
+
+        <button class="delete-task" data-index="${index}">
+            🗑️
+        </button>
+
+    </div>
+    `;
+
+});
 
     return html;
 
@@ -263,6 +269,37 @@ addTaskBtn.addEventListener("click", function(){
         "tarefas_" + paginaAtual,
         JSON.stringify(tarefas[paginaAtual])
     );
+
+    abrirPagina(paginaAtual);
+
+});
+
+// ===============================
+// EXCLUIR TAREFA
+// ===============================
+
+document.addEventListener("click", function(e){
+
+    if(!e.target.classList.contains("delete-task")){
+        return;
+    }
+
+    const index = Number(e.target.dataset.index);
+
+    const confirmar = confirm("Deseja excluir esta tarefa?");
+
+    if(!confirmar){
+        return;
+    }
+
+    tarefas[paginaAtual].splice(index, 1);
+
+    localStorage.setItem(
+        "tarefas_" + paginaAtual,
+        JSON.stringify(tarefas[paginaAtual])
+    );
+
+    localStorage.removeItem(paginaAtual);
 
     abrirPagina(paginaAtual);
 
