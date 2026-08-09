@@ -174,6 +174,14 @@ function abrirPagina(nome){
     paginaAtual = nome;
 
     app.innerHTML = paginas[nome];
+    
+    const addTaskBtn = document.getElementById("addTaskBtn");
+
+if(nome === "capa" || nome === "historico"){
+    addTaskBtn.style.display = "none";
+}else{
+    addTaskBtn.style.display = "block";
+}
 
     document.querySelectorAll(".day").forEach(botao=>{
 
