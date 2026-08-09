@@ -36,6 +36,12 @@ function criarListaTarefas(dia){
 
     if(!tarefas[dia]) return "";
 
+    const tarefasSalvas = localStorage.getItem("tarefas_" + dia);
+
+    if(tarefasSalvas){
+        tarefas[dia] = JSON.parse(tarefasSalvas);
+    }
+
     let html = "";
 
     tarefas[dia].forEach((tarefa)=>{
@@ -232,10 +238,6 @@ document.addEventListener("change",function(e){
 abrirPagina("capa");
 
 console.log("Planner carregado com sucesso.");
-
-// ===============================
-// BOTÃO ADICIONAR TAREFA
-// ===============================
 
 // ===============================
 // ADICIONAR TAREFA
