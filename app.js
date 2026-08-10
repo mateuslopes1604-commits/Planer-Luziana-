@@ -49,19 +49,20 @@ function criarListaTarefas(dia){
     html += `
     <div class="task">
 
-        <label>
-            <input type="checkbox">
-            <span>${tarefa}</span>
-        </label>
+    <label>
+        <input type="checkbox">
+        <span>${tarefa}</span>
+    </label>
 
-        <button class="delete-task" data-index="${index}">
-            🗑️
-        </button>
+    <button class="edit-task" data-index="${index}">
+        ✏️
+    </button>
 
-    </div>
-    `;
+    <button class="delete-task" data-index="${index}">
+        🗑️
+    </button>
 
-});
+</div>
 
     return html;
 
