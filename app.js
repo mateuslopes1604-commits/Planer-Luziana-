@@ -328,19 +328,42 @@ addTaskBtn.addEventListener("click", function(){
         return;
     }
 
-    const novaTarefa = prompt("Digite a nova tarefa:");
+    // Pergunta o horário
+    const horario = prompt(
+        "Digite o horário da tarefa:\n\nExemplo: 14:00 – 15:00"
+    );
 
-    if(!novaTarefa || !novaTarefa.trim()){
+    if(horario === null || !horario.trim()){
         return;
     }
 
-    tarefas[paginaAtual].push(novaTarefa.trim());
+    // Pergunta o nome da tarefa
+    const nome = prompt(
+        "Digite a tarefa:"
+    );
 
+    if(nome === null || !nome.trim()){
+        return;
+    }
+
+    // Garante que a lista do dia existe
+    if(!tarefas[paginaAtual]){
+        tarefas[paginaAtual] = [];
+    }
+
+    // Adiciona a nova tarefa
+    tarefas[paginaAtual].push({
+        horario: horario.trim(),
+        nome: nome.trim()
+    });
+
+    // Salva a nova lista
     localStorage.setItem(
         "tarefas_" + paginaAtual,
         JSON.stringify(tarefas[paginaAtual])
     );
 
+    // Atualiza a tela imediatamente
     abrirPagina(paginaAtual);
 
 });
