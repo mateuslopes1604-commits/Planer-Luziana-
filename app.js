@@ -330,11 +330,13 @@ document.addEventListener("click", function(e){
 
 document.addEventListener("click", function(e){
 
-    if(!e.target.classList.contains("edit-task")){
+    const botaoEditar = e.target.closest(".edit-task");
+
+    if(!botaoEditar){
         return;
     }
 
-    const index = Number(e.target.dataset.index);
+    const index = Number(botaoEditar.dataset.index);
 
     const tarefaAtual = tarefas[paginaAtual][index];
 
@@ -343,7 +345,11 @@ document.addEventListener("click", function(e){
         tarefaAtual
     );
 
-    if(!novaTarefa || !novaTarefa.trim()){
+    if(novaTarefa === null){
+        return;
+    }
+
+    if(!novaTarefa.trim()){
         return;
     }
 
