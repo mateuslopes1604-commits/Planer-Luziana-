@@ -84,9 +84,27 @@ function criarListaTarefas(dia){
 
     const tarefasSalvas = localStorage.getItem("tarefas_" + dia);
 
-    if(tarefasSalvas){
-        tarefas[dia] = JSON.parse(tarefasSalvas);
+if(tarefasSalvas){
+
+    const dadosSalvos = JSON.parse(tarefasSalvas);
+
+    // Se ainda estiver usando o formato antigo,
+    // substitui pela nova rotina padrão
+    if(dadosSalvos.length > 0 && typeof dadosSalvos[0] === "string"){
+
+        localStorage.removeItem("tarefas_" + dia);
+
+        if(dia === "segunda"){
+            localStorage.removeItem("segunda");
+        }
+
+    }else{
+
+        tarefas[dia] = dadosSalvos;
+
     }
+
+}
 
     let html = "";
 
