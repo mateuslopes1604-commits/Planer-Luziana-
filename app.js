@@ -8,17 +8,63 @@ let paginaAtual = "capa";
 const tarefas = {
 
     segunda: [
-        "Acordar",
-        "Higiene pessoal",
-        "Café da manhã",
-        "Arrumar a cama",
-        "Meditar na Palavra",
-        "Treino",
-        "Banho",
-        "Trabalho",
-        "Jantar",
-        "Tempo livre"
-    ],
+    {
+        horario: "10:00",
+        nome: "Acordar"
+    },
+    {
+        horario: "10:00 – 10:20",
+        nome: "Higiene pessoal"
+    },
+    {
+        horario: "10:20 – 10:50",
+        nome: "☕ Café da manhã"
+    },
+    {
+        horario: "10:50 – 11:10",
+        nome: "🛏️ Arrumar a cama e organizar o quarto"
+    },
+    {
+        horario: "11:10 – 13:00",
+        nome: "🍽️ Ajudar a preparar o almoço e almoçar"
+    },
+    {
+        horario: "13:00 – 13:30",
+        nome: "🙏 Meditar na Palavra"
+    },
+    {
+        horario: "13:30 – 14:00",
+        nome: "🧹 Varrer a casa"
+    },
+    {
+        horario: "14:00 – 15:00",
+        nome: "💪 Treino"
+    },
+    {
+        horario: "15:00 – 15:30",
+        nome: "🚿 Banho"
+    },
+    {
+        horario: "15:30 – 19:00",
+        nome: "💼 Trabalho"
+    },
+    {
+        horario: "19:00 – 20:00",
+        nome: "🍽️ Jantar"
+    },
+    {
+        horario: "20:00 – 21:30",
+        nome: "💼 Trabalhar mais um pouquinho"
+    },
+    {
+        horario: "21:30 em diante",
+        nome: "📖 Tempo livre, lazer ou leitura"
+    },
+    {
+        horario: "00:00",
+        nome: "😴 Dormir"
+    }
+],
 
     terca: [],
 
@@ -51,8 +97,11 @@ function criarListaTarefas(dia){
 
             <label>
                 <input type="checkbox">
-                <span>${tarefa}</span>
-            </label>
+                <span>
+    <strong>${tarefa.horario || ""}</strong>
+    ${tarefa.nome || tarefa}
+</span>           
+</label>
 
             <button class="edit-task" data-index="${index}">
                 ✏️
