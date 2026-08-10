@@ -46,23 +46,26 @@ function criarListaTarefas(dia){
 
     tarefas[dia].forEach((tarefa, index)=>{
 
-    html += `
-    <div class="task">
+        html += `
+        <div class="task">
 
-    <label>
-        <input type="checkbox">
-        <span>${tarefa}</span>
-    </label>
+            <label>
+                <input type="checkbox">
+                <span>${tarefa}</span>
+            </label>
 
-    <button class="edit-task" data-index="${index}">
-        ✏️
-    </button>
+            <button class="edit-task" data-index="${index}">
+                ✏️
+            </button>
 
-    <button class="delete-task" data-index="${index}">
-        🗑️
-    </button>
+            <button class="delete-task" data-index="${index}">
+                🗑️
+            </button>
 
-</div>
+        </div>
+        `;
+
+    });
 
     return html;
 
