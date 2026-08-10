@@ -292,15 +292,30 @@ document.addEventListener("click", function(e){
         return;
     }
 
+    // Recupera as marcações atuais
+    const estadoSalvo = JSON.parse(
+        localStorage.getItem(paginaAtual) || "[]"
+    );
+
+    // Remove a tarefa
     tarefas[paginaAtual].splice(index, 1);
 
+    // Remove também a marcação correspondente
+    estadoSalvo.splice(index, 1);
+
+    // Salva novamente a lista de tarefas
     localStorage.setItem(
         "tarefas_" + paginaAtual,
         JSON.stringify(tarefas[paginaAtual])
     );
 
-    localStorage.removeItem(paginaAtual);
+    // Salva novamente as marcações
+    localStorage.setItem(
+        paginaAtual,
+        JSON.stringify(estadoSalvo)
+    );
 
+    // Recarrega a página mantendo tudo
     abrirPagina(paginaAtual);
 
 });
