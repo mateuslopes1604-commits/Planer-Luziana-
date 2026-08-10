@@ -323,3 +323,37 @@ document.addEventListener("click", function(e){
     abrirPagina(paginaAtual);
 
 });
+
+// ===============================
+// EDITAR TAREFA
+// ===============================
+
+document.addEventListener("click", function(e){
+
+    if(!e.target.classList.contains("edit-task")){
+        return;
+    }
+
+    const index = Number(e.target.dataset.index);
+
+    const tarefaAtual = tarefas[paginaAtual][index];
+
+    const novaTarefa = prompt(
+        "Editar tarefa:",
+        tarefaAtual
+    );
+
+    if(!novaTarefa || !novaTarefa.trim()){
+        return;
+    }
+
+    tarefas[paginaAtual][index] = novaTarefa.trim();
+
+    localStorage.setItem(
+        "tarefas_" + paginaAtual,
+        JSON.stringify(tarefas[paginaAtual])
+    );
+
+    abrirPagina(paginaAtual);
+
+});
