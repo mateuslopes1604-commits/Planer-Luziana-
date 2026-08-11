@@ -391,45 +391,43 @@ background:#b86670;
 
     transform:scale(1.1);
 
-}
 /* =========================================
-   PERSONALIZAÇÃO VISUAL - SEGUNDA-FEIRA
+   SEGUNDA-FEIRA — VISUAL FLORAL
    ========================================= */
 
 .planner-segunda {
     position: relative;
     overflow: hidden;
-    background:
-        linear-gradient(
-            135deg,
-            rgba(255, 248, 247, 0.98),
-            rgba(255, 241, 242, 0.96)
-        );
+    background: #fffaf7;
+    border: 1px solid #ead4cc;
 }
 
-/* Detalhe decorativo superior esquerdo */
+/* Moldura interna delicada */
 .planner-segunda::before {
-    content: "🌸";
+    content: "";
     position: absolute;
-    top: 18px;
-    left: 22px;
-    font-size: 55px;
-    opacity: 0.18;
+    inset: 14px;
+    border: 1px solid rgba(201, 121, 127, 0.25);
+    border-radius: 18px;
     pointer-events: none;
+    z-index: 0;
 }
 
-/* Detalhe decorativo inferior direito */
+/* Flores no canto superior esquerdo */
 .planner-segunda::after {
-    content: "🌷";
+    content: "🌸  🌷  🌿";
     position: absolute;
-    right: 25px;
-    bottom: 20px;
-    font-size: 65px;
-    opacity: 0.18;
+    top: 12px;
+    left: 18px;
+    font-size: 38px;
+    letter-spacing: 3px;
+    opacity: 0.65;
+    transform: rotate(-8deg);
     pointer-events: none;
+    z-index: 1;
 }
 
-/* Mantém o conteúdo acima da decoração */
+/* Conteúdo acima da decoração */
 .planner-segunda > * {
     position: relative;
     z-index: 2;
