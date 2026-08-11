@@ -52,24 +52,27 @@ cursor:pointer;
 }
 
 .days-nav{
-background:#fff;
-display:flex;
-justify-content:center;
-gap:12px;
-padding:18px;
-border-bottom:1px solid var(--line);
+    background:#fff;
+    display:flex;
+    justify-content:center;
+    gap:10px;
+    padding:16px 12px;
+    border-bottom:1px solid var(--line);
+    overflow-x:auto;
 }
 
 .day{
-padding:10px 20px;
-border-radius:30px;
-border:1px solid #e7cfc7;
-background:#fff;
-cursor:pointer;
-font-weight:600;
-transition:.25s;
+    padding:13px 20px;
+    border-radius:30px;
+    border:1px solid #e7cfc7;
+    background:#fff;
+    cursor:pointer;
+    font-size:16px;
+    font-weight:600;
+    transition:.25s;
+    white-space:nowrap;
+    min-height:46px;
 }
-
 .day.active{
 background:var(--rose);
 color:#fff;
