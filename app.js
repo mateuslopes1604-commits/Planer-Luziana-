@@ -150,8 +150,8 @@ const paginas = {
         </div>
     `,
 
-    segunda: `
-        <div class="planner">
+   segunda: `
+    <div class="planner planner-segunda">
 
             <h2>🌷 Segunda-feira</h2>
 
