@@ -154,15 +154,7 @@ border-radius:16px;
 }
 
 .planner-segunda .task:last-child::after{
-    content:"🌿  🌷  🌸";
-    position:absolute;
-    right:15px;
-    bottom:8px;
-    font-size:40px;
-    opacity:.55;
-    transform:rotate(8deg);
-    pointer-events:none;
-}
+
 /* Mantém o conteúdo acima da decoração */
 
 .planner > *{
