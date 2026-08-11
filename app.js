@@ -430,26 +430,51 @@ document.addEventListener("click", function(e){
 
     const tarefaAtual = tarefas[paginaAtual][index];
 
-    const novaTarefa = prompt(
-        "Editar tarefa:",
-        tarefaAtual
+    // Compatibilidade com tarefas antigas
+    const horarioAtual = tarefaAtual.horario || "";
+    const nomeAtual = tarefaAtual.nome || tarefaAtual;
+
+    // Editar horário
+    const novoHorario = prompt(
+        "Editar horário:",
+        horarioAtual
     );
 
-    if(novaTarefa === null){
+    if(novoHorario === null){
         return;
     }
 
-    if(!novaTarefa.trim()){
+    if(!novoHorario.trim()){
         return;
     }
 
-    tarefas[paginaAtual][index] = novaTarefa.trim();
+    // Editar tarefa
+    const novoNome = prompt(
+        "Editar tarefa:",
+        nomeAtual
+    );
 
+    if(novoNome === null){
+        return;
+    }
+
+    if(!novoNome.trim()){
+        return;
+    }
+
+    // Mantém a tarefa no mesmo lugar
+    tarefas[paginaAtual][index] = {
+        horario: novoHorario.trim(),
+        nome: novoNome.trim()
+    };
+
+    // Salva a alteração
     localStorage.setItem(
         "tarefas_" + paginaAtual,
         JSON.stringify(tarefas[paginaAtual])
     );
 
+    // Atualiza a tela
     abrirPagina(paginaAtual);
 
 });
