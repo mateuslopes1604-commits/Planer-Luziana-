@@ -137,18 +137,32 @@ border-radius:16px;
 }
 
 .planner-segunda::after{
-    content:"🌸  🌷  🌿";
+    content:"🌿  🌸  🌷";
     position:absolute;
-    top:12px;
-    left:18px;
-    font-size:38px;
-    letter-spacing:3px;
-    opacity:.65;
+    top:8px;
+    left:12px;
+    font-size:46px;
+    letter-spacing:2px;
+    opacity:.72;
     transform:rotate(-8deg);
     pointer-events:none;
     z-index:1;
 }
 
+.planner-segunda{
+    position:relative;
+}
+
+.planner-segunda .task:last-child::after{
+    content:"🌿  🌷  🌸";
+    position:absolute;
+    right:15px;
+    bottom:8px;
+    font-size:40px;
+    opacity:.55;
+    transform:rotate(8deg);
+    pointer-events:none;
+}
 /* Mantém o conteúdo acima da decoração */
 
 .planner > *{
