@@ -107,35 +107,23 @@ box-shadow:0 10px 30px rgba(0,0,0,.08);
 }
 
 .planner h2{
-
-font-family:"Cormorant Garamond",serif;
-
-font-size:40px;
-
-color:var(--wine);
-
-margin-bottom:25px;
-
-text-align:center;
-
+    font-size:32px;
+    text-align:center;
+    color:#7d3039;
+    margin-bottom:18px;
 }
 
+
 .task{
-
-display:flex;
-
-align-items:center;
-
-padding:14px 16px;
-
-margin-bottom:12px;
-
-border-radius:14px;
-
-border:1px solid #ead9d1;
-
-transition:.25s;
-
+    display:flex;
+    align-items:center;
+    padding:17px 20px;
+    margin:13px 0;
+    border-radius:16px;
+    background:#fcf8f7;
+    border:1px solid #ead9d1;
+    transition:.25s;
+}
 background:#fffdfc;
 
 }
@@ -147,27 +135,19 @@ background:#fff3f4;
 }
 
 .task input{
-
-width:22px;
-
-height:22px;
-
-margin-right:16px;
-
-cursor:pointer;
-
-accent-color:#c9797f;
-
+    width:24px;
+    height:24px;
+    margin-right:16px;
+    accent-color:#c9797f;
+    cursor:pointer;
+    flex-shrink:0;
 }
-
 .task span{
-
-font-size:17px;
-
-font-weight:500;
-
+    font-size:19px;
+    font-weight:500;
+    color:#5b4045;
+    line-height:1.4;
 }
-
 .progress{
 
 height:14px;
@@ -197,15 +177,11 @@ border-radius:30px;
 }
 
 .percent{
-
-text-align:center;
-
-font-weight:bold;
-
-color:#7d3039;
-
-margin-bottom:15px;
-
+    text-align:center;
+    font-size:19px;
+    font-weight:bold;
+    color:#7d3039;
+    margin-bottom:15px;
 }
 
 .planner{
@@ -396,24 +372,14 @@ background:#b86670;
 
 }
 
-.edit-task{
-
-    margin-left:auto;
-
+.edit-task,
+.delete-task{
     border:none;
-
     background:transparent;
-
-    font-size:20px;
-
+    font-size:22px;
     cursor:pointer;
-
-    padding:8px;
-
-    opacity:.65;
-
-    transition:.2s;
-
+    padding:6px;
+    margin-left:5px;
 }
 
 .edit-task:hover{
