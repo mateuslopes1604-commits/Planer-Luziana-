@@ -280,7 +280,46 @@ border-radius:16px;
     transform:scale(1.08);
     background:#b86670;
 }
+/* =========================================
+   SEGUNDA-FEIRA — DECORAÇÃO FLORAL
+   ========================================= */
 
+.planner-segunda {
+    position: relative;
+    overflow: hidden;
+
+    background-color: #fffaf7;
+
+    background-image:
+        url("assets/floral-segunda-top.png"),
+        url("assets/floral-segunda-bottom.png"),
+        url("assets/floral-segunda-left.png"),
+        url("assets/floral-segunda-right.png");
+
+    background-repeat:
+        no-repeat,
+        no-repeat,
+        no-repeat,
+        no-repeat;
+
+    background-position:
+        top left,
+        bottom right,
+        bottom left,
+        top right;
+
+    background-size:
+        190px,
+        220px,
+        150px,
+        150px;
+}
+
+/* Conteúdo fica sempre por cima da decoração */
+.planner-segunda > * {
+    position: relative;
+    z-index: 2;
+}
 
 
 
