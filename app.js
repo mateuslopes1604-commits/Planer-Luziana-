@@ -478,3 +478,4 @@ document.addEventListener("click", function(e){
     abrirPagina(paginaAtual);
 
 });
+
