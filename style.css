@@ -153,15 +153,6 @@ border-radius:16px;
     position:relative;
 }
 
-.planner-segunda .task:last-child::after{
-
-/* Mantém o conteúdo acima da decoração */
-
-.planner > *{
-    position:relative;
-    z-index:2;
-}
-
 /* =========================================
    TAREFAS
    ========================================= */
@@ -287,7 +278,6 @@ border-radius:16px;
 .planner-segunda {
     position: relative;
     overflow: hidden;
-
     background-color: #fffaf7;
 
     background-image:
@@ -313,6 +303,12 @@ border-radius:16px;
         220px,
         150px,
         150px;
+}
+
+/* Conteúdo fica sempre por cima da decoração */
+.planner-segunda > * {
+    position: relative;
+    z-index: 2;
 }
 
 /* Conteúdo fica sempre por cima da decoração */
