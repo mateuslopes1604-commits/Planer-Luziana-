@@ -269,7 +269,7 @@ border-radius:16px;
     background:#b86670;
 }
 /* =========================================
-   SEGUNDA-FEIRA — DECORAÇÃO FLORAL
+   SEGUNDA-FEIRA — DECORAÇÃO FLORAL (4 cantos)
    ========================================= */
 
 .planner-segunda {
@@ -278,41 +278,31 @@ border-radius:16px;
     background-color: #fffaf7;
 
     background-image:
-        url("assets/floral-segunda-top.png"),
-        url("assets/floral-segunda-bottom.png"),
-        url("assets/floral-segunda-left.png"),
-        url("assets/floral-segunda-right.png");
+        url("assets/flores/segunda-canto-superior-esquerdo.png"),
+        url("assets/flores/segunda-canto-superior-direito.png"),
+        url("assets/flores/segunda-canto-inferior-esquerdo.png"),
+        url("assets/flores/segunda-canto-inferior-direito.png");
 
-    background-repeat:
-        no-repeat,
-        no-repeat,
-        no-repeat,
-        no-repeat;
-
+    background-repeat: no-repeat;
     background-position:
         top left,
-        bottom right,
+        top right,
         bottom left,
-        top right;
+        bottom right;
 
     background-size:
-        190px,
-        220px,
-        150px,
-        150px;
+        180px,   /* canto sup-esq — ajusta aqui */
+        140px,   /* canto sup-dir — menor */
+        150px,   /* canto inf-esq */
+        190px;   /* canto inf-dir — fechamento */
 }
 
-/* Conteúdo fica sempre por cima da decoração */
+/* Conteúdo SEMPRE por cima das flores — sem sobrepor */
 .planner-segunda > * {
     position: relative;
     z-index: 2;
 }
 
-/* Conteúdo fica sempre por cima da decoração */
-.planner-segunda > * {
-    position: relative;
-    z-index: 2;
-}
 
 
 
