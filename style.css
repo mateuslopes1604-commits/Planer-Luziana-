@@ -162,9 +162,9 @@ border-radius:16px;
 .task{
     display:flex;
     align-items:center;
-    padding:17px 20px;
-    margin:13px 0;
-    border-radius:16px;
+    padding:19px 22px;
+    margin:14px 0;
+    border-radius:17px;
     background:#fcf8f7;
     border:1px solid #ead9d1;
     transition:.25s;
@@ -183,19 +183,18 @@ border-radius:16px;
 }
 
 .task input{
-    width:24px;
-    height:24px;
-    margin-right:16px;
+    width:28px;
+    height:28px;
+    margin-right:18px;
     accent-color:#c9797f;
     cursor:pointer;
     flex-shrink:0;
 }
-
 .task span{
-    font-size:19px;
+    font-size:20px;
     font-weight:500;
     color:#5b4045;
-    line-height:1.4;
+    line-height:1.5;
 }
 
 /* =========================================
@@ -234,10 +233,12 @@ border-radius:16px;
 .delete-task{
     border:none;
     background:transparent;
-    font-size:22px;
+    font-size:27px;
     cursor:pointer;
-    padding:6px;
-    margin-left:5px;
+    padding:8px;
+    margin-left:7px;
+    min-width:42px;
+    min-height:42px;
 }
 
 .edit-task:hover,
@@ -249,19 +250,20 @@ border-radius:16px;
 /* =========================================
    BOTÃO ADICIONAR
    ========================================= */
-
 #addTaskBtn{
     position:fixed;
     right:25px;
     bottom:25px;
-    width:65px;
-    height:65px;
-    display:block;
+    width:76px;
+    height:76px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
     border:none;
     border-radius:50%;
     background:#c9797f;
     color:white;
-    font-size:38px;
+    font-size:44px;
     font-weight:bold;
     cursor:pointer;
     box-shadow:0 10px 25px rgba(0,0,0,.25);
