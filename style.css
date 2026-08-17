@@ -85,9 +85,9 @@ cursor:pointer;
 }
 
 #app{
-max-width:1000px;
-margin:40px auto;
-padding:20px;
+    max-width:1000px;
+    margin:10px auto 40px;
+    padding:10px 20px 20px;
 }
 
 .cover{
@@ -121,10 +121,10 @@ border-radius:16px;
    ========================================= */
 
 .planner h2{
-    font-size:32px;
+    font-size:36px;
     text-align:center;
     color:#7d3039;
-    margin-bottom:18px;
+    margin-bottom:20px;
 }
 
 /* =========================================
@@ -162,9 +162,10 @@ border-radius:16px;
 .task{
     display:flex;
     align-items:center;
-    padding:19px 22px;
-    margin:14px 0;
-    border-radius:17px;
+    padding:22px 24px;
+    margin:15px 0;
+    min-height:68px;
+    border-radius:18px;
     background:#fcf8f7;
     border:1px solid #ead9d1;
     transition:.25s;
@@ -183,15 +184,15 @@ border-radius:16px;
 }
 
 .task input{
-    width:28px;
-    height:28px;
-    margin-right:18px;
+    width:30px;
+    height:30px;
+    margin-right:20px;
     accent-color:#c9797f;
     cursor:pointer;
     flex-shrink:0;
 }
 .task span{
-    font-size:20px;
+    font-size:21px;
     font-weight:500;
     color:#5b4045;
     line-height:1.5;
@@ -233,12 +234,16 @@ border-radius:16px;
 .delete-task{
     border:none;
     background:transparent;
-    font-size:27px;
+    font-size:30px;
     cursor:pointer;
     padding:8px;
-    margin-left:7px;
-    min-width:42px;
-    min-height:42px;
+    margin-left:12px;
+    min-width:48px;
+    min-height:48px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-shrink:0;
 }
 
 .edit-task:hover,
@@ -254,8 +259,8 @@ border-radius:16px;
     position:fixed;
     right:25px;
     bottom:25px;
-    width:76px;
-    height:76px;
+    width:82px;
+    height:82px;
     display:flex;
     align-items:center;
     justify-content:center;
@@ -263,7 +268,7 @@ border-radius:16px;
     border-radius:50%;
     background:#c9797f;
     color:white;
-    font-size:44px;
+    font-size:48px;
     font-weight:bold;
     cursor:pointer;
     box-shadow:0 10px 25px rgba(0,0,0,.25);
@@ -322,6 +327,54 @@ border-radius:16px;
     position: relative;
     z-index: 2;
 }
+@media (max-width:600px){
 
+    #app{
+        margin:5px auto 35px;
+        padding:5px 12px 20px;
+    }
+
+    .planner{
+        padding:30px 20px;
+        border-radius:22px;
+    }
+
+    .planner h2{
+        font-size:34px;
+        margin-bottom:18px;
+    }
+
+    .task{
+        padding:21px 18px;
+        min-height:70px;
+        margin:14px 0;
+    }
+
+    .task span{
+        font-size:21px;
+    }
+
+    .task input{
+        width:30px;
+        height:30px;
+        margin-right:18px;
+    }
+
+    .edit-task,
+    .delete-task{
+        font-size:30px;
+        min-width:48px;
+        min-height:48px;
+        padding:8px;
+    }
+
+    #addTaskBtn{
+        width:82px;
+        height:82px;
+        right:20px;
+        bottom:20px;
+        font-size:48px;
+    }
+}
 
 
