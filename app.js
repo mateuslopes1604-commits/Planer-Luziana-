@@ -478,4 +478,88 @@ document.addEventListener("click", function(e){
     abrirPagina(paginaAtual);
 
 });
+// ===============================
+// DESLIZAR PARA TROCAR DE DIA
+// ===============================
 
+const diasNavegacao = [
+    "capa",
+    "segunda",
+    "terca",
+    "quarta",
+    "quinta",
+    "sexta",
+    "historico"
+];
+
+let inicioX = 0;
+let inicioY = 0;
+
+document.addEventListener("touchstart", function(e){
+
+    if(e.touches.length !== 1){
+        return;
+    }
+
+    inicioX = e.touches[0].clientX;
+    inicioY = e.touches[0].clientY;
+
+}, {passive:true});
+
+
+document.addEventListener("touchend", function(e){
+
+    if(e.changedTouches.length !== 1){
+        return;
+    }
+
+    const fimX = e.changedTouches[0].clientX;
+    const fimY = e.changedTouches[0].clientY;
+
+    const distanciaX = fimX - inicioX;
+    const distanciaY = fimY - inicioY;
+
+    // Ignora movimentos pequenos
+    if(Math.abs(distanciaX) < 80){
+        return;
+    }
+
+    // Se o movimento vertical for maior,
+    // deixa o celular rolar normalmente
+    if(Math.abs(distanciaY) > Math.abs(distanciaX)){
+        return;
+    }
+
+    const indiceAtual = diasNavegacao.indexOf(paginaAtual);
+
+    if(indiceAtual === -1){
+        return;
+    }
+
+    // Deslizou para a esquerda → próximo dia
+    if(distanciaX < 0){
+
+        if(indiceAtual < diasNavegacao.length - 1){
+
+            abrirPagina(
+                diasNavegacao[indiceAtual + 1]
+            );
+
+        }
+
+    }
+
+    // Deslizou para a direita → dia anterior
+    if(distanciaX > 0){
+
+        if(indiceAtual > 0){
+
+            abrirPagina(
+                diasNavegacao[indiceAtual - 1]
+            );
+
+        }
+
+    }
+
+});
