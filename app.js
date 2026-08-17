@@ -495,9 +495,7 @@ const diasNavegacao = [
 let inicioX = 0;
 let inicioY = 0;
 
-const areaPlanner = document.getElementById("app");
-
-areaPlanner.addEventListener("touchstart", function(e){
+document.addEventListener("touchstart", function(e){
 
     if(e.touches.length !== 1){
         return;
@@ -509,7 +507,7 @@ areaPlanner.addEventListener("touchstart", function(e){
 }, { passive: true });
 
 
-areaPlanner.addEventListener("touchend", function(e){
+document.addEventListener("touchend", function(e){
 
     if(e.changedTouches.length !== 1){
         return;
@@ -521,14 +519,13 @@ areaPlanner.addEventListener("touchend", function(e){
     const distanciaX = fimX - inicioX;
     const distanciaY = fimY - inicioY;
 
-    // Ignora movimentos pequenos
+    // Movimento pequeno: ignora
     if(Math.abs(distanciaX) < 60){
         return;
     }
 
-    // Se o movimento foi principalmente vertical,
-    // mantém a rolagem normal
-    if(Math.abs(distanciaY) > Math.abs(distanciaX)){
+    // Movimento vertical: deixa a página rolar
+    if(Math.abs(distanciaY) >= Math.abs(distanciaX)){
         return;
     }
 
@@ -538,30 +535,35 @@ areaPlanner.addEventListener("touchend", function(e){
         return;
     }
 
-    // ESQUERDA → próximo dia
+    // Deslizou para a esquerda
     if(distanciaX < 0){
 
-        if(indiceAtual < diasNavegacao.length - 1){
+        const proximoIndice = indiceAtual + 1;
+
+        if(proximoIndice < diasNavegacao.length){
 
             abrirPagina(
-                diasNavegacao[indiceAtual + 1]
+                diasNavegacao[proximoIndice]
             );
 
         }
 
+        return;
     }
 
-    // DIREITA → dia anterior
+    // Deslizou para a direita
     if(distanciaX > 0){
 
-        if(indiceAtual > 0){
+        const indiceAnterior = indiceAtual - 1;
+
+        if(indiceAnterior >= 0){
 
             abrirPagina(
-                diasNavegacao[indiceAtual - 1]
+                diasNavegacao[indiceAnterior]
             );
 
         }
 
     }
 
-});
+}, { passive: true });
