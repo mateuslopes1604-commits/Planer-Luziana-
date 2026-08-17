@@ -269,40 +269,52 @@ border-radius:16px;
     background:#b86670;
 }
 /* =========================================
-   SEGUNDA-FEIRA — DECORAÇÃO FLORAL (4 cantos)
+   SEGUNDA-FEIRA — FLORAL
    ========================================= */
 
 .planner-segunda {
     position: relative;
     overflow: hidden;
-    background-color: #fffaf7;
-
-    background-image:
-        url("assets/flores/segunda-canto-superior-esquerdo.png"),
-        url("assets/flores/segunda-canto-superior-direito.png"),
-        url("assets/flores/segunda-canto-inferior-esquerdo.png"),
-        url("assets/flores/segunda-canto-inferior-direito.png");
-
-    background-repeat: no-repeat;
-    background-position:
-        top left,
-        top right,
-        bottom left,
-        bottom right;
-
-    background-size:
-        180px,   /* canto sup-esq — ajusta aqui */
-        140px,   /* canto sup-dir — menor */
-        150px,   /* canto inf-esq */
-        190px;   /* canto inf-dir — fechamento */
+    background: #fffaf7;
+    border: 1px solid #ead4cc;
 }
 
-/* Conteúdo SEMPRE por cima das flores — sem sobrepor */
+/* Moldura interna */
+.planner-segunda::before {
+    content: "";
+    position: absolute;
+    inset: 14px;
+    border: 1px solid rgba(201,121,127,.25);
+    border-radius: 18px;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* Flor no canto superior esquerdo */
+.planner-segunda::after {
+    content: "";
+    position: absolute;
+
+    top: 5px;
+    left: 5px;
+
+    width: 180px;
+    height: 180px;
+
+    background-image: url("flores/segunda-canto-superior-esquerdo.png");
+    background-repeat: no-repeat;
+    background-position: top left;
+    background-size: contain;
+
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* Conteúdo fica acima da decoração */
 .planner-segunda > * {
     position: relative;
     z-index: 2;
 }
-
 
 
 
