@@ -479,6 +479,76 @@ document.addEventListener("click", function(e){
 
 });
 // ===============================
+// NAVEGAÇÃO POR DESLIZE
+// ===============================
+
+const diasNavegacao = [
+    "capa",
+    "segunda",
+    "terca",
+    "quarta",
+    "quinta",
+    "sexta",
+    "historico"
+];
+
+let toqueInicialX = 0;
+let toqueInicialY = 0;
+
+document.addEventListener("touchstart", function(e) {
+
+    if (e.touches.length !== 1) return;
+
+    toqueInicialX = e.touches[0].clientX;
+    toqueInicialY = e.touches[0].clientY;
+
+}, { passive: true });
+
+
+document.addEventListener("touchend", function(e) {
+
+    if (e.changedTouches.length !== 1) return;
+
+    const toqueFinalX = e.changedTouches[0].clientX;
+    const toqueFinalY = e.changedTouches[0].clientY;
+
+    const movimentoX = toqueFinalX - toqueInicialX;
+    const movimentoY = toqueFinalY - toqueInicialY;
+
+    // Movimento pequeno: não faz nada
+    if (Math.abs(movimentoX) < 70) return;
+
+    // Movimento vertical: deixa a página rolar normalmente
+    if (Math.abs(movimentoY) >= Math.abs(movimentoX)) return;
+
+    const indice = diasNavegacao.indexOf(paginaAtual);
+
+    if (indice === -1) return;
+
+    // Esquerda → próximo
+    if (movimentoX < 0) {
+
+        if (indice < diasNavegacao.length - 1) {
+
+            abrirPagina(diasNavegacao[indice + 1]);
+
+        }
+
+    }
+
+    // Direita → anterior
+    else {
+
+        if (indice > 0) {
+
+            abrirPagina(diasNavegacao[indice - 1]);
+
+        }
+
+    }
+
+}, { passive: true });
+// ===============================
 // DESLIZAR PARA TROCAR DE DIA
 // ===============================
 
