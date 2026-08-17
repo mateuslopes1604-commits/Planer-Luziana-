@@ -495,7 +495,9 @@ const diasNavegacao = [
 let inicioX = 0;
 let inicioY = 0;
 
-document.addEventListener("touchstart", function(e){
+const areaPlanner = document.getElementById("app");
+
+areaPlanner.addEventListener("touchstart", function(e){
 
     if(e.touches.length !== 1){
         return;
@@ -504,10 +506,10 @@ document.addEventListener("touchstart", function(e){
     inicioX = e.touches[0].clientX;
     inicioY = e.touches[0].clientY;
 
-}, {passive:true});
+}, { passive: true });
 
 
-document.addEventListener("touchend", function(e){
+areaPlanner.addEventListener("touchend", function(e){
 
     if(e.changedTouches.length !== 1){
         return;
@@ -520,12 +522,12 @@ document.addEventListener("touchend", function(e){
     const distanciaY = fimY - inicioY;
 
     // Ignora movimentos pequenos
-    if(Math.abs(distanciaX) < 80){
+    if(Math.abs(distanciaX) < 60){
         return;
     }
 
-    // Se o movimento vertical for maior,
-    // deixa o celular rolar normalmente
+    // Se o movimento foi principalmente vertical,
+    // mantém a rolagem normal
     if(Math.abs(distanciaY) > Math.abs(distanciaX)){
         return;
     }
@@ -536,7 +538,7 @@ document.addEventListener("touchend", function(e){
         return;
     }
 
-    // Deslizou para a esquerda → próximo dia
+    // ESQUERDA → próximo dia
     if(distanciaX < 0){
 
         if(indiceAtual < diasNavegacao.length - 1){
@@ -549,7 +551,7 @@ document.addEventListener("touchend", function(e){
 
     }
 
-    // Deslizou para a direita → dia anterior
+    // DIREITA → dia anterior
     if(distanciaX > 0){
 
         if(indiceAtual > 0){
