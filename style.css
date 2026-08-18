@@ -290,11 +290,26 @@ border-radius:16px;
     background-color: #fffaf7;
     border: 1px solid #ead4cc;
 
-    /* Flor do canto superior direito */
-    background-image: url("flores/segunda-canto-superior-direito.png");
-    background-repeat: no-repeat;
-    background-position: right top;
-    background-size: 180px 180px;
+    /* Flores dos cantos */
+    background-image:
+        url("flores/segunda-canto-superior-direito.png"),
+        url("flores/segunda-canto-inferior-esquerdo.png"),
+        url("flores/segunda-canto-superior-esquerdo.png");
+
+    background-repeat:
+        no-repeat,
+        no-repeat,
+        no-repeat;
+
+    background-position:
+        right top,
+        left bottom,
+        left top;
+
+    background-size:
+        180px 180px,
+        210px 210px,
+        180px 180px;
 }
 
 /* Moldura interna delicada */
@@ -308,25 +323,7 @@ border-radius:16px;
     z-index: 0;
 }
 
-/* Flor do canto superior esquerdo */
-.planner-segunda::after {
-    content: "";
-    position: absolute;
-    top: 5px;
-    left: 5px;
-    width: 180px;
-    height: 180px;
-
-    background-image: url("flores/segunda-canto-superior-esquerdo.png");
-    background-repeat: no-repeat;
-    background-position: top left;
-    background-size: contain;
-
-    pointer-events: none;
-    z-index: 1;
-}
-
-/* Conteúdo fica acima das flores */
+/* Mantém todo o conteúdo acima das flores */
 .planner-segunda > * {
     position: relative;
     z-index: 2;
