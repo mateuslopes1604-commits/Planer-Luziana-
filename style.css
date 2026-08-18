@@ -281,17 +281,23 @@ border-radius:16px;
     background:#b86670;
 }
 /* =========================================
-   SEGUNDA-FEIRA — FLORAL
+   SEGUNDA-FEIRA — DECORAÇÃO FLORAL
    ========================================= */
 
 .planner-segunda {
     position: relative;
     overflow: hidden;
-    background: #fffaf7;
+    background-color: #fffaf7;
     border: 1px solid #ead4cc;
+
+    /* Flor do canto superior direito */
+    background-image: url("flores/segunda-canto-superior-direito.png");
+    background-repeat: no-repeat;
+    background-position: right top;
+    background-size: 180px 180px;
 }
 
-/* Moldura interna */
+/* Moldura interna delicada */
 .planner-segunda::before {
     content: "";
     position: absolute;
@@ -302,14 +308,12 @@ border-radius:16px;
     z-index: 0;
 }
 
-/* Flor no canto superior esquerdo */
+/* Flor do canto superior esquerdo */
 .planner-segunda::after {
     content: "";
     position: absolute;
-
     top: 5px;
     left: 5px;
-
     width: 180px;
     height: 180px;
 
@@ -322,7 +326,7 @@ border-radius:16px;
     z-index: 1;
 }
 
-/* Conteúdo fica acima da decoração */
+/* Conteúdo fica acima das flores */
 .planner-segunda > * {
     position: relative;
     z-index: 2;
