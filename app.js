@@ -169,11 +169,11 @@ const paginas = {
     `,
 
     terca: `
-        <div class="planner">
-            <h2>🌷 Terça-feira</h2>
-            <p>Em breve...</p>
-        </div>
-    `,
+    <div class="planner planner-terca">
+        <h2>🌷 Terça-feira</h2>
+        <p>Em breve...</p>
+    </div>
+`,
 
     quarta: `
         <div class="planner">
