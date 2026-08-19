@@ -480,4 +480,54 @@ border-radius:16px;
         min-height:48px;
     }
 }
+/* =========================================
+   TERÇA-FEIRA — DECORAÇÃO FLORAL
+   ========================================= */
 
+.planner-terca {
+    position: relative;
+    overflow: hidden;
+    background-color: #fffafc;
+    border: 1px solid #dfd2e5;
+
+    background-image:
+        url("flores/terca-canto-superior-esquerdo.png"),
+        url("flores/terca-canto-superior-direito.png"),
+        url("flores/terca-canto-inferior-esquerdo.png"),
+        url("flores/terca-canto-inferior-direito.png");
+
+    background-repeat:
+        no-repeat,
+        no-repeat,
+        no-repeat,
+        no-repeat;
+
+    background-position:
+        left top,
+        right top,
+        left bottom,
+        right bottom;
+
+    background-size:
+        180px 180px,
+        180px 180px,
+        210px 210px,
+        180px 180px;
+}
+
+/* Moldura interna delicada */
+.planner-terca::before {
+    content: "";
+    position: absolute;
+    inset: 14px;
+    border: 1px solid rgba(150, 120, 170, .22);
+    border-radius: 18px;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* Mantém título e tarefas acima das flores */
+.planner-terca > * {
+    position: relative;
+    z-index: 2;
+}
