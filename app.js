@@ -231,8 +231,19 @@ const paginas = {
 
     terca: `
     <div class="planner planner-terca">
+
         <h2>🌷 Terça-feira</h2>
-        <p>Em breve...</p>
+
+        <div class="percent">
+            0% concluído
+        </div>
+
+        <div class="progress">
+            <div class="progress-bar"></div>
+        </div>
+
+        ${criarListaTarefas("terca")}
+
     </div>
 `,
 
