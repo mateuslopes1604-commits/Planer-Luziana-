@@ -1,4 +1,4 @@
-7// ===============================
+// ===============================
 // PLANNER DA LUZIANA
 // PARTE 1
 // ===============================
@@ -196,7 +196,68 @@ const tarefas = {
     }
 ],
 
-    quinta: [],
+    quinta: [
+    {
+        horario: "10:00",
+        nome: "Acordar"
+    },
+    {
+        horario: "10:00 – 10:20",
+        nome: "Higiene pessoal"
+    },
+    {
+        horario: "10:20 – 10:50",
+        nome: "☕ Café da manhã"
+    },
+    {
+        horario: "10:50 – 11:10",
+        nome: "🛏️ Arrumar a cama e organizar o quarto"
+    },
+    {
+        horario: "11:10 – 13:00",
+        nome: "🍽️ Ajudar a preparar o almoço e almoçar"
+    },
+    {
+        horario: "13:00 – 13:30",
+        nome: "🙏 Meditar na Palavra"
+    },
+    {
+        horario: "13:30 – 14:00",
+        nome: "🍳 Organizar as panelas no armário"
+    },
+    {
+        horario: "14:00 – 15:00",
+        nome: "💪 Treino"
+    },
+    {
+        horario: "15:00 – 15:30",
+        nome: "🚿 Banho e lavar o cabelo"
+    },
+    {
+        horario: "15:30 – 16:15",
+        nome: "💅 Fazer as unhas"
+    },
+    {
+        horario: "16:15 – 19:00",
+        nome: "💼 Trabalho"
+    },
+    {
+        horario: "19:00 – 20:00",
+        nome: "🍽️ Jantar"
+    },
+    {
+        horario: "20:00 – 21:30",
+        nome: "💼 Trabalhar mais um pouquinho"
+    },
+    {
+        horario: "21:30 em diante",
+        nome: "🌙 Tempo livre, lazer ou leitura"
+    },
+    {
+        horario: "00:00",
+        nome: "😴 Dormir"
+    }
+],
 
     sexta: [],
 
@@ -329,13 +390,23 @@ const paginas = {
 
     </div>
 `,
-    quinta: `
-        <div class="planner">
-            <h2>🌷 Quinta-feira</h2>
-            <p>Em breve...</p>
-        </div>
-    `,
+quinta: `
+    <div class="planner planner-quinta">
 
+        <h2>🌷 Quinta-feira</h2>
+
+        <div class="percent">
+            0% concluído
+        </div>
+
+        <div class="progress">
+            <div class="progress-bar"></div>
+        </div>
+
+        ${criarListaTarefas("quinta")}
+
+    </div>
+`,
     sexta: `
         <div class="planner">
             <h2>🌷 Sexta-feira</h2>
