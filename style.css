@@ -150,7 +150,44 @@ border-radius:16px;
 }
 
 /* Mantém o conteúdo acima da decoração */
-.planner-segunda > * {
+/* =========================================
+   QUARTA-FEIRA — DECORAÇÃO FLORAL
+   ========================================= */
+
+.planner-quarta {
+    position: relative;
+    overflow: hidden;
+    background-color: #fffaf7;
+    border: 1px solid #ead4cc;
+
+    /* Flores dos quatro cantos */
+    background-image:
+        url("flores/quarta-canto-superior-esquerdo.png"),
+        url("flores/quarta-canto-superior-direito.png"),
+        url("flores/quarta-canto-inferior-esquerdo.png"),
+        url("flores/quarta-canto-inferior-direito.png");
+
+    background-repeat:
+        no-repeat,
+        no-repeat,
+        no-repeat,
+        no-repeat;
+
+    background-position:
+        left top,
+        right top,
+        left bottom,
+        right bottom;
+
+    background-size:
+        180px 180px,
+        180px 180px,
+        180px 180px,
+        180px 180px;
+}
+
+/* Mantém todo o conteúdo acima das flores */
+.planner-quarta > * {
     position: relative;
     z-index: 2;
 }
