@@ -565,3 +565,43 @@ border-radius:16px;
     position: relative;
     z-index: 2;
 }
+/* =========================================
+   QUINTA-FEIRA — DECORAÇÃO FLORAL
+   ========================================= */
+
+.planner-quinta {
+    position: relative;
+    overflow: hidden;
+    background-color: #fffaf7;
+    border: 1px solid #ead4cc;
+
+    background-image:
+        url("flores/quinta-canto-superior-esquerdo.png"),
+        url("flores/quinta-canto-superior-direito.png"),
+        url("flores/quinta-canto-inferior-esquerdo.png"),
+        url("flores/quinta-canto-inferior-direito.png");
+
+    background-repeat:
+        no-repeat,
+        no-repeat,
+        no-repeat,
+        no-repeat;
+
+    background-position:
+        left top,
+        right top,
+        left bottom,
+        right bottom;
+
+    background-size:
+        180px 180px,
+        180px 180px,
+        180px 180px,
+        180px 180px;
+}
+
+/* Mantém o conteúdo acima das flores */
+.planner-quinta > * {
+    position: relative;
+    z-index: 2;
+}
