@@ -465,8 +465,7 @@ quinta: `
     </div>
 `,
     sexta: `
-    <div class="planner planner-sexta">
-
+<div class="planner planner-sexta">
         <h2>🌷 Sexta-feira</h2>
 
         <div class="percent">
