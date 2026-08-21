@@ -604,64 +604,42 @@ border-radius:16px;
     position: relative;
     z-index: 2;
 }
-/* ================================
-   FLORES — SEXTA-FEIRA
-   ================================ */
 
-body.sexta .planner-card::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 150px;
-    height: 150px;
-    background-image: url("flores/sexta-canto-superior-esquerdo.png");
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: top left;
-    pointer-events: none;
-    z-index: 2;
+/* =========================================
+   SEXTA-FEIRA — DECORAÇÃO FLORAL
+   ========================================= */
+
+.planner-sexta {
+    position: relative;
+    overflow: hidden;
+    background-color: #fffaf7;
+
+    background-image:
+        url("flores/sexta-canto-superior-esquerdo.png"),
+        url("flores/sexta-canto-superior-direito.png"),
+        url("flores/sexta-canto-inferior-esquerdo.png"),
+        url("flores/sexta-canto-inferior-direito.png");
+
+    background-repeat:
+        no-repeat,
+        no-repeat,
+        no-repeat,
+        no-repeat;
+
+    background-position:
+        left top,
+        right top,
+        left bottom,
+        right bottom;
+
+    background-size:
+        180px 180px,
+        180px 180px,
+        210px 210px,
+        180px 180px;
 }
 
-body.sexta .planner-card::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 150px;
-    height: 150px;
-    background-image: url("flores/sexta-canto-superior-direito.png");
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: top right;
-    pointer-events: none;
-    z-index: 2;
-}
-
-body.sexta .planner-card .sexta-inferior-esquerdo {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 150px;
-    height: 150px;
-    background-image: url("flores/sexta-canto-inferior-esquerdo.png");
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: bottom left;
-    pointer-events: none;
-    z-index: 2;
-}
-
-body.sexta .planner-card .sexta-inferior-direito {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    width: 150px;
-    height: 150px;
-    background-image: url("flores/sexta-canto-inferior-direito.png");
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: bottom right;
-    pointer-events: none;
+.planner-sexta > * {
+    position: relative;
     z-index: 2;
 }
