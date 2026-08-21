@@ -613,6 +613,7 @@ border-radius:16px;
     position: relative;
     overflow: hidden;
     background-color: #fffaf7;
+    border: 1px solid #ead4cc;
 
     background-image:
         url("flores/sexta-canto-superior-esquerdo.png"),
@@ -639,6 +640,7 @@ border-radius:16px;
         180px 180px;
 }
 
+/* Mantém todo o conteúdo acima das flores */
 .planner-sexta > * {
     position: relative;
     z-index: 2;
