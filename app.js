@@ -388,10 +388,9 @@ if(tarefasSalvas){
 
 const paginas = {
 
-    capa: `
-        <div class="cover">
-            <img src="assets/cover.png" alt="Capa do Planner">
-        </div>
+    <div class="cover">
+    <img src="assets/capa-versao-nova.png" alt="Capa do Planner">
+</div>
     `,
 
    segunda: `
