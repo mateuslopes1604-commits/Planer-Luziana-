@@ -91,16 +91,18 @@ cursor:pointer;
 }
 
 .cover{
-background:white;
-padding:25px;
-border-radius:20px;
-box-shadow:0 10px 30px rgba(0,0,0,.08);
+.cover{
+    background:white;
+    padding:18px;
+    border-radius:20px;
+    box-shadow:0 10px 30px rgba(0,0,0,.08);
 }
 
 .cover img{
-width:100%;
-display:block;
-border-radius:16px;
+    width:100%;
+    height:auto;
+    display:block;
+    border-radius:16px;
 }
 /* =========================================
    PLANNER
