@@ -702,3 +702,16 @@ cursor:pointer;
     box-shadow:0 5px 14px rgba(201,121,127,.28);
     transform:translateY(-1px);
 }
+/* =========================================
+   ACABAMENTO DA ÁREA DE NAVEGAÇÃO
+   ========================================= */
+
+.days-nav{
+    box-shadow:0 4px 14px rgba(91,64,69,.06);
+    position:relative;
+    z-index:10;
+}
+
+#app{
+    margin-top:18px;
+}
