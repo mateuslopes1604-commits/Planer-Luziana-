@@ -646,3 +646,59 @@ cursor:pointer;
     position: relative;
     z-index: 2;
 }
+/* =========================================
+   ACABAMENTO DOS BOTÕES DOS DIAS
+   ========================================= */
+
+.days-nav{
+    background:#fffaf7;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:12px;
+    padding:16px 14px;
+    border-bottom:1px solid #ead9d1;
+    overflow-x:auto;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:none;
+}
+
+.days-nav::-webkit-scrollbar{
+    display:none;
+}
+
+.day{
+    flex:0 0 auto;
+    padding:12px 22px;
+    min-height:46px;
+    border-radius:28px;
+    border:1px solid #e7cfc7;
+    background:#fff;
+    color:#5b4045;
+    font-size:16px;
+    font-weight:600;
+    cursor:pointer;
+    white-space:nowrap;
+    transition:
+        transform .2s ease,
+        box-shadow .2s ease,
+        background .2s ease,
+        color .2s ease;
+}
+
+.day:hover{
+    transform:translateY(-2px);
+    box-shadow:0 5px 12px rgba(125,48,57,.10);
+}
+
+.day:active{
+    transform:scale(.96);
+}
+
+.day.active{
+    background:#c9797f;
+    color:#fff;
+    border-color:#c9797f;
+    box-shadow:0 5px 14px rgba(201,121,127,.28);
+    transform:translateY(-1px);
+}
