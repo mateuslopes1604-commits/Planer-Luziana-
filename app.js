@@ -482,11 +482,60 @@ quinta: `
 `,
 
     historico: `
-        <div class="planner">
-            <h2>📚 Histórico</h2>
-            <p>Em breve...</p>
+    <div class="planner planner-historico">
+
+        <h2>📚 Histórico</h2>
+
+        <div class="historico-card">
+
+            <h3>🌸 Semana atual</h3>
+
+            <div class="historico-periodo" id="periodoSemana">
+                Calculando semana...
+            </div>
+
+            <div class="historico-resumo">
+
+                <div class="historico-item">
+                    <span>📋</span>
+                    <strong id="totalTarefasSemana">0</strong>
+                    <small>Tarefas</small>
+                </div>
+
+                <div class="historico-item">
+                    <span>✅</span>
+                    <strong id="tarefasConcluidasSemana">0</strong>
+                    <small>Concluídas</small>
+                </div>
+
+                <div class="historico-item">
+                    <span>📊</span>
+                    <strong id="porcentagemSemana">0%</strong>
+                    <small>Progresso</small>
+                </div>
+
+            </div>
+
+            <div class="historico-progresso">
+                <div class="historico-progresso-bar">
+                    <div id="historicoProgressoBar"></div>
+                </div>
+            </div>
+
+            <div class="historico-status">
+                <span>📝 Semana em andamento</span>
+            </div>
+
+            <button
+                class="btn-finalizar-semana"
+                onclick="prepararFinalizacaoSemana()">
+                ✅ Finalizar semana
+            </button>
+
         </div>
-    `
+
+    </div>
+`,
 
 };
 
