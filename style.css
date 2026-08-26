@@ -1100,3 +1100,113 @@ cursor:pointer;
     }
 }
 ```
+/* =========================================
+   AJUSTE FINAL — DIAS + HISTÓRICO
+   ========================================= */
+
+/* BOTÕES DOS DIAS — MAIORES */
+.day{
+    font-size:21px !important;
+    font-weight:600;
+    padding:15px 25px !important;
+    min-height:56px !important;
+}
+
+/* No celular, mantém os dias grandes.
+   A barra continua podendo rolar horizontalmente. */
+@media (max-width:600px){
+
+    .days-nav{
+        gap:10px;
+        padding:16px 12px;
+    }
+
+    .day{
+        font-size:21px !important;
+        padding:15px 25px !important;
+        min-height:58px !important;
+    }
+
+    /* =====================================
+       HISTÓRICO — AUMENTAR TUDO
+       ===================================== */
+
+    .planner-historico{
+        padding:30px 14px !important;
+    }
+
+    .planner-historico h2{
+        font-size:36px !important;
+        margin-bottom:30px !important;
+    }
+
+    .historico-card{
+        padding:26px 20px !important;
+        border-radius:24px;
+    }
+
+    .historico-card h3{
+        font-size:27px !important;
+        margin-bottom:10px;
+    }
+
+    .historico-periodo{
+        font-size:19px !important;
+        margin-top:10px;
+        margin-bottom:25px;
+    }
+
+    /* Os três quadros */
+    .historico-resumo{
+        gap:12px;
+        margin-top:25px;
+    }
+
+    .historico-item{
+        min-height:135px;
+        padding:20px 10px !important;
+        border-radius:18px;
+    }
+
+    .historico-item span{
+        font-size:30px !important;
+        margin-bottom:8px;
+    }
+
+    .historico-item strong{
+        font-size:34px !important;
+        line-height:1.1;
+    }
+
+    .historico-item small{
+        font-size:17px !important;
+        margin-top:7px;
+    }
+
+    /* Barra */
+    .historico-progresso{
+        margin-top:25px;
+    }
+
+    .historico-progresso-bar{
+        height:20px !important;
+    }
+
+    /* Semana em andamento */
+    .historico-status{
+        min-height:65px;
+        padding:18px 20px !important;
+        margin-top:20px;
+        font-size:20px !important;
+        line-height:1.4;
+    }
+
+    /* Finalizar semana */
+    .btn-finalizar-semana{
+        min-height:64px;
+        padding:17px 20px !important;
+        margin-top:22px;
+        font-size:20px !important;
+        border-radius:17px;
+    }
+}
