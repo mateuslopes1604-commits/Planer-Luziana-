@@ -812,3 +812,224 @@ document.addEventListener("click", function(e){
     abrirPagina(paginaAtual);
 
 });
+// ============================================
+// HISTÓRICO — CÁLCULO DA SEMANA ATUAL
+// ============================================
+
+function formatarDataHistorico(data) {
+    return data.toLocaleDateString("pt-BR", {
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric"
+    });
+}
+
+function obterSemanaAtual() {
+
+    const hoje = new Date();
+
+    // Domingo = 0
+    // Segunda = 1
+    const diaSemana = hoje.getDay();
+
+    // Calcula quantos dias voltamos até segunda-feira
+    const distanciaSegunda = diaSemana === 0 ? 6 : diaSemana - 1;
+
+    const segunda = new Date(hoje);
+    segunda.setHours(0, 0, 0, 0);
+    segunda.setDate(hoje.getDate() - distanciaSegunda);
+
+    const sexta = new Date(segunda);
+    sexta.setDate(segunda.getDate() + 4);
+
+    return {
+        segunda,
+        sexta
+    };
+}
+
+function obterDadosDoDiaHistorico(dia) {
+
+    // Primeiro tenta pegar uma lista de tarefas
+    // que tenha sido adicionada/editada pelo usuário
+    const tarefasSalvas = localStorage.getItem("tarefas_" + dia);
+
+    let listaTarefas;
+
+    if (tarefasSalvas) {
+
+        try {
+            listaTarefas = JSON.parse(tarefasSalvas);
+        } catch (erro) {
+            listaTarefas = tarefas[dia] || [];
+        }
+
+    } else {
+
+        listaTarefas = tarefas[dia] || [];
+
+    }
+
+    // Recupera as marcações daquele dia
+    const estadoSalvo = localStorage.getItem(dia);
+
+    let estado = [];
+
+    if (estadoSalvo) {
+
+        try {
+            estado = JSON.parse(estadoSalvo);
+        } catch (erro) {
+            estado = [];
+        }
+
+    }
+
+    return {
+        total: listaTarefas.length,
+        concluidas: estado.filter(Boolean).length
+    };
+}
+
+function atualizarHistorico() {
+
+    // Verifica se estamos realmente na tela do histórico
+    const periodo = document.getElementById("periodoSemana");
+
+    if (!periodo) {
+        return;
+    }
+
+    const semana = obterSemanaAtual();
+
+    // Mostra o período da semana
+    periodo.textContent =
+        "Semana de " +
+        formatarDataHistorico(semana.segunda) +
+        " a " +
+        formatarDataHistorico(semana.sexta);
+
+    const dias = [
+        "segunda",
+        "terca",
+        "quarta",
+        "quinta",
+        "sexta"
+    ];
+
+    let totalTarefas = 0;
+    let tarefasConcluidas = 0;
+
+    // Soma os cinco dias
+    dias.forEach(function(dia) {
+
+        const dados = obterDadosDoDiaHistorico(dia);
+
+        totalTarefas += dados.total;
+        tarefasConcluidas += dados.concluidas;
+
+    });
+
+    // Calcula porcentagem
+    let porcentagem = 0;
+
+    if (totalTarefas > 0) {
+
+        porcentagem = Math.round(
+            (tarefasConcluidas / totalTarefas) * 100
+        );
+
+    }
+
+    // Atualiza os números
+    const totalElemento =
+        document.getElementById("totalTarefasSemana");
+
+    const concluidasElemento =
+        document.getElementById("tarefasConcluidasSemana");
+
+    const porcentagemElemento =
+        document.getElementById("porcentagemSemana");
+
+    const barra =
+        document.getElementById("historicoProgressoBar");
+
+    if (totalElemento) {
+        totalElemento.textContent = totalTarefas;
+    }
+
+    if (concluidasElemento) {
+        concluidasElemento.textContent = tarefasConcluidas;
+    }
+
+    if (porcentagemElemento) {
+        porcentagemElemento.textContent = porcentagem + "%";
+    }
+
+    if (barra) {
+        barra.style.width = porcentagem + "%";
+    }
+
+    // Atualiza o status
+    const status =
+        document.querySelector(".historico-status");
+
+    if (status) {
+
+        if (porcentagem === 100 && totalTarefas > 0) {
+
+            status.innerHTML =
+                "🎉 Semana concluída! Todas as tarefas foram realizadas.";
+
+        } else {
+
+            status.innerHTML =
+                "📝 Semana em andamento";
+
+        }
+
+    }
+
+    console.log(
+        "Histórico atualizado:",
+        totalTarefas,
+        "tarefas;",
+        tarefasConcluidas,
+        "concluídas;",
+        porcentagem + "%"
+    );
+}
+
+
+// ============================================
+// ATUALIZA O HISTÓRICO AO ABRIR A PÁGINA
+// ============================================
+
+document.addEventListener("click", function(e) {
+
+    const botao = e.target.closest(".day");
+
+    if (!botao) {
+        return;
+    }
+
+    if (botao.dataset.day !== "historico") {
+        return;
+    }
+
+    // Espera a tela ser criada pelo abrirPagina()
+    setTimeout(function() {
+        atualizarHistorico();
+    }, 50);
+
+});
+
+
+// Também atualiza caso o histórico já esteja aberto
+setTimeout(function() {
+
+    if (paginaAtual === "historico") {
+        atualizarHistorico();
+    }
+
+}, 100);
