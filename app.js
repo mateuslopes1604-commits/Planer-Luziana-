@@ -1673,7 +1673,6 @@ function atualizarHistorico() {
 
 }
 
-
 // --------------------------------------------------
 // MOSTRAR SEMANAS FINALIZADAS
 // --------------------------------------------------
@@ -1715,20 +1714,23 @@ function renderizarHistoricoSalvo() {
         return;
     }
 
+
     let html = `
+
         <div class="historico-lista">
 
             <h3>
                 📖 Semanas finalizadas
             </h3>
+
     `;
 
+
     historico.forEach(
-        semana => {
+        (semana, index) => {
 
             // ------------------------------------------
-            // RECUPERAR OS DADOS DA SEMANA
-            // Aceita também registros antigos
+            // DADOS DA SEMANA
             // ------------------------------------------
 
             const periodo =
@@ -1739,14 +1741,15 @@ function renderizarHistoricoSalvo() {
                 semana.datas ||
                 "Semana finalizada";
 
+
             const total =
                 Number(
                     semana.totalTarefas ??
                     semana.total ??
                     semana.quantidadeTarefas ??
-                    semana.tarefas ??
                     0
                 );
+
 
             const concluidas =
                 Number(
@@ -1757,6 +1760,7 @@ function renderizarHistoricoSalvo() {
                     0
                 );
 
+
             let porcentagem =
                 semana.porcentagem ??
                 semana.progresso ??
@@ -1764,10 +1768,6 @@ function renderizarHistoricoSalvo() {
                 semana.percent ??
                 null;
 
-            // ------------------------------------------
-            // SE A PORCENTAGEM NÃO EXISTIR,
-            // CALCULA A PARTIR DAS TAREFAS
-            // ------------------------------------------
 
             if (
                 porcentagem === null ||
@@ -1787,20 +1787,23 @@ function renderizarHistoricoSalvo() {
 
             }
 
+
             porcentagem =
-                Number(porcentagem);
+                Number(
+                    porcentagem
+                );
+
 
             if (
                 !Number.isFinite(
                     porcentagem
                 )
             ) {
+
                 porcentagem = 0;
+
             }
 
-            // ------------------------------------------
-            // LIMITAR ENTRE 0 E 100
-            // ------------------------------------------
 
             porcentagem =
                 Math.max(
@@ -1811,10 +1814,30 @@ function renderizarHistoricoSalvo() {
                     )
                 );
 
-            html += `
-                <div class="historico-semana">
 
-                    <div class="historico-semana-topo">
+            // ------------------------------------------
+            // ID DO DETALHE
+            // ------------------------------------------
+
+            const detalheId =
+                "historico-detalhe-" +
+                index;
+
+
+            // ------------------------------------------
+            // CARTÃO DA SEMANA
+            // ------------------------------------------
+
+            html += `
+
+                <div
+                    class="historico-semana"
+                    data-historico-index="${index}"
+                >
+
+                    <div
+                        class="historico-semana-topo"
+                    >
 
                         <strong>
                             🌸 ${periodo}
@@ -1827,7 +1850,9 @@ function renderizarHistoricoSalvo() {
                     </div>
 
 
-                    <div class="historico-semana-dados">
+                    <div
+                        class="historico-semana-dados"
+                    >
 
                         <div>
 
@@ -1870,7 +1895,9 @@ function renderizarHistoricoSalvo() {
                     </div>
 
 
-                    <div class="historico-semana-barra">
+                    <div
+                        class="historico-semana-barra"
+                    >
 
                         <div
                             style="
@@ -1880,7 +1907,89 @@ function renderizarHistoricoSalvo() {
 
                     </div>
 
+
+                    <button
+                        type="button"
+                        class="btn-detalhes-historico"
+                        data-target="${detalheId}"
+                    >
+
+                        👁️ Ver detalhes
+
+                    </button>
+
+
+                    <div
+                        id="${detalheId}"
+                        class="historico-detalhes"
+                        style="display:none;"
+                    >
+
+                        <div
+                            class="historico-detalhes-conteudo"
+                        >
+
+                            <h4>
+                                📊 Resumo da semana
+                            </h4>
+
+
+                            <p>
+                                <strong>
+                                    Período:
+                                </strong>
+
+                                ${periodo}
+                            </p>
+
+
+                            <p>
+                                <strong>
+                                    Tarefas concluídas:
+                                </strong>
+
+                                ${concluidas}
+                                de
+                                ${total}
+                            </p>
+
+
+                            <p>
+                                <strong>
+                                    Progresso:
+                                </strong>
+
+                                ${porcentagem}%
+                            </p>
+
+
+                            <p>
+                                <strong>
+                                    Status:
+                                </strong>
+
+                                Semana finalizada ✅
+                            </p>
+
+
+                            <div
+                                class="historico-detalhes-aviso"
+                            >
+
+                                🔒
+                                Esta semana está
+                                registrada no Histórico
+                                e não será alterada pelas
+                                marcações da semana atual.
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
                 </div>
+
             `;
 
         }
@@ -1888,15 +1997,77 @@ function renderizarHistoricoSalvo() {
 
 
     html += `
+
         </div>
+
     `;
 
 
     container.innerHTML =
         html;
 
+
+    // --------------------------------------------------
+    // BOTÕES "VER DETALHES"
+    // --------------------------------------------------
+
+    container
+        .querySelectorAll(
+            ".btn-detalhes-historico"
+        )
+        .forEach(
+            botao => {
+
+                botao.addEventListener(
+                    "click",
+                    function() {
+
+                        const targetId =
+                            botao.dataset.target;
+
+
+                        const detalhe =
+                            document.getElementById(
+                                targetId
+                            );
+
+
+                        if (!detalhe) {
+                            return;
+                        }
+
+
+                        const aberto =
+                            detalhe.style.display !==
+                            "none";
+
+
+                        if (aberto) {
+
+                            detalhe.style.display =
+                                "none";
+
+                            botao.textContent =
+                                "👁️ Ver detalhes";
+
+                        } else {
+
+                            detalhe.style.display =
+                                "block";
+
+                            botao.textContent =
+                                "🔽 Ocultar detalhes";
+
+                        }
+
+                    }
+                );
+
+            }
+        );
+
 }
-                            
+
 
 // --------------------------------------------------
 // INICIALIZAÇÃO
