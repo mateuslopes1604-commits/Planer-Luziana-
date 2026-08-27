@@ -1685,22 +1685,19 @@ function renderizarHistoricoSalvo() {
             "listaHistoricoSemanas"
         );
 
-
     if (!container) {
         return;
     }
 
-
     const historico =
         obterHistorico();
 
-
     if (
+        !Array.isArray(historico) ||
         historico.length === 0
     ) {
 
         container.innerHTML = `
-
             <div class="historico-vazio">
 
                 <p>
@@ -1713,36 +1710,114 @@ function renderizarHistoricoSalvo() {
                 </small>
 
             </div>
-
         `;
 
         return;
-
     }
 
-
     let html = `
-
         <div class="historico-lista">
 
             <h3>
                 📖 Semanas finalizadas
             </h3>
-
     `;
-
 
     historico.forEach(
         semana => {
 
-            html += `
+            // ------------------------------------------
+            // RECUPERAR OS DADOS DA SEMANA
+            // Aceita também registros antigos
+            // ------------------------------------------
 
+            const periodo =
+                semana.periodo ||
+                semana.semana ||
+                semana.period ||
+                semana.data ||
+                semana.datas ||
+                "Semana finalizada";
+
+            const total =
+                Number(
+                    semana.totalTarefas ??
+                    semana.total ??
+                    semana.quantidadeTarefas ??
+                    semana.tarefas ??
+                    0
+                );
+
+            const concluidas =
+                Number(
+                    semana.tarefasConcluidas ??
+                    semana.concluidas ??
+                    semana.tarefasFeitas ??
+                    semana.completadas ??
+                    0
+                );
+
+            let porcentagem =
+                semana.porcentagem ??
+                semana.progresso ??
+                semana.percentual ??
+                semana.percent ??
+                null;
+
+            // ------------------------------------------
+            // SE A PORCENTAGEM NÃO EXISTIR,
+            // CALCULA A PARTIR DAS TAREFAS
+            // ------------------------------------------
+
+            if (
+                porcentagem === null ||
+                porcentagem === undefined ||
+                porcentagem === ""
+            ) {
+
+                porcentagem =
+                    total > 0
+                        ? Math.round(
+                            (
+                                concluidas /
+                                total
+                            ) * 100
+                        )
+                        : 0;
+
+            }
+
+            porcentagem =
+                Number(porcentagem);
+
+            if (
+                !Number.isFinite(
+                    porcentagem
+                )
+            ) {
+                porcentagem = 0;
+            }
+
+            // ------------------------------------------
+            // LIMITAR ENTRE 0 E 100
+            // ------------------------------------------
+
+            porcentagem =
+                Math.max(
+                    0,
+                    Math.min(
+                        100,
+                        porcentagem
+                    )
+                );
+
+            html += `
                 <div class="historico-semana">
 
                     <div class="historico-semana-topo">
 
                         <strong>
-                            🌸 ${semana.periodo}
+                            🌸 ${periodo}
                         </strong>
 
                         <span>
@@ -1757,7 +1832,7 @@ function renderizarHistoricoSalvo() {
                         <div>
 
                             <strong>
-                                ${semana.tarefasConcluidas}
+                                ${concluidas}
                             </strong>
 
                             <small>
@@ -1770,7 +1845,7 @@ function renderizarHistoricoSalvo() {
                         <div>
 
                             <strong>
-                                ${semana.totalTarefas}
+                                ${total}
                             </strong>
 
                             <small>
@@ -1783,7 +1858,7 @@ function renderizarHistoricoSalvo() {
                         <div>
 
                             <strong>
-                                ${semana.porcentagem}%
+                                ${porcentagem}%
                             </strong>
 
                             <small>
@@ -1799,14 +1874,13 @@ function renderizarHistoricoSalvo() {
 
                         <div
                             style="
-                                width:${semana.porcentagem}%;
+                                width:${porcentagem}%;
                             "
                         ></div>
 
                     </div>
 
                 </div>
-
             `;
 
         }
@@ -1814,9 +1888,7 @@ function renderizarHistoricoSalvo() {
 
 
     html += `
-
         </div>
-
     `;
 
 
@@ -1824,7 +1896,7 @@ function renderizarHistoricoSalvo() {
         html;
 
 }
-
+                            
 
 // --------------------------------------------------
 // INICIALIZAÇÃO
