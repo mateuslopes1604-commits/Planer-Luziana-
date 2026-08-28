@@ -1235,20 +1235,123 @@ function salvarHistorico(
 
 }
 
-
 // --------------------------------------------------
-// CRIAR FOTOGRAFIA DA SEMANA
+// CRIAR FOTOGRAFIA COMPLETA DA SEMANA
 // --------------------------------------------------
 
 function criarSnapshotSemana() {
 
-    const total =
-        obterTotalTarefas();
+    const dias =
+        [
+            "segunda",
+            "terca",
+            "quarta",
+            "quinta",
+            "sexta"
+        ];
 
 
-    const concluidas =
-        obterTarefasConcluidas();
+    let total = 0;
 
+    let concluidas = 0;
+
+    const tarefasSemana = [];
+
+
+    // ----------------------------------------------
+    // GUARDAR CADA TAREFA DA SEMANA
+    // ----------------------------------------------
+
+    dias.forEach(
+        dia => {
+
+            const lista =
+                tarefas[dia] || [];
+
+
+            let estado = [];
+
+            try {
+
+                estado =
+                    JSON.parse(
+                        localStorage.getItem(
+                            dia
+                        ) || "[]"
+                    );
+
+            } catch (erro) {
+
+                estado = [];
+
+            }
+
+
+            lista.forEach(
+                (tarefa, index) => {
+
+                    const horario =
+                        typeof tarefa === "object"
+                            ? (
+                                tarefa.horario ||
+                                ""
+                            )
+                            : "";
+
+
+                    const nome =
+                        typeof tarefa === "object"
+                            ? (
+                                tarefa.nome ||
+                                ""
+                            )
+                            : String(
+                                tarefa
+                            );
+
+
+                    const concluida =
+                        estado[index] === true;
+
+
+                    tarefasSemana.push({
+
+                        dia:
+                            dia,
+
+                        horario:
+                            horario,
+
+                        nome:
+                            nome,
+
+                        concluida:
+                            concluida
+
+                    });
+
+
+                    total++;
+
+
+                    if (
+                        concluida
+                    ) {
+
+                        concluidas++;
+
+                    }
+
+                }
+            );
+
+        }
+    );
+
+
+    // ----------------------------------------------
+    // PORCENTAGEM
+    // ----------------------------------------------
 
     const porcentagem =
         total === 0
@@ -1261,9 +1364,35 @@ function criarSnapshotSemana() {
             );
 
 
+    // ----------------------------------------------
+    // DATAS DA SEMANA
+    // ----------------------------------------------
+
     const agora =
         new Date();
 
+
+    const segunda =
+        obterSegundaFeira(
+            agora
+        );
+
+
+    const sexta =
+        new Date(
+            segunda
+        );
+
+
+    sexta.setDate(
+        sexta.getDate() +
+        4
+    );
+
+
+    // ----------------------------------------------
+    // FOTOGRAFIA DA SEMANA
+    // ----------------------------------------------
 
     return {
 
@@ -1272,41 +1401,36 @@ function criarSnapshotSemana() {
                 agora
             ),
 
+
         inicio:
-            obterSegundaFeira(
-                agora
-            ).toISOString(),
+            segunda.toISOString(),
+
 
         fim:
-            (() => {
+            sexta.toISOString(),
 
-                const sexta =
-                    obterSegundaFeira(
-                        agora
-                    );
-
-                sexta.setDate(
-                    sexta.getDate() +
-                    4
-                );
-
-                return sexta.toISOString();
-
-            })(),
 
         periodo:
             obterPeriodoSemana(
                 agora
             ),
 
+
         totalTarefas:
             total,
+
 
         tarefasConcluidas:
             concluidas,
 
+
         porcentagem:
             porcentagem,
+
+
+        tarefas:
+            tarefasSemana,
+
 
         finalizadaEm:
             agora.toISOString()
@@ -1315,7 +1439,7 @@ function criarSnapshotSemana() {
 
 }
 
-
+                
 // --------------------------------------------------
 // VERIFICAR SE SEMANA JÁ FOI FINALIZADA
 // --------------------------------------------------
