@@ -1797,6 +1797,7 @@ function atualizarHistorico() {
 
 }
 
+
 // --------------------------------------------------
 // MOSTRAR SEMANAS FINALIZADAS
 // --------------------------------------------------
@@ -1808,12 +1809,15 @@ function renderizarHistoricoSalvo() {
             "listaHistoricoSemanas"
         );
 
+
     if (!container) {
         return;
     }
 
+
     const historico =
         obterHistorico();
+
 
     if (
         !Array.isArray(historico) ||
@@ -1821,6 +1825,7 @@ function renderizarHistoricoSalvo() {
     ) {
 
         container.innerHTML = `
+
             <div class="historico-vazio">
 
                 <p>
@@ -1833,9 +1838,11 @@ function renderizarHistoricoSalvo() {
                 </small>
 
             </div>
+
         `;
 
         return;
+
     }
 
 
@@ -1940,12 +1947,251 @@ function renderizarHistoricoSalvo() {
 
 
             // ------------------------------------------
-            // ID DO DETALHE
+            // ID DOS DETALHES
             // ------------------------------------------
 
             const detalheId =
                 "historico-detalhe-" +
                 index;
+
+
+            // ------------------------------------------
+            // TAREFAS SALVAS NO SNAPSHOT
+            // ------------------------------------------
+
+            const tarefasSalvas =
+                Array.isArray(
+                    semana.tarefas
+                )
+                    ? semana.tarefas
+                    : [];
+
+
+            // ------------------------------------------
+            // ORGANIZAR TAREFAS POR DIA
+            // ------------------------------------------
+
+            const tarefasPorDia = {
+
+                segunda: [],
+
+                terca: [],
+
+                quarta: [],
+
+                quinta: [],
+
+                sexta: []
+
+            };
+
+
+            tarefasSalvas.forEach(
+                tarefa => {
+
+                    if (
+                        tarefa &&
+                        tarefasPorDia[
+                            tarefa.dia
+                        ]
+                    ) {
+
+                        tarefasPorDia[
+                            tarefa.dia
+                        ].push(
+                            tarefa
+                        );
+
+                    }
+
+                }
+            );
+
+
+            const nomesDias = {
+
+                segunda:
+                    "Segunda-feira",
+
+                terca:
+                    "Terça-feira",
+
+                quarta:
+                    "Quarta-feira",
+
+                quinta:
+                    "Quinta-feira",
+
+                sexta:
+                    "Sexta-feira"
+
+            };
+
+
+            // ------------------------------------------
+            // MONTAR LISTA DAS TAREFAS
+            // ------------------------------------------
+
+            let tarefasHtml = "";
+
+
+            if (
+                tarefasSalvas.length === 0
+            ) {
+
+                tarefasHtml = `
+
+                    <div
+                        class="historico-sem-tarefas"
+                    >
+
+                        <p>
+                            📋
+                            Os detalhes das tarefas
+                            desta semana não foram
+                            registrados.
+                        </p>
+
+                        <small>
+                            Esta semana foi salva antes
+                            do novo sistema de registro
+                            individual das tarefas.
+                        </small>
+
+                    </div>
+
+                `;
+
+            } else {
+
+                [
+                    "segunda",
+                    "terca",
+                    "quarta",
+                    "quinta",
+                    "sexta"
+                ]
+                .forEach(
+                    dia => {
+
+                        const lista =
+                            tarefasPorDia[
+                                dia
+                            ];
+
+
+                        if (
+                            lista.length === 0
+                        ) {
+
+                            return;
+
+                        }
+
+
+                        tarefasHtml += `
+
+                            <div
+                                class="historico-dia"
+                            >
+
+                                <h5>
+                                    🌷
+                                    ${nomesDias[dia]}
+                                </h5>
+
+                                <div
+                                    class="historico-lista-tarefas"
+                                >
+                        `;
+
+
+                        lista.forEach(
+                            tarefa => {
+
+                                const horario =
+                                    tarefa.horario ||
+                                    "";
+
+
+                                const nome =
+                                    tarefa.nome ||
+                                    "Tarefa";
+
+
+                                const concluida =
+                                    tarefa.concluida === true;
+
+
+                                tarefasHtml += `
+
+                                    <div
+                                        class="
+                                            historico-tarefa
+                                            ${
+                                                concluida
+                                                    ? "concluida"
+                                                    : "pendente"
+                                            }
+                                        "
+                                    >
+
+                                        <span
+                                            class="historico-tarefa-status"
+                                        >
+                                            ${
+                                                concluida
+                                                    ? "✅"
+                                                    : "⭕"
+                                            }
+                                        </span>
+
+
+                                        <div
+                                            class="
+                                                historico-tarefa-texto
+                                            "
+                                        >
+
+                                            <strong>
+                                                ${horario}
+                                            </strong>
+
+                                            <span>
+                                                ${nome}
+                                            </span>
+
+                                        </div>
+
+
+                                        <small>
+                                            ${
+                                                concluida
+                                                    ? "Concluída"
+                                                    : "Não concluída"
+                                            }
+                                        </small>
+
+                                    </div>
+
+                                `;
+
+                            }
+                        );
+
+
+                        tarefasHtml += `
+
+                                </div>
+
+                            </div>
+
+                        `;
+
+                    }
+                );
+
+            }
 
 
             // ------------------------------------------
@@ -2108,6 +2354,20 @@ function renderizarHistoricoSalvo() {
 
                             </div>
 
+
+                            <div
+                                class="historico-tarefas-detalhes"
+                            >
+
+                                <h4>
+                                    📋 Tarefas da semana
+                                </h4>
+
+                                ${tarefasHtml}
+
+                            </div>
+
+
                         </div>
 
                     </div>
@@ -2127,13 +2387,17 @@ function renderizarHistoricoSalvo() {
     `;
 
 
+    // ------------------------------------------
+    // COLOCAR NA TELA
+    // ------------------------------------------
+
     container.innerHTML =
         html;
 
 
-    // --------------------------------------------------
+    // ------------------------------------------
     // BOTÕES "VER DETALHES"
-    // --------------------------------------------------
+    // ------------------------------------------
 
     container
         .querySelectorAll(
@@ -2171,6 +2435,7 @@ function renderizarHistoricoSalvo() {
                             detalhe.style.display =
                                 "none";
 
+
                             botao.textContent =
                                 "👁️ Ver detalhes";
 
@@ -2178,6 +2443,7 @@ function renderizarHistoricoSalvo() {
 
                             detalhe.style.display =
                                 "block";
+
 
                             botao.textContent =
                                 "🔽 Ocultar detalhes";
@@ -2191,6 +2457,11 @@ function renderizarHistoricoSalvo() {
         );
 
 }
+        
+                                                    
+
+
+
 
 
 // --------------------------------------------------
