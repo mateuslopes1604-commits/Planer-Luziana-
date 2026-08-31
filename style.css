@@ -1562,3 +1562,369 @@ cursor:pointer;
     font-size: 16px;
   }
 }
+/* =========================================================
+   HISTÓRICO — TAMANHO CORRETO NO CELULAR
+   ESTE BLOCO USA AS CLASSES REAIS DO APP.JS
+   ========================================================= */
+
+/* Título "Semanas finalizadas" */
+.historico-lista > h3 {
+    font-size: 30px !important;
+    line-height: 1.4 !important;
+    color: #7d3039 !important;
+    margin: 25px 0 18px !important;
+}
+
+/* Cada semana finalizada */
+.historico-semana {
+    width: 100% !important;
+    margin: 20px 0 !important;
+    padding: 28px !important;
+    background: #fffaf8 !important;
+    border: 1px solid #ead9d1 !important;
+    border-radius: 22px !important;
+    box-shadow: 0 7px 22px rgba(110,60,60,.08) !important;
+}
+
+/* Cabeçalho da semana */
+.historico-semana-topo {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    gap: 15px !important;
+    flex-wrap: wrap !important;
+    margin-bottom: 20px !important;
+}
+
+.historico-semana-topo strong {
+    font-size: 25px !important;
+    line-height: 1.4 !important;
+    color: #7d3039 !important;
+}
+
+.historico-semana-topo span {
+    font-size: 20px !important;
+    font-weight: 600 !important;
+    color: #8f3f4d !important;
+}
+
+/* Números da semana */
+.historico-semana-dados {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 16px !important;
+    margin: 20px 0 !important;
+}
+
+.historico-semana-dados > div {
+    background: #fff !important;
+    border: 1px solid #ead9d1 !important;
+    border-radius: 16px !important;
+    padding: 18px 10px !important;
+    text-align: center !important;
+}
+
+.historico-semana-dados strong {
+    display: block !important;
+    font-size: 32px !important;
+    line-height: 1.2 !important;
+    color: #7d3039 !important;
+}
+
+.historico-semana-dados small {
+    display: block !important;
+    margin-top: 7px !important;
+    font-size: 17px !important;
+    line-height: 1.3 !important;
+    color: #96777b !important;
+}
+
+/* Barra de progresso */
+.historico-semana-barra {
+    width: 100% !important;
+    height: 18px !important;
+    margin: 20px 0 !important;
+    background: #ead9d1 !important;
+    border-radius: 20px !important;
+    overflow: hidden !important;
+}
+
+.historico-semana-barra > div {
+    height: 100% !important;
+    background: #c9797f !important;
+    border-radius: 20px !important;
+}
+
+/* Botão Mostrar / Ocultar detalhes */
+.btn-detalhes-historico {
+    width: 100% !important;
+    min-height: 54px !important;
+    padding: 12px 18px !important;
+    margin-top: 12px !important;
+    border: none !important;
+    border-radius: 14px !important;
+    background: #f8e4e5 !important;
+    color: #7d3039 !important;
+    font-family: Montserrat, sans-serif !important;
+    font-size: 19px !important;
+    font-weight: 700 !important;
+    cursor: pointer !important;
+}
+
+/* Área dos detalhes */
+.historico-detalhes {
+    margin-top: 20px !important;
+}
+
+.historico-detalhes-conteudo {
+    padding: 24px !important;
+    background: #fff !important;
+    border: 1px solid #ead9d1 !important;
+    border-radius: 18px !important;
+}
+
+/* Títulos "Resumo da semana" e "Tarefas da semana" */
+.historico-detalhes-conteudo h4 {
+    font-size: 24px !important;
+    line-height: 1.4 !important;
+    color: #7d3039 !important;
+    margin: 20px 0 14px !important;
+}
+
+/* Informações do resumo */
+.historico-detalhes-conteudo p {
+    font-size: 19px !important;
+    line-height: 1.7 !important;
+    color: #5b4045 !important;
+    margin: 8px 0 !important;
+}
+
+.historico-detalhes-conteudo p strong {
+    color: #7d3039 !important;
+}
+
+/* Aviso de semana protegida */
+.historico-detalhes-aviso {
+    margin: 18px 0 !important;
+    padding: 16px 18px !important;
+    background: #fff1f2 !important;
+    border-radius: 14px !important;
+    color: #7d3039 !important;
+    font-size: 18px !important;
+    line-height: 1.6 !important;
+}
+
+/* Cada dia */
+.historico-dia {
+    margin-top: 25px !important;
+    padding: 18px !important;
+    background: #fffaf8 !important;
+    border: 1px solid #ead9d1 !important;
+    border-radius: 16px !important;
+}
+
+.historico-dia h5 {
+    margin: 0 0 16px !important;
+    font-size: 23px !important;
+    line-height: 1.4 !important;
+    color: #7d3039 !important;
+}
+
+/* Lista de tarefas */
+.historico-lista-tarefas {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 10px !important;
+}
+
+/* Cada tarefa */
+.historico-tarefa {
+    display: flex !important;
+    align-items: flex-start !important;
+    gap: 12px !important;
+    padding: 14px !important;
+    background: #fff !important;
+    border: 1px solid #ead9d1 !important;
+    border-radius: 12px !important;
+}
+
+.historico-tarefa-status {
+    flex-shrink: 0 !important;
+    font-size: 22px !important;
+    line-height: 1.4 !important;
+}
+
+.historico-tarefa-texto {
+    flex: 1 !important;
+    min-width: 0 !important;
+}
+
+.historico-tarefa-texto strong {
+    display: block !important;
+    font-size: 18px !important;
+    line-height: 1.4 !important;
+    color: #7d3039 !important;
+}
+
+.historico-tarefa-texto span {
+    display: block !important;
+    font-size: 18px !important;
+    line-height: 1.5 !important;
+    color: #5b4045 !important;
+    margin-top: 2px !important;
+}
+
+.historico-tarefa > small {
+    flex-shrink: 0 !important;
+    font-size: 16px !important;
+    line-height: 1.4 !important;
+    color: #96777b !important;
+    font-weight: 600 !important;
+}
+
+/* Semana sem tarefas registradas */
+.historico-sem-tarefas {
+    padding: 20px !important;
+    background: #fffaf8 !important;
+    border: 1px dashed #dfbfc3 !important;
+    border-radius: 14px !important;
+}
+
+.historico-sem-tarefas p {
+    font-size: 18px !important;
+    line-height: 1.6 !important;
+}
+
+.historico-sem-tarefas small {
+    display: block !important;
+    margin-top: 8px !important;
+    font-size: 16px !important;
+    line-height: 1.5 !important;
+}
+
+
+/* =========================================================
+   CELULAR — AUMENTO FORTE
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+    .historico-lista > h3 {
+        font-size: 27px !important;
+        margin: 25px 4px 18px !important;
+    }
+
+    .historico-semana {
+        padding: 22px 18px !important;
+        margin: 18px 0 !important;
+        border-radius: 20px !important;
+    }
+
+    .historico-semana-topo {
+        display: block !important;
+        margin-bottom: 18px !important;
+    }
+
+    .historico-semana-topo strong {
+        display: block !important;
+        font-size: 22px !important;
+        line-height: 1.5 !important;
+        margin-bottom: 5px !important;
+    }
+
+    .historico-semana-topo span {
+        display: block !important;
+        font-size: 18px !important;
+    }
+
+    .historico-semana-dados {
+        grid-template-columns: repeat(3, 1fr) !important;
+        gap: 8px !important;
+        margin: 18px 0 !important;
+    }
+
+    .historico-semana-dados > div {
+        min-height: 100px !important;
+        padding: 14px 5px !important;
+        border-radius: 14px !important;
+    }
+
+    .historico-semana-dados strong {
+        font-size: 28px !important;
+    }
+
+    .historico-semana-dados small {
+        font-size: 15px !important;
+    }
+
+    .historico-semana-barra {
+        height: 17px !important;
+        margin: 18px 0 !important;
+    }
+
+    .btn-detalhes-historico {
+        min-height: 54px !important;
+        font-size: 18px !important;
+        padding: 12px 15px !important;
+    }
+
+    .historico-detalhes-conteudo {
+        padding: 20px 16px !important;
+        border-radius: 16px !important;
+    }
+
+    .historico-detalhes-conteudo h4 {
+        font-size: 22px !important;
+    }
+
+    .historico-detalhes-conteudo p {
+        font-size: 18px !important;
+        line-height: 1.7 !important;
+    }
+
+    .historico-detalhes-aviso {
+        font-size: 17px !important;
+        line-height: 1.6 !important;
+        padding: 15px !important;
+    }
+
+    .historico-dia {
+        padding: 15px !important;
+        margin-top: 20px !important;
+    }
+
+    .historico-dia h5 {
+        font-size: 21px !important;
+        margin-bottom: 14px !important;
+    }
+
+    .historico-tarefa {
+        gap: 9px !important;
+        padding: 12px !important;
+    }
+
+    .historico-tarefa-status {
+        font-size: 20px !important;
+    }
+
+    .historico-tarefa-texto strong {
+        font-size: 17px !important;
+    }
+
+    .historico-tarefa-texto span {
+        font-size: 17px !important;
+        line-height: 1.5 !important;
+    }
+
+    .historico-tarefa > small {
+        font-size: 14px !important;
+    }
+
+    .historico-sem-tarefas p {
+        font-size: 17px !important;
+    }
+
+    .historico-sem-tarefas small {
+        font-size: 15px !important;
+    }
+}
