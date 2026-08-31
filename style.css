@@ -1368,3 +1368,197 @@ cursor:pointer;
     padding: 5px 11px;
   }
 }
+/* =========================================================
+   HISTÓRICO — TEXTO GRANDE E CONFORTÁVEL NO CELULAR
+   ========================================================= */
+
+.history-card {
+  width: min(100%, 1050px);
+  margin: 24px auto;
+  padding: 38px 32px;
+}
+
+.history-title {
+  font-size: clamp(34px, 6vw, 50px);
+  margin-bottom: 18px;
+}
+
+.history-sub {
+  font-size: clamp(19px, 3vw, 23px);
+  line-height: 1.55;
+  margin-bottom: 32px;
+}
+
+.history-list {
+  gap: 26px;
+}
+
+.history-item {
+  padding: 30px 28px;
+  border-radius: 24px;
+}
+
+/* Nome da semana */
+.history-week {
+  font-size: clamp(25px, 4vw, 32px);
+  line-height: 1.4;
+  margin-bottom: 12px;
+}
+
+/* Datas e informações */
+.history-count {
+  font-size: clamp(20px, 3.2vw, 24px);
+  line-height: 1.8;
+}
+
+/* Números principais */
+.history-count strong {
+  font-size: 1.08em;
+}
+
+/* Botões Mostrar/Ocultar detalhes */
+.history-item button,
+.history-item .toggle-details,
+.history-item .history-toggle {
+  min-height: 48px;
+  padding: 10px 18px;
+  font-size: 18px !important;
+  font-weight: 600;
+  border-radius: 12px;
+}
+
+/* Resumo da semana */
+.history-item p {
+  font-size: 19px;
+  line-height: 1.7;
+}
+
+/* Título "Resumo da semana" e "Tarefas da semana" */
+.history-item h3,
+.history-item h4 {
+  font-size: 23px;
+  line-height: 1.4;
+  margin-top: 22px;
+  margin-bottom: 12px;
+}
+
+/* Cada tarefa salva no histórico */
+.history-item li {
+  font-size: 19px;
+  line-height: 1.75;
+  margin-bottom: 7px;
+}
+
+/* Nome dos dias */
+.history-item .day-title,
+.history-item .history-day,
+.history-item strong {
+  font-size: 20px;
+}
+
+/* Status das tarefas */
+.history-item .task-status {
+  font-size: 18px;
+}
+
+/* Etiquetas */
+.badge {
+  min-height: 40px;
+  padding: 8px 16px;
+  font-size: 17px;
+}
+
+/* =========================================================
+   CELULAR — AUMENTO FORTE DA LEITURA
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+  .history-card {
+    width: calc(100% - 20px);
+    margin: 14px auto;
+    padding: 28px 16px;
+    border-radius: 24px;
+  }
+
+  .history-title {
+    font-size: 36px;
+    line-height: 1.2;
+    margin-bottom: 16px;
+  }
+
+  .history-sub {
+    font-size: 19px;
+    line-height: 1.5;
+    margin-bottom: 26px;
+  }
+
+  .history-list {
+    gap: 18px;
+  }
+
+  .history-item {
+    padding: 25px 19px;
+    border-radius: 20px;
+  }
+
+  /* Semana finalizada + data */
+  .history-week {
+    font-size: 25px;
+    line-height: 1.4;
+    margin-bottom: 12px;
+  }
+
+  /* 33 concluídas / 74 tarefas / 45% */
+  .history-count {
+    font-size: 20px;
+    line-height: 1.75;
+  }
+
+  /* Mostrar/Ocultar detalhes */
+  .history-item button,
+  .history-item .toggle-details,
+  .history-item .history-toggle {
+    min-height: 50px;
+    padding: 10px 18px;
+    font-size: 18px !important;
+  }
+
+  /* Resumo */
+  .history-item p {
+    font-size: 19px;
+    line-height: 1.7;
+  }
+
+  /* Títulos internos */
+  .history-item h3,
+  .history-item h4 {
+    font-size: 22px;
+    line-height: 1.4;
+    margin-top: 20px;
+  }
+
+  /* Tarefas individuais */
+  .history-item li {
+    font-size: 18px;
+    line-height: 1.7;
+    margin-bottom: 8px;
+  }
+
+  /* Dias */
+  .history-item .day-title,
+  .history-item .history-day,
+  .history-item strong {
+    font-size: 19px;
+  }
+
+  .history-item .task-status {
+    font-size: 17px;
+  }
+
+  .badge {
+    min-height: 40px;
+    padding: 8px 14px;
+    font-size: 16px;
+  }
+}
