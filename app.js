@@ -2895,3 +2895,168 @@ if (
 
     iniciarPlanner();
 }
+// =========================================================
+// NOTIFICAÇÕES — PREPARAÇÃO E TESTE
+// =========================================================
+
+async function ativarNotificacoes() {
+
+    if (!("Notification" in window)) {
+
+        alert(
+            "Este dispositivo ou navegador não oferece suporte a notificações."
+        );
+
+        return false;
+    }
+
+
+    if (!("serviceWorker" in navigator)) {
+
+        alert(
+            "O Planner não conseguiu acessar o Service Worker."
+        );
+
+        return false;
+    }
+
+
+    try {
+
+        const registro =
+            await navigator.serviceWorker.ready;
+
+
+        const permissao =
+            await Notification.requestPermission();
+
+
+        if (permissao !== "granted") {
+
+            alert(
+                "As notificações não foram autorizadas."
+            );
+
+            return false;
+        }
+
+
+        console.log(
+            "🔔 Notificações autorizadas."
+        );
+
+
+        alert(
+            "🔔 Notificações ativadas com sucesso!"
+        );
+
+
+        return true;
+
+    } catch (erro) {
+
+        console.error(
+            "Erro ao ativar notificações:",
+            erro
+        );
+
+
+        alert(
+            "Não foi possível ativar as notificações."
+        );
+
+
+        return false;
+    }
+}
+
+
+// =========================================================
+// NOTIFICAÇÃO DE TESTE
+// =========================================================
+
+async function testarNotificacaoPlanner() {
+
+    try {
+
+        if (
+            !("Notification" in window)
+        ) {
+
+            alert(
+                "Este dispositivo não oferece suporte a notificações."
+            );
+
+            return;
+        }
+
+
+        if (
+            Notification.permission !==
+            "granted"
+        ) {
+
+            const ativou =
+                await ativarNotificacoes();
+
+
+            if (!ativou) {
+                return;
+            }
+
+        }
+
+
+        const registro =
+            await navigator.serviceWorker.ready;
+
+
+        await registro.showNotification(
+            "🌸 Planner da Luziana",
+            {
+
+                body:
+                    "🔔 Esta é uma notificação de teste do Planner!",
+
+                icon:
+                    "./icon-192.png",
+
+                badge:
+                    "./icon-192.png",
+
+                tag:
+                    "teste-planner-luziana",
+
+                vibrate: [
+                    200,
+                    100,
+                    200
+                ],
+
+                data: {
+                    url: "./"
+                }
+
+            }
+        );
+
+
+        console.log(
+            "🔔 Notificação de teste enviada."
+        );
+
+
+    } catch (erro) {
+
+        console.error(
+            "Erro ao testar notificação:",
+            erro
+        );
+
+
+        alert(
+            "Não foi possível enviar a notificação de teste."
+        );
+
+    }
+}
