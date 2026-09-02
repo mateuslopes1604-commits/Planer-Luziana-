@@ -3017,10 +3017,10 @@ async function testarNotificacaoPlanner() {
                     "🔔 Esta é uma notificação de teste do Planner!",
 
                 icon:
-                    "./icon-192.png",
+    "./assets/icon-192.png",
 
-                badge:
-                    "./icon-192.png",
+badge:
+    "./assets/icon-192.png",
 
                 tag:
                     "teste-planner-luziana",
