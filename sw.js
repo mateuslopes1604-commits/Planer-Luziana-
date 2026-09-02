@@ -89,13 +89,13 @@ self.addEventListener("push", event => {
     body: mensagem,
 
     icon:
-      dados.icon ||
-      "./icon-192.png",
+  dados.icon ||
+  "./assets/icon-192.png",
 
-    badge:
-      dados.badge ||
-      "./icon-192.png",
-
+badge:
+  dados.badge ||
+  "./assets/icon-192.png",
+    
     tag:
       dados.tag ||
       "planner-luziana",
