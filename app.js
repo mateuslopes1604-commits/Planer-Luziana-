@@ -367,6 +367,14 @@ const paginas = {
                     ✅ Finalizar semana
 
                 </button>
+                <button
+    type="button"
+    class="btn-finalizar-semana"
+    onclick="testarNotificacaoPlanner()">
+
+    🔔 Testar notificação
+
+</button>
 
             </div>
 
