@@ -573,15 +573,15 @@ function abrirPagina(nome) {
     // HISTÓRICO
     // ----------------------------------------------
 
-    if (
-        nome === "historico"
-    ) {
+  if (
+    nome === "historico"
+) {
 
-        atualizarHistorico();
+    atualizarHistorico();
 
-    }
+    inserirPainelNotificacoes();
 
-}
+  }
 
 
 // --------------------------------------------------
@@ -3059,4 +3059,242 @@ async function testarNotificacaoPlanner() {
         );
 
     }
+}
+// =========================================================
+// PAINEL DE NOTIFICAÇÕES
+// =========================================================
+
+function inserirPainelNotificacoes() {
+
+    const historico =
+        document.querySelector(
+            ".planner-historico"
+        );
+
+    if (!historico) {
+        return;
+    }
+
+
+    // Evita criar o painel duas vezes
+    if (
+        document.getElementById(
+            "painelNotificacoes"
+        )
+    ) {
+        return;
+    }
+
+
+    const painel =
+        document.createElement(
+            "div"
+        );
+
+
+    painel.id =
+        "painelNotificacoes";
+
+
+    painel.className =
+        "painel-notificacoes";
+
+
+    painel.innerHTML = `
+
+        <div class="notificacoes-cabecalho">
+
+            <div class="notificacoes-icone">
+                🔔
+            </div>
+
+            <div>
+
+                <h3>
+                    Notificações
+                </h3>
+
+                <p>
+                    Receba um lembrete quando chegar
+                    a hora das suas tarefas.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="notificacoes-acoes">
+
+            <button
+                type="button"
+                id="btnAtivarNotificacoes"
+                class="btn-notificacao ativar"
+            >
+                🔔 Ativar notificações
+            </button>
+
+
+            <button
+                type="button"
+                id="btnTestarNotificacao"
+                class="btn-notificacao testar"
+            >
+                🧪 Testar notificação
+            </button>
+
+        </div>
+
+
+        <div
+            id="statusNotificacoes"
+            class="status-notificacoes"
+        >
+            🔕 Notificações ainda não ativadas.
+        </div>
+
+    `;
+
+
+    historico.appendChild(
+        painel
+    );
+
+
+    // -----------------------------------------------------
+    // BOTÃO ATIVAR
+    // -----------------------------------------------------
+
+    const btnAtivar =
+        document.getElementById(
+            "btnAtivarNotificacoes"
+        );
+
+
+    if (btnAtivar) {
+
+        btnAtivar.addEventListener(
+            "click",
+            async function() {
+
+                const ativou =
+                    await ativarNotificacoes();
+
+
+                atualizarStatusNotificacoes();
+
+
+                if (ativou) {
+
+                    atualizarStatusNotificacoes();
+
+                }
+
+            }
+        );
+
+    }
+
+
+    // -----------------------------------------------------
+    // BOTÃO TESTAR
+    // -----------------------------------------------------
+
+    const btnTestar =
+        document.getElementById(
+            "btnTestarNotificacao"
+        );
+
+
+    if (btnTestar) {
+
+        btnTestar.addEventListener(
+            "click",
+            async function() {
+
+                await testarNotificacaoPlanner();
+
+                atualizarStatusNotificacoes();
+
+            }
+        );
+
+    }
+
+
+    atualizarStatusNotificacoes();
+
+}
+
+
+// =========================================================
+// STATUS DAS NOTIFICAÇÕES
+// =========================================================
+
+function atualizarStatusNotificacoes() {
+
+    const status =
+        document.getElementById(
+            "statusNotificacoes"
+        );
+
+
+    const botaoAtivar =
+        document.getElementById(
+            "btnAtivarNotificacoes"
+        );
+
+
+    if (!status) {
+        return;
+    }
+
+
+    if (
+        !("Notification" in window)
+    ) {
+
+        status.textContent =
+            "❌ Este dispositivo não oferece suporte a notificações.";
+
+        return;
+    }
+
+
+    if (
+        Notification.permission ===
+        "granted"
+    ) {
+
+        status.textContent =
+            "✅ Notificações ativadas neste dispositivo.";
+
+
+        if (botaoAtivar) {
+
+            botaoAtivar.textContent =
+                "✅ Notificações ativadas";
+
+        }
+
+
+        return;
+    }
+
+
+    if (
+        Notification.permission ===
+        "denied"
+    ) {
+
+        status.textContent =
+            "🚫 As notificações foram bloqueadas neste dispositivo.";
+
+        return;
+    }
+
+
+    status.textContent =
+        "🔕 Notificações ainda não ativadas.";
+
 }
