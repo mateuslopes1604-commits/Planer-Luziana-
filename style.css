@@ -1928,3 +1928,138 @@ cursor:pointer;
         font-size: 15px !important;
     }
 }
+/* =========================================================
+   PAINEL DE NOTIFICAÇÕES
+   ========================================================= */
+
+.painel-notificacoes {
+    width: 100%;
+    margin: 28px 0 10px;
+    padding: 26px;
+    background: linear-gradient(
+        145deg,
+        #fffaf8,
+        #fff1f2
+    );
+    border: 1px solid #ead9d1;
+    border-radius: 22px;
+    box-shadow: 0 8px 24px rgba(110, 60, 60, .08);
+}
+
+.notificacoes-cabecalho {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.notificacoes-icone {
+    width: 58px;
+    height: 58px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f8e4e5;
+    border-radius: 18px;
+    font-size: 29px;
+}
+
+.notificacoes-cabecalho h3 {
+    margin: 0 0 5px;
+    color: #7d3039;
+    font-size: 25px;
+}
+
+.notificacoes-cabecalho p {
+    margin: 0;
+    color: #7f666a;
+    font-size: 17px;
+    line-height: 1.5;
+}
+
+.notificacoes-acoes {
+    display: flex;
+    gap: 12px;
+    margin-top: 22px;
+}
+
+.btn-notificacao {
+    flex: 1;
+    min-height: 52px;
+    padding: 11px 16px;
+    border: none;
+    border-radius: 14px;
+    font-size: 17px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.btn-notificacao.ativar {
+    background: #c9797f;
+    color: white;
+}
+
+.btn-notificacao.testar {
+    background: #f8e4e5;
+    color: #7d3039;
+}
+
+.status-notificacoes {
+    margin-top: 16px;
+    padding: 13px 16px;
+    border-radius: 12px;
+    background: rgba(255,255,255,.75);
+    color: #7d3039;
+    font-size: 16px;
+    line-height: 1.5;
+    text-align: center;
+}
+
+
+/* =========================================================
+   CELULAR
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+    .painel-notificacoes {
+        margin-top: 22px;
+        padding: 21px 16px;
+        border-radius: 20px;
+    }
+
+    .notificacoes-cabecalho {
+        gap: 13px;
+    }
+
+    .notificacoes-icone {
+        width: 50px;
+        height: 50px;
+        border-radius: 15px;
+        font-size: 25px;
+    }
+
+    .notificacoes-cabecalho h3 {
+        font-size: 23px;
+    }
+
+    .notificacoes-cabecalho p {
+        font-size: 16px;
+    }
+
+    .notificacoes-acoes {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .btn-notificacao {
+        width: 100%;
+        min-height: 54px;
+        font-size: 18px;
+    }
+
+    .status-notificacoes {
+        font-size: 16px;
+    }
+
+}
