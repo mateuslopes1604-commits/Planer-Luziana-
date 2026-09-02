@@ -569,19 +569,17 @@ function abrirPagina(nome) {
     restaurarEstado();
 
 
-    // ----------------------------------------------
+        // ----------------------------------------------
     // HISTÓRICO
     // ----------------------------------------------
 
-  if (
-    nome === "historico"
-) {
+    if (nome === "historico") {
 
-    atualizarHistorico();
+        atualizarHistorico();
 
-    inserirPainelNotificacoes();
+    }
 
-  }
+} // FECHA A FUNÇÃO abrirPagina
 
 
 // --------------------------------------------------
